@@ -49,6 +49,6 @@ class MainActivity : AppCompatActivity() {
         eingabe.doAfterTextChanged {
             weiterFertig.isEnabled = it?.isNotEmpty() ?: false
         }
-        eingabe.isEnabled = false
+        weiterFertig.isEnabled = false
     }
 }
