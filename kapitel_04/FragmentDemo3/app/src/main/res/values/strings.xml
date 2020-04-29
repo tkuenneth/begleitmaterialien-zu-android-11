@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">FragmentDemo3</string>
+    <string name="template">Element #%1$d ist sichtbar</string>
+</resources>
