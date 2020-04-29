@@ -7,18 +7,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 
 class FragmentDemo2Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setContentView(R.layout.activity_main)
-        val button: Button = findViewById(R.id.button)
+        val button = findViewById<Button>(R.id.button)
         button.setOnClickListener {
-            val fragmentManager: FragmentManager = supportFragmentManager
-            val ft: FragmentTransaction = fragmentManager.beginTransaction()
+            val ft = supportFragmentManager.beginTransaction()
             for (i in 0..2) {
                 val fragment = EinfachesFragment()
                 ft.add(R.id.ll, fragment)
@@ -30,9 +26,13 @@ class FragmentDemo2Activity : AppCompatActivity() {
 }
 
 class EinfachesFragment : Fragment() {
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.einfaches_fragment,
-                container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        return inflater.inflate(
+            R.layout.einfaches_fragment,
+            container, false
+        )
     }
 }
