@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Leeres Projekt</string>
+    <string name="hello">Hallo!</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Abbruch</string>
+    <string name="hint">Bitte Text eingeben</string>
 </resources>
