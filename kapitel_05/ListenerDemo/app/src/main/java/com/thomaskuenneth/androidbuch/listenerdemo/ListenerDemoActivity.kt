@@ -12,9 +12,15 @@ class ListenerDemoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val textview = findViewById<TextView>(R.id.textview)
         val checkbox = findViewById<CheckBox>(R.id.checkbox)
+
         checkbox.setOnClickListener {
             textview.text = checkbox.isChecked.toString()
         }
+
+//        checkbox.setOnCheckedChangeListener { _, isChecked ->
+//            textview.text = isChecked.toString()
+//        }
+
         val status = findViewById<Button>(R.id.status)
         status.setOnClickListener { checkbox.isChecked = !checkbox.isChecked }
     }
