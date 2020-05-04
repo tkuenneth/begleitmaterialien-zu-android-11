@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">DialogDemo</string>
+    <string name="button_alert">AlertDialog</string>
+    <string name="button_datepicker">DatePickerDialog</string>
+    <string name="message">Eine Nachricht</string>
+    <string name="close">Schließen</string>
+</resources>
