@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_today"
+        android:icon="@android:drawable/ic_menu_today"
+        android:title="@string/today"
+        app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/menu_month"
+        android:title="@string/month" />
+    <item
+        android:id="@+id/menu_week"
+        android:title="@string/week" />
+    <item
+        android:id="@+id/menu_day"
+        android:title="@string/day" />
+</menu>

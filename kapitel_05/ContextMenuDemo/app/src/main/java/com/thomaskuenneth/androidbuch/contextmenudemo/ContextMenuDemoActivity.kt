@@ -21,10 +21,12 @@ class ContextMenuDemoActivity : AppCompatActivity() {
         tv = findViewById(R.id.textview)
     }
 
-    override fun onCreateContextMenu(menu: ContextMenu, v: View,
-                                     menuInfo: ContextMenuInfo?) {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.contextmenu, menu)
+    override fun onCreateContextMenu(
+        menu: ContextMenu, v: View,
+        menuInfo: ContextMenuInfo?
+    ) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        menuInflater.inflate(R.menu.contextmenu, menu)
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
