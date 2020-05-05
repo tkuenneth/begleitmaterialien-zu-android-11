@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ActionBarDemo</string>
+    <string name="empty">kein Menüelement angeklickt</string>
+    <string name="today">heute</string>
+    <string name="month">Monat</string>
+    <string name="week">Woche</string>
+    <string name="day">Tag</string>
+</resources>
