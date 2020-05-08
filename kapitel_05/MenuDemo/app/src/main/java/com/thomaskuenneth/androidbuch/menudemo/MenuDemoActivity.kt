@@ -16,7 +16,7 @@ class MenuDemoActivity : AppCompatActivity() {
         tv = findViewById(R.id.textview)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.optionsmenu, menu)
         return super.onCreateOptionsMenu(menu)
     }
@@ -31,7 +31,7 @@ class MenuDemoActivity : AppCompatActivity() {
         }
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         tv.text = getString(R.string.app_name)
         return super.onPrepareOptionsMenu(menu)
     }
