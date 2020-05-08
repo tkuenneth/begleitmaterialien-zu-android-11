@@ -21,10 +21,8 @@ class ContextMenuDemoActivity : AppCompatActivity() {
         tv = findViewById(R.id.textview)
     }
 
-    override fun onCreateContextMenu(
-        menu: ContextMenu, v: View,
-        menuInfo: ContextMenuInfo?
-    ) {
+    override fun onCreateContextMenu(menu: ContextMenu?, v: View?,
+                                     menuInfo: ContextMenuInfo?) {
         super.onCreateContextMenu(menu, v, menuInfo)
         menuInflater.inflate(R.menu.contextmenu, menu)
     }
