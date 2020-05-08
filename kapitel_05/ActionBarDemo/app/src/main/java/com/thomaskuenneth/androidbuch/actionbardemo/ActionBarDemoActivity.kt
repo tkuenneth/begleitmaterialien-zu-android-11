@@ -22,18 +22,15 @@ class ActionBarDemoActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.menu, menu)
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (android.R.id.home == item.itemId) {
-            Toast.makeText(
-                this, R.string.app_name,
-                Toast.LENGTH_LONG
-            ).show()
+            Toast.makeText(this, R.string.app_name,
+                Toast.LENGTH_LONG).show()
         } else {
             textview.text = item.title
         }
