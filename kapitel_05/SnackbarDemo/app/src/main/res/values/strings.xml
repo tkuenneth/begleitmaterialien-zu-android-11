@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">SnackbarDemo</string>
+    <string name="show">Snackbar anzeigen</string>
+    <string name="info">Ein Text</string>
+    <string name="action">Aktion</string>
+    <string name="template">%1$d Klicks</string>
+</resources>
