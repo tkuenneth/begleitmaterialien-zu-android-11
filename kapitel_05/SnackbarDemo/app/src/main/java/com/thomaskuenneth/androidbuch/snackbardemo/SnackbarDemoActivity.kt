@@ -1,8 +1,7 @@
 package com.thomaskuenneth.androidbuch.snackbardemo
 
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 
