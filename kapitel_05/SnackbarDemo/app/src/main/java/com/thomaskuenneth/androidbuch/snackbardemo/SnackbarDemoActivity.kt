@@ -19,6 +19,15 @@ class SnackbarDemoActivity : AppCompatActivity() {
             snackbar.setAction(R.string.action) {
                 info.text = getString(R.string.template, ++count)
             }
+            snackbar.addCallback(object : Snackbar.Callback() {
+                override fun onShown(sb: Snackbar?) {
+                    button.isEnabled = false
+                }
+
+                override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                    button.isEnabled = true
+                }
+            })
             snackbar.show()
         }
     }
