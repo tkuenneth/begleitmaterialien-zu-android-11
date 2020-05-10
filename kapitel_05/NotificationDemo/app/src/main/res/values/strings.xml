@@ -2,9 +2,6 @@
     <string name="app_name">NotificationDemo</string>
     <string name="button">Benachrichtigung anzeigen</string>
     <string name="channel_name">NotificationDemo-Kanal</string>
-    <string name="notification_text">Der Text der Benachrichtigung</string>
-    <string name="notification_clicked">Benachrichtugung wurde angeklickt</string>
-
+    <string name="notification_text">Ein Text. Ein Text. Ein Text. Ein Text. Ein Text. Ein Text. Ein Text. Ein Text.</string>
     <string name="reply">Antwort</string>
-    <string name="hint">Einen Text eingeben</string>
 </resources>
