@@ -26,11 +26,12 @@ class NotificationDemoActivity : AppCompatActivity() {
             createAndSendNotification()
             finish()
         }
+        // Wurde ein Intent empfangen?
         if (intent != null) {
-            val textview = findViewById<TextView>(R.id.textview)
             // Dann verarbeiten
             val text = getMessageText(intent)
             if (text != null) {
+                val textview = findViewById<TextView>(R.id.textview)
                 textview.text = text
                 NotificationManagerCompat.from(this).cancel(notificationId)
             }
