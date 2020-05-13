@@ -20,6 +20,7 @@ class ThreadDemo2Activity : AppCompatActivity() {
         button.setOnClickListener {
             // --- Beginn Experimente ---
 
+            // ursprüngliche Fassung
 //            tv.text = getString(R.string.begin)
 //            if (checkbox.isChecked) {
 //                try {
@@ -32,6 +33,16 @@ class ThreadDemo2Activity : AppCompatActivity() {
 //            }
 //            tv.text = getString(R.string.end)
 
+            // erste alternative Fassung
+//            Thread {
+//                try {
+//                    Thread.sleep(10000)
+//                } catch (e: InterruptedException) {
+//                    Log.e(TAG, "sleep()", e)
+//                }
+//            }.start()
+
+            // fehlerhafte Version
 //            Thread {
 //                tv.text = getString(R.string.begin)
 //                try {
@@ -42,16 +53,29 @@ class ThreadDemo2Activity : AppCompatActivity() {
 //                tv.text = getString(R.string.end)
 //            }.start()
 
-            val h = android.os.Handler()
-            Thread {
+            // korrekte Version mit Handler
+//            val h = android.os.Handler()
+//            Thread {
+//                try {
+//                    h.post { tv.text = getString(R.string.begin) }
+//                    Thread.sleep(10000)
+//                    h.post { tv.text = getString(R.string.end) }
+//                } catch (e: InterruptedException) {
+//                    Log.e(TAG, "sleep()", e)
+//                }
+//            }.start()
+
+            // ebenfalls korrekte Version mit runOnUiThread()
+            val t = Thread {
                 try {
-                    h.post { tv.text = getString(R.string.begin) }
                     Thread.sleep(10000)
-                    h.post { tv.text = getString(R.string.end) }
                 } catch (e: InterruptedException) {
                     Log.e(TAG, "sleep()", e)
                 }
-            }.start()
+                runOnUiThread { tv.text = getString(R.string.end) }
+            }
+            tv.text = getString(R.string.begin)
+            t.start()
 
             // --- Ende Experimente ---
         }
