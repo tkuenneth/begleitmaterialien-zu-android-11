@@ -11,7 +11,6 @@ class ThreadDemo1Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Log.d(TAG, Thread.currentThread().name)
         val r = Runnable { Log.d(TAG, "run()-Methode wurde aufgerufen") }
         val t = Thread(r)
         t.start()
