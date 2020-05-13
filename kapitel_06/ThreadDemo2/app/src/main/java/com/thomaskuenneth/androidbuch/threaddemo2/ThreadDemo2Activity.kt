@@ -19,17 +19,27 @@ class ThreadDemo2Activity : AppCompatActivity() {
         val button = findViewById<Button>(R.id.button)
         button.setOnClickListener {
             // --- Beginn Experimente ---
-            tv.text = getString(R.string.begin)
-            if (checkbox.isChecked) {
+
+//            tv.text = getString(R.string.begin)
+//            if (checkbox.isChecked) {
+//                try {
+//                    Thread.sleep(3500)
+//                } catch (e: InterruptedException) {
+//                    Log.e(TAG, "sleep()", e)
+//                }
+//            } else {
+//                while (true) { }
+//            }
+//            tv.text = getString(R.string.end)
+
+            Thread {
                 try {
-                    Thread.sleep(3500)
+                    Thread.sleep(10000)
                 } catch (e: InterruptedException) {
                     Log.e(TAG, "sleep()", e)
                 }
-            } else {
-                while (true) { }
-            }
-            tv.text = getString(R.string.end)
+            }.start()
+
             // --- Ende Experimente ---
         }
     }
