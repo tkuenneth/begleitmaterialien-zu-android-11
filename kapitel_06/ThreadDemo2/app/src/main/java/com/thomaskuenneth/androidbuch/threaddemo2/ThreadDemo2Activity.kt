@@ -32,9 +32,22 @@ class ThreadDemo2Activity : AppCompatActivity() {
 //            }
 //            tv.text = getString(R.string.end)
 
+//            Thread {
+//                tv.text = getString(R.string.begin)
+//                try {
+//                    Thread.sleep(10000)
+//                } catch (e: InterruptedException) {
+//                    Log.e(TAG, "sleep()", e)
+//                }
+//                tv.text = getString(R.string.end)
+//            }.start()
+
+            val h = android.os.Handler()
             Thread {
                 try {
+                    h.post { tv.text = getString(R.string.begin) }
                     Thread.sleep(10000)
+                    h.post { tv.text = getString(R.string.end) }
                 } catch (e: InterruptedException) {
                     Log.e(TAG, "sleep()", e)
                 }
