@@ -21,7 +21,7 @@ class ThreadDemo1Activity : AppCompatActivity() {
         Thread(bewegeGegner1()).start()
     }
 
-    private fun fibRunner(num: Int): Runnable? {
+    private fun fibRunner(num: Int): Runnable {
         return object : Runnable {
             override fun run() {
                 val result = fib(num)
