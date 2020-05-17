@@ -9,6 +9,28 @@ class CoroutineDemoActivity : AppCompatActivity() {
 
     private lateinit var textview: TextView
 
+    /* Um beim Verlassen der Activity laufende Koroutinen
+       zu beenden, übernehmen Sie bitte die folgenden
+       Änderungen:
+       
+class CoroutineDemoActivity : AppCompatActivity(), CoroutineScope {
+  ...
+  override val coroutineContext = SupervisorJob() + Dispatchers.IO
+
+  override fun onPause() {
+    super.onPause()
+    cancel(null)
+  }
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    ..
+    button.setOnClickListener {
+      launch {
+        pause((1 + Math.random() * 10).toLong())
+      }
+...
+     */
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
