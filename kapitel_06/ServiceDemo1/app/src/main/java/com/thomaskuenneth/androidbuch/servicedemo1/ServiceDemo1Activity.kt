@@ -13,7 +13,11 @@ class ServiceDemo1Activity : AppCompatActivity() {
 
     fun handleButtonClicked(view: View) {
         val intent = Intent(this, DemoService::class.java)
-        startService(intent)
+        //if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+        //    startForegroundService(intent)
+        //} else {
+            startService(intent)
+        //}
         finish()
     }
 }
