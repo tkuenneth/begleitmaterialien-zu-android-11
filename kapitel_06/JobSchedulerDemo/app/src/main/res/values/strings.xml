@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">JobSchedulerDemo</string>
+    <string name="no_jobs">Keine ausstehenden Jobs</string>
+    <string name="job_started">Job wurde gestartet</string>
+</resources>
