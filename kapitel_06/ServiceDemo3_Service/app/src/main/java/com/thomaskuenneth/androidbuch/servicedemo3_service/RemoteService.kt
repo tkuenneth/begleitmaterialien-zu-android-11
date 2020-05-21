@@ -12,9 +12,10 @@ const val MsgFakultaetOut = 2
 
 class RemoteService : Service() {
 
-    private val mMessenger = Messenger(IncomingHandler())
+    private lateinit var mMessenger: Messenger
 
     override fun onBind(intent: Intent?): IBinder? {
+        mMessenger = Messenger(IncomingHandler())
         return mMessenger.binder
     }
 
