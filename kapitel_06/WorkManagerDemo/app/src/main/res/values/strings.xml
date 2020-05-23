@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">WorkManagerDemo</string>
+    <string name="button">Worker starten</string>
+    <string name="worker_started">Worker wurde gestartet</string>
+</resources>
