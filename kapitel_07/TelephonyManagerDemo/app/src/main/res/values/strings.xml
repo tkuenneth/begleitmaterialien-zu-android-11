@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">TelephonyManagerDemo</string>
+    <string name="template1"><![CDATA[onCallStateChanged():\n —> Status: %1$d\n —> Eingehende Rufnummer: %2$s\n]]></string>
+    <string name="template2">onMessageWaitingIndicatorChanged(): %1$b\n</string>
+    <string name="no_permissions">Berechtigungen verweigert</string>
+</resources>
