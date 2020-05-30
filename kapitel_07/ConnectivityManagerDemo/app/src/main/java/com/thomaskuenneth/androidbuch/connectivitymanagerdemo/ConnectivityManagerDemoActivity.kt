@@ -2,6 +2,7 @@ package com.thomaskuenneth.androidbuch.connectivitymanagerdemo
 
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -15,12 +16,16 @@ class ConnectivityManagerDemoActivity : AppCompatActivity() {
             val properties = mgr.getLinkProperties(it)
             textview.append("${properties?.interfaceName}\n")
             val capabilities = mgr.getNetworkCapabilities(it)
-            val notRoaming = capabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING)
+            val notRoaming =
+                capabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING)
                     ?: true
             textview.append("Roaming ist ${if (notRoaming) "aus" else "ein"}\n")
             // ab API-Level 29 vorhanden
-            // textview.append("Signalstärke: ${capabilities?.signalStrength}\n")
-            val foreground = capabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_FOREGROUND)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                textview.append("Signalstärke: ${capabilities?.signalStrength}\n")
+            }
+            val foreground =
+                capabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_FOREGROUND)
                     ?: false
             textview.append("Nutzbar durch Apps: $foreground\n")
             if (textview.text.isNotEmpty()) {
