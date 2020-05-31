@@ -47,10 +47,9 @@ class WebserviceDemo2Activity : AppCompatActivity() {
             // Daten senden
             connection.outputStream.write(data)
             connection.outputStream.flush()
-            val contentType = connection.contentType
             if (connection.responseCode == HttpURLConnection.HTTP_OK) {
                 var charSet = "ISO-8859-1"
-                val m = pattern.matcher(contentType)
+                val m = pattern.matcher(connection.contentType)
                 if (m.matches()) {
                     charSet = m.group(1) ?: charSet
                 }
