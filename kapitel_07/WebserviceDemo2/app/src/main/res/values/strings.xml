@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">WebserviceDemo2</string>
+    <string name="button">Senden</string>
+    <string name="hint">Bitte Ihren Namen eingeben</string>
+</resources>
