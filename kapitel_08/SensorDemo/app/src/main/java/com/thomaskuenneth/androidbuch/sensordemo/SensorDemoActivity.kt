@@ -67,11 +67,7 @@ class SensorDemoActivity : AppCompatActivity() {
         super.onResume()
         map.clear()
         textview.text = ""
-        val mgr = getSystemService(SensorManager::class.java)
-        if (mgr == null) {
-            finish()
-        }
-        manager = mgr
+        manager = getSystemService(SensorManager::class.java)
         // Liste der vorhandenen Sensoren ausgeben
         manager.getSensorList(Sensor.TYPE_ALL).forEach {
             textview.append(getString(R.string.template,
