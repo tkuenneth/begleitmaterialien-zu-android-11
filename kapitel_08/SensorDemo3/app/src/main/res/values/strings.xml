@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">SensorDemo3</string>
+    <string name="reset">Zurücksetzen</string>
+    <string name="no_sensor">Kein Sensor gefunden</string>
+    <string name="no_permission">Keine Berechtigung</string>
+    <string name="request">Anfordern</string>
+    <string name="waiting">- - -</string>
+</resources>
