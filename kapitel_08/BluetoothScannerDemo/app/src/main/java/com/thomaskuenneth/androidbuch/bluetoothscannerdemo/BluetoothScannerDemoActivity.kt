@@ -4,10 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -24,10 +21,15 @@ class BluetoothScannerDemoActivity : AppCompatActivity() {
     private val receiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent) {
             if (BluetoothDevice.ACTION_FOUND == intent.action) {
-                val device = intent.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
-                tv.append(getString(R.string.template,
+                val device = intent.getParcelableExtra<BluetoothDevice>(
+                    BluetoothDevice.EXTRA_DEVICE)
+                tv.append(
+                    getString(
+                        R.string.template,
                         device?.name,
-                        device?.address))
+                        device?.address
+                    )
+                )
             }
         }
     }
