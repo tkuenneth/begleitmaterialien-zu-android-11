@@ -49,7 +49,7 @@ class BluetoothScannerDemoActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         started = false
-        if (isBluetoothEnabled() == BluetoothState.NotAvailable) {
+        if (getBluetoothState() == BluetoothState.NotAvailable) {
             tv.text = getString(R.string.not_available)
         } else {
             if (checkSelfPermission(
@@ -88,7 +88,7 @@ class BluetoothScannerDemoActivity : AppCompatActivity() {
         }
     }
 
-    private fun isBluetoothEnabled(): BluetoothState {
+    private fun getBluetoothState(): BluetoothState {
         val state = if (adapter != null) {
             if (adapter.isEnabled) {
                 BluetoothState.Enabled
