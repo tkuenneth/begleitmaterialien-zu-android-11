@@ -16,20 +16,16 @@ private enum class BluetoothState {
 
 class BluetoothScannerDemoActivity : AppCompatActivity() {
     private val requestEnableBluetooth = 123
-    private val requestCourseLocation = 321
+    private val requestFineLocation = 321
     private val adapter = BluetoothAdapter.getDefaultAdapter()
     private val receiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent) {
             if (BluetoothDevice.ACTION_FOUND == intent.action) {
                 val device = intent.getParcelableExtra<BluetoothDevice>(
                     BluetoothDevice.EXTRA_DEVICE)
-                tv.append(
-                    getString(
-                        R.string.template,
-                        device?.name,
-                        device?.address
-                    )
-                )
+                tv.append(getString(R.string.template,
+                    device?.name,
+                    device?.address))
             }
         }
     }
@@ -55,10 +51,10 @@ class BluetoothScannerDemoActivity : AppCompatActivity() {
             tv.text = getString(R.string.not_available)
         } else {
             if (checkSelfPermission(
-                            Manifest.permission.ACCESS_COARSE_LOCATION) !=
-                    PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
-                        requestCourseLocation)
+                    Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    requestFineLocation)
             } else {
                 showDevices()
             }
@@ -76,16 +72,18 @@ class BluetoothScannerDemoActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(requestCode: Int,
                                             permissions: Array<String?>,
                                             grantResults: IntArray) {
-        if (requestCode == requestCourseLocation &&
-                grantResults.isNotEmpty() &&
-                grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == requestFineLocation &&
+            grantResults.isNotEmpty() &&
+            grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             showDevices()
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int,
+                                  data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == requestEnableBluetooth) {
+        if (resultCode == Activity.RESULT_OK &&
+            requestCode == requestEnableBluetooth) {
             showDevices()
         }
     }
@@ -112,8 +110,8 @@ class BluetoothScannerDemoActivity : AppCompatActivity() {
         sb.append(getString(R.string.paired))
         adapter?.bondedDevices?.forEach {
             sb.append(getString(R.string.template,
-                    it.name,
-                    it.address))
+                it.name,
+                it.address))
         }
         sb.append("\n")
         if (started) {
