@@ -28,10 +28,10 @@ class LocationDemo1Activity : AppCompatActivity() {
             tv.append("onProviderDisabled()\n")
         }
 
-        override fun onLocationChanged(location: Location?) {
+        override fun onLocationChanged(loc: Location?) {
             tv.append("\nonLocationChanged()\n")
-            if (location != null) {
-                tv.append("Breite: ${location.latitude}\nLänge: ${location.longitude}\n")
+            if (loc != null) {
+                tv.append("Breite: ${loc.latitude}\nLänge: ${loc.longitude}\n")
             }
         }
     }
@@ -101,10 +101,10 @@ class LocationDemo1Activity : AppCompatActivity() {
             if (!enabled) {
                 continue
             }
-            val locationProvider = manager.getProvider(name)
-            tv.append(" --> requiresCell(): ${locationProvider?.requiresCell()}\n")
-            tv.append(" --> requiresNetwork(): ${locationProvider?.requiresNetwork()}\n")
-            tv.append(" --> requiresSatellite(): ${locationProvider?.requiresSatellite()}\n")
+            val p = manager.getProvider(name)
+            tv.append(" --> requiresCell(): ${p?.requiresCell()}\n")
+            tv.append(" --> requiresNetwork(): ${p?.requiresNetwork()}\n")
+            tv.append(" --> requiresSatellite(): ${p?.requiresSatellite()}\n")
         }
         // Provider mit grober Auflösung
         // und niedrigem Energieverbrauch
@@ -113,13 +113,9 @@ class LocationDemo1Activity : AppCompatActivity() {
         criteria.powerRequirement = Criteria.POWER_LOW
         provider = manager.getBestProvider(criteria, true) ?: ""
         tv.append("\nVerwende $provider\n")
-        val locNuernberg = Location(
-            LocationManager.GPS_PROVIDER
-        )
-        val latitude = Location.convert("49:27")
-        locNuernberg.latitude = latitude
-        val longitude = Location.convert("11:5")
-        locNuernberg.longitude = longitude
-        tv.append("latitude: ${locNuernberg.latitude}\nlongitude: ${locNuernberg.longitude}\n")
+        val loc = Location(LocationManager.GPS_PROVIDER)
+        loc.latitude = Location.convert("49:27")
+        loc.longitude = Location.convert("11:5")
+        tv.append("latitude: ${loc.latitude}\nlongitude: ${loc.longitude}\n")
     }
 }
