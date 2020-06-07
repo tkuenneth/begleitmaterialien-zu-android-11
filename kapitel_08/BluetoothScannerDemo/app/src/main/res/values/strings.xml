@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">BluetoothScannerDemo</string>
+    <string name="paired">Gekoppelte Geräte\n</string>
+    <string name="others">Geräte in Reichweite\n</string>
+    <string name="template">\t%1$s (%2$s)\n</string>
+    <string name="not_available">Bluetooth is not available</string>
+</resources>
