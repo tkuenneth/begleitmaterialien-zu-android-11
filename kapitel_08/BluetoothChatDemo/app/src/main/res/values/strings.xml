@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">BluetoothChatDemo</string>
+    <string name="enable_bluetooth">Bitte Bluetooth aktivieren</string>
+    <string name="hint">Bitte Text eingeben</string>
+</resources>
