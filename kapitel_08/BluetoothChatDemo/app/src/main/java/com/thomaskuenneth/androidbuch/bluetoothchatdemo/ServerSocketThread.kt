@@ -7,11 +7,11 @@ import android.util.Log
 import java.io.IOException
 import java.util.*
 
-private val TAG = ServerSocketThread::class.java.simpleName
+private val TAG = ServerSocketThread::class.simpleName
 
 class ServerSocketThread(
     adapter: BluetoothAdapter,
-    name: String?,
+    serviceName: String?,
     uuid: UUID
 ) : SocketThread() {
 
@@ -19,10 +19,10 @@ class ServerSocketThread(
     private var socket: BluetoothSocket? = null
 
     init {
-        setName(TAG)
+        name = TAG!!
         try {
             serverSocket = adapter.listenUsingRfcommWithServiceRecord(
-                name,
+                serviceName,
                 uuid
             )
         } catch (e: IOException) {
@@ -38,8 +38,7 @@ class ServerSocketThread(
         var keepRunning = true
         while (keepRunning) {
             try {
-                socket = serverSocket?.accept()
-                if (socket != null) {
+                serverSocket?.accept().run {
                     closeServerSocket()
                     keepRunning = false
                 }

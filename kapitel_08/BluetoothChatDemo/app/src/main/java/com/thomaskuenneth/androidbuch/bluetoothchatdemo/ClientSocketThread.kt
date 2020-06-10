@@ -6,7 +6,7 @@ import android.util.Log
 import java.io.IOException
 import java.util.*
 
-private val TAG = ClientSocketThread::class.java.simpleName
+private val TAG = ClientSocketThread::class.simpleName
 
 class ClientSocketThread(device: BluetoothDevice, uuid: UUID) :
     SocketThread() {
@@ -14,7 +14,7 @@ class ClientSocketThread(device: BluetoothDevice, uuid: UUID) :
     private var socket: BluetoothSocket? = null
 
     init {
-        name = TAG
+        name = TAG!!
         try {
             socket = device.createRfcommSocketToServiceRecord(uuid)
         } catch (e: IOException) {

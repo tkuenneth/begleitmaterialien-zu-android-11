@@ -11,7 +11,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 import java.util.*
@@ -112,21 +111,20 @@ class BluetoothChatDemoActivity : AppCompatActivity() {
                     t.start()
                     Log.d(TAG, "joining " + t.name)
                     t.join()
-                    val socket = t.getSocket()
-                    if (socket != null) {
+                    t.getSocket()?.run {
                         Log.d(
                             TAG, String.format(
                                 "connection type %d for %s",
-                                socket.connectionType, t.name
+                                connectionType, t.name
                             )
                         )
-                        val os = socket.outputStream
+                        val os = outputStream
                         input.setOnEditorActionListener { _: TextView?, _: Int, _: KeyEvent? ->
                             send(os, input.text.toString())
                             runOnUiThread { input.setText("") }
                             true
                         }
-                        val inputStream = socket.inputStream
+                        val inputStream = inputStream
                         while (keepRunning) {
                             val txt = receive(inputStream)
                             if (txt != null) {
@@ -134,11 +132,8 @@ class BluetoothChatDemoActivity : AppCompatActivity() {
                             }
                         }
                     }
-                } catch (e: InterruptedException) {
-                    Log.e(TAG, null, e)
-                    keepRunning = false
-                } catch (e: IOException) {
-                    Log.e(TAG, null, e)
+                } catch (t: Throwable) { // InterruptedException, IOException
+                    Log.e(TAG, null, t)
                     keepRunning = false
                 } finally {
                     Log.d(TAG, "calling cancel() of " + t.name)
