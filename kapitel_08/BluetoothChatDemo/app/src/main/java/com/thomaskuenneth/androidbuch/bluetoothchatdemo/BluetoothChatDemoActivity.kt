@@ -125,14 +125,13 @@ class BluetoothChatDemoActivity : AppCompatActivity() {
                             true
                         }
                         while (keepRunning) {
-                            val txt = receive(inputStream)
-                            if (txt != null) {
-                                runOnUiThread { output?.append(txt) }
+                            receive(inputStream)?.let {
+                                runOnUiThread { output?.append(it) }
                             }
                         }
                     }
                 } catch (t: Throwable) { // InterruptedException, IOException
-                    Log.e(TAG, null, t)
+                    Log.e(TAG, t.message, t)
                     keepRunning = false
                 } finally {
                     Log.d(TAG, "calling cancel() of " + t.name)
