@@ -16,7 +16,6 @@ import java.io.OutputStream
 import java.util.*
 
 private val TAG = BluetoothChatDemoActivity::class.simpleName
-
 class BluetoothChatDemoActivity : AppCompatActivity() {
 
     private val requestAccessFineLocation = 321
@@ -94,15 +93,9 @@ class BluetoothChatDemoActivity : AppCompatActivity() {
         val otherName = if (device1 == myName) device2 else device1
         for (device in adapter?.bondedDevices ?: emptyList<BluetoothDevice>()) {
             if (otherName == device.name) {
-                val serverSocketThread: SocketThread = ServerSocketThread(
-                    adapter,
-                    TAG, myUuid
-                )
+                val serverSocketThread = ServerSocketThread(adapter, TAG, myUuid)
                 serverThread = createAndStartThread(serverSocketThread)
-                val clientSocketThread: SocketThread = ClientSocketThread(
-                    device,
-                    myUuid
-                )
+                val clientSocketThread = ClientSocketThread(device, myUuid)
                 clientThread = createAndStartThread(clientSocketThread)
                 input.isEnabled = true
                 break
@@ -111,7 +104,7 @@ class BluetoothChatDemoActivity : AppCompatActivity() {
     }
 
     private fun createAndStartThread(t: SocketThread): Thread {
-        val workerThread: Thread = object : Thread() {
+        val workerThread = object : Thread() {
             var keepRunning = true
             override fun run() {
                 try {
@@ -125,18 +118,16 @@ class BluetoothChatDemoActivity : AppCompatActivity() {
                                 connectionType, t.name
                             )
                         )
-                        val os = outputStream
                         input.setOnEditorActionListener { _: TextView?, _: Int,
                                                           _: KeyEvent? ->
-                            send(os, input.text.toString())
+                            send(outputStream, input.text.toString())
                             runOnUiThread { input.setText("") }
                             true
                         }
-                        val inputStream = inputStream
                         while (keepRunning) {
                             val txt = receive(inputStream)
                             if (txt != null) {
-                                runOnUiThread { output!!.append(txt) }
+                                runOnUiThread { output?.append(txt) }
                             }
                         }
                     }
