@@ -22,9 +22,10 @@ class BluetoothChatDemoActivity : AppCompatActivity() {
     private val requestAccessFineLocation = 321
     private val adapter = BluetoothAdapter.getDefaultAdapter()
 
-    private val device1 = "Pixel 2"
-    private val device2 = "Nexus 5X"
-    private val myUuid: UUID = UUID.fromString("dc4f9aa6-ce43-4709-bd2e-7845a3e705f1")
+    private val device1 = "..."
+    private val device2 = "..."
+    private val myUuid: UUID =
+        UUID.fromString("dc4f9aa6-ce43-4709-bd2e-7845a3e705f1")
 
     private var serverThread: Thread? = null
     private var clientThread: Thread? = null
@@ -93,9 +94,15 @@ class BluetoothChatDemoActivity : AppCompatActivity() {
         val otherName = if (device1 == myName) device2 else device1
         for (device in adapter?.bondedDevices ?: emptyList<BluetoothDevice>()) {
             if (otherName == device.name) {
-                val serverSocketThread: SocketThread = ServerSocketThread(adapter, TAG, myUuid)
+                val serverSocketThread: SocketThread = ServerSocketThread(
+                    adapter,
+                    TAG, myUuid
+                )
                 serverThread = createAndStartThread(serverSocketThread)
-                val clientSocketThread: SocketThread = ClientSocketThread(device, myUuid)
+                val clientSocketThread: SocketThread = ClientSocketThread(
+                    device,
+                    myUuid
+                )
                 clientThread = createAndStartThread(clientSocketThread)
                 input.isEnabled = true
                 break
@@ -119,7 +126,8 @@ class BluetoothChatDemoActivity : AppCompatActivity() {
                             )
                         )
                         val os = outputStream
-                        input.setOnEditorActionListener { _: TextView?, _: Int, _: KeyEvent? ->
+                        input.setOnEditorActionListener { _: TextView?, _: Int,
+                                                          _: KeyEvent? ->
                             send(os, input.text.toString())
                             runOnUiThread { input.setText("") }
                             true
