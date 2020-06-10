@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">BLEScannerDemo</string>
+    <string name="enable_bluetooth">Bitte Bluetooth aktivieren</string>
+    <string name="error">scan failed: %1$d</string>
+</resources>
