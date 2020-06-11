@@ -11,7 +11,6 @@ import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 
 private val TAG = FileDemo1Activity::class.simpleName
-
 class FileDemo1Activity : AppCompatActivity() {
     private val filename = "$TAG.txt"
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +22,7 @@ class FileDemo1Activity : AppCompatActivity() {
         Log.d(TAG, "getFilesDir(): " + filesDir.absolutePath)
     }
 
-    private fun load(): String? {
+    private fun load(): String {
         val sb = StringBuilder()
         try {
             openFileInput(filename).use { fis ->
