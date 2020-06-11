@@ -31,20 +31,17 @@ class FileDemo3Activity : AppCompatActivity() {
             Log.d(TAG, "java.io.tmpdir: ${System.getProperty("java.io.tmpdir")}")
             val file = File.createTempFile("Datei_", ".txt")
             file.let {
-                Log.d(TAG, "---> " +
-                        it.absolutePath)
+                Log.d(TAG, "---> ${it.absolutePath}")
             }
         } catch (e: IOException) {
             Log.e(TAG, " createTempFile()", e)
         }
         // temporäre Datei im Cache-Verzeichnis
-        Log.d(TAG, "getCacheDir(): " +
-                cacheDir.absolutePath)
+        Log.d(TAG, "cacheDir: ${cacheDir.absolutePath}")
         try {
             val file2 = File.createTempFile("Datei_", ".txt",
                     cacheDir)
-            Log.d(TAG, "---> " +
-                    file2.absolutePath)
+            Log.d(TAG, "---> ${file2.absolutePath}")
         } catch (e: IOException) {
             Log.e(TAG, " createTempFile()", e)
         }
@@ -58,7 +55,7 @@ class FileDemo3Activity : AppCompatActivity() {
                 fos.write("Hallo".toByteArray())
             }
         } catch (e: IOException) {
-            Log.e(TAG, "openFileOutput()", e)
+            Log.e(TAG, "createFile()", e)
         }
     }
 }
