@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">FileDemo1</string>
+    <string name="save">Speichern</string>
+    <string name="load">Laden</string>
+    <string name="clear">Leeren</string>
+    <string name="hint">Bitte geben Sie einen Text ein</string>
+</resources>
