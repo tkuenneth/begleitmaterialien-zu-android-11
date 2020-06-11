@@ -17,12 +17,13 @@ class FileDemo1Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         clear.setOnClickListener { edit.setText("") }
-        load.setOnClickListener { edit.setText(load()) }
+        load.setOnClickListener { load() }
         save.setOnClickListener { save(edit.text.toString()) }
         Log.d(TAG, "getFilesDir(): " + filesDir.absolutePath)
+        load()
     }
 
-    private fun load(): String {
+    private fun load() {
         val sb = StringBuilder()
         try {
             openFileInput(filename).use { fis ->
@@ -41,7 +42,7 @@ class FileDemo1Activity : AppCompatActivity() {
         } catch (ex: IOException) {
             Log.e(TAG, "load()", ex)
         }
-        return sb.toString()
+        edit.setText(sb.toString())
     }
 
     private fun save(s: String) {
