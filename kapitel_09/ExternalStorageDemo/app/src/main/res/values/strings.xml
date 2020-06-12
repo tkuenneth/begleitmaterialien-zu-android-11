@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ExternalStorageDemo</string>
+    <string name="removable">Medium kann entfernt werden\n</string>
+    <string name="not_removable">Medium kann nicht entfernt werden\n</string>
+    <string name="can_read">Lesen ist möglich\n</string>
+    <string name="can_write">Schreiben ist möglich\n</string>
+    <string name="cannot_read">Lesen ist nicht möglich\n</string>
+    <string name="cannot_write">Schreiben ist nicht möglich\n</string>
+</resources>
