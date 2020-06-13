@@ -5,15 +5,11 @@ import android.print.PrintAttributes
 import android.print.PrintJob
 import android.print.PrintManager
 import android.util.Log
-import android.webkit.WebResourceRequest
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
 import androidx.appcompat.app.AppCompatActivity
 
 private val TAG = DruckDemo1Activity::class.simpleName
-
 class DruckDemo1Activity : AppCompatActivity() {
-
     private lateinit var webView: WebView
 
     override fun onCreate(savedInstanceState: Bundle?) {
