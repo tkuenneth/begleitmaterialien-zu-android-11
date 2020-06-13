@@ -26,13 +26,11 @@ class DruckDemo1Activity : AppCompatActivity() {
                 // PrintManager-Instanz ermitteln
                 getSystemService(PrintManager::class.java)?.let {
                     // Der Adapter stellt den Dokumentinhalt bereit
-                    val printAdapter = webView.createPrintDocumentAdapter("Dokumentname")
+                    val adapter = webView.createPrintDocumentAdapter("Dokumentname")
                     // Druckauftrag erstellen und übergeben
                     val jobName = getString(R.string.app_name) + " Dokument"
                     val attributes = PrintAttributes.Builder().build()
-                    val printJob: PrintJob = it.print(jobName,
-                            printAdapter,
-                            attributes)
+                    val printJob: PrintJob = it.print(jobName, adapter, attributes)
                     Log.d(TAG, printJob.info.toString())
                 }
             }
