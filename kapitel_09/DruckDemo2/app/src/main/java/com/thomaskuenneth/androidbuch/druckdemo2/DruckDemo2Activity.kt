@@ -8,10 +8,9 @@ class DruckDemo2Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val printManager = getSystemService(PrintManager::class.java)
-        if (printManager != null) {
-            val jobName = getString(R.string.app_name) + " Document"
-            printManager.print(
+        getSystemService(PrintManager::class.java)?.let {
+            val jobName = "${getString(R.string.app_name)} Document"
+            it.print(
                 jobName,
                 DemoPrintDocumentAdapter(this), null
             )
