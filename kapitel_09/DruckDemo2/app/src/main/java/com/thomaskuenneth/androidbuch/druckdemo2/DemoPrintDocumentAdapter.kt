@@ -1,12 +1,9 @@
 package com.thomaskuenneth.androidbuch.druckdemo2
 
 import android.content.Context
-import android.graphics.Color
-import android.graphics.Paint
+import android.graphics.*
 import android.graphics.pdf.PdfDocument
-import android.os.Bundle
-import android.os.CancellationSignal
-import android.os.ParcelFileDescriptor
+import android.os.*
 import android.print.PageRange
 import android.print.PrintAttributes
 import android.print.PrintDocumentAdapter
@@ -16,7 +13,6 @@ import java.io.FileOutputStream
 import java.io.IOException
 import kotlin.math.cos
 import kotlin.math.sin
-
 
 class DemoPrintDocumentAdapter(private val context: Context) : PrintDocumentAdapter() {
     private var numPages = 0
@@ -44,21 +40,16 @@ class DemoPrintDocumentAdapter(private val context: Context) : PrintDocumentAdap
         if (numPages > 0) {
             // Informationen an das Print-Framework zurückliefern
             val info = PrintDocumentInfo.Builder("sin_cos.pdf")
-                .setContentType(
-                    PrintDocumentInfo.CONTENT_TYPE_DOCUMENT
-                )
+                .setContentType(PrintDocumentInfo.CONTENT_TYPE_DOCUMENT)
                 .setPageCount(numPages)
                 .build()
             callback.onLayoutFinished(info, true)
         } else {
             // einen Fehler melden
-            callback.onLayoutFailed(
-                "Fehler beim Berechnen der Seitenzahl"
-            )
+            callback.onLayoutFailed("Fehler beim Berechnen der Seitenzahl")
         }
     }
 
-    // muss implementiert werden
     override fun onWrite(
         pages: Array<PageRange?>?,
         destination: ParcelFileDescriptor,
