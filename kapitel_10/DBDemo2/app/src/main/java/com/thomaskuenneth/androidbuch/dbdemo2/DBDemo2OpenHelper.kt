@@ -12,26 +12,28 @@ const val MOOD_FINE = 1
 const val MOOD_OK = 2
 const val MOOD_BAD = 3
 
+// Spalten werden in DBDemo2Adapter verwendet
+const val MOOD_TIME = "timeMillis"
+const val MOOD_MOOD = "mood"
+
 // Name und Version der Datenbank
 private const val DATABASE_NAME = "tkmoodley.db"
 private const val DATABASE_VERSION = 1
 
-private val TAG = DBDemo1OpenHelper::class.simpleName
-class DBDemo1OpenHelper(context: Context) :
+private val TAG = DBDemo2OpenHelper::class.simpleName
+class DBDemo2OpenHelper(context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     // Name und Attribute der Tabelle "mood"
     private val id = "_id"
     private val tableMoodName = "mood"
-    private val moodTime = "timeMillis"
-    private val moodMood = "mood"
 
     // Tabelle "mood" anlegen
     private val tableMoodCreate = """
         CREATE TABLE $tableMoodName (
         $id INTEGER PRIMARY KEY AUTOINCREMENT,
-        $moodTime INTEGER,
-        $moodMood INTEGER);")        
+        $MOOD_TIME INTEGER,
+        $MOOD_MOOD INTEGER);")        
     """.trimIndent()
 
     // Tabelle "mood" löschen
@@ -62,8 +64,8 @@ class DBDemo1OpenHelper(context: Context) :
             Log.d(TAG, "Pfad: " + writableDatabase.path)
             // die zu speichernden Werte
             val values = ContentValues()
-            values.put(moodMood, mood)
-            values.put(moodTime, timeMillis)
+            values.put(MOOD_MOOD, mood)
+            values.put(MOOD_TIME, timeMillis)
             // in die Tabelle "mood" einfügen
             rowId = writableDatabase.insert(tableMoodName, null, values)
         } catch (e: SQLiteException) {

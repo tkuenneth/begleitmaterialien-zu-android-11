@@ -24,7 +24,7 @@
             android:layout_height="96dp"
             android:contentDescription="@string/ad1"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_smiley_gut" />
+            android:src="@drawable/ic_smiley_fine" />
 
         <ImageButton
             android:id="@+id/ok"
@@ -40,12 +40,12 @@
             android:layout_height="96dp"
             android:contentDescription="@string/ad3"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_smiley_schlecht" />
+            android:src="@drawable/ic_smiley_bad" />
 
     </LinearLayout>
 
     <Button
-        android:id="@+id/auswertung"
+        android:id="@+id/history"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
