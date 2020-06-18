@@ -8,7 +8,7 @@ class HistoryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportFragmentManager.beginTransaction()
-            .replace(android.R.id.content, HistoryFragment(menuInflater))
+            .replace(android.R.id.content, HistoryFragment())
             .commit()
     }
 }

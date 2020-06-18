@@ -5,7 +5,10 @@ import android.view.*
 import android.widget.*
 import androidx.fragment.app.ListFragment
 
-class HistoryFragment(private val menuInflater: MenuInflater): ListFragment() {
+class HistoryFragment : ListFragment() {
+
+    private val menuInflater: MenuInflater?
+        get() = activity?.menuInflater
 
     private lateinit var cursorAdapter: CursorAdapter
     private lateinit var dbHelper: DBDemo2OpenHelper
@@ -32,7 +35,7 @@ class HistoryFragment(private val menuInflater: MenuInflater): ListFragment() {
         menuInfo: ContextMenu.ContextMenuInfo?
     ) {
         super.onCreateContextMenu(menu, v, menuInfo)
-        menuInflater.inflate(R.menu.context_menu, menu)
+        menuInflater?.inflate(R.menu.context_menu, menu)
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
