@@ -28,11 +28,11 @@ class DBDemo1OpenHelper(context: Context) :
 
     // Tabelle "mood" anlegen
     private val tableMoodCreate = """
-        CREATE TABLE $tableMoodName (
-        $id INTEGER PRIMARY KEY AUTOINCREMENT,
-        $moodTime INTEGER,
-        $moodMood INTEGER);")        
-    """.trimIndent()
+    CREATE TABLE $tableMoodName (
+    $id INTEGER PRIMARY KEY AUTOINCREMENT,
+    $moodTime INTEGER,
+    $moodMood INTEGER);")    
+  """.trimIndent()
 
     // Tabelle "mood" löschen
     private val tableMoodDrop = "DROP TABLE IF EXISTS $tableMoodName"
@@ -47,9 +47,9 @@ class DBDemo1OpenHelper(context: Context) :
     ) {
         Log.w(
             TAG, """
-                Upgrade der Datenbank von Version $oldVersion zu $newVersion.
-                Alle Daten werden gelöscht."                
-            """.trimIndent()
+        Upgrade der Datenbank von Version $oldVersion zu $newVersion.
+        Alle Daten werden gelöscht."        
+      """.trimIndent()
         )
         db.execSQL(tableMoodDrop)
         onCreate(db)
