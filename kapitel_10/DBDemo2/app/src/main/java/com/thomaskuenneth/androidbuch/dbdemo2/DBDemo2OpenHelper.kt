@@ -2,9 +2,8 @@ package com.thomaskuenneth.androidbuch.dbdemo2
 
 import android.content.ContentValues
 import android.content.Context
-import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteException
-import android.database.sqlite.SQLiteOpenHelper
+import android.database.Cursor
+import android.database.sqlite.*
 import android.util.Log
 
 // Konstanten für die Stimmungen
@@ -21,17 +20,17 @@ private const val DATABASE_NAME = "tkmoodley.db"
 private const val DATABASE_VERSION = 1
 
 private val TAG = DBDemo2OpenHelper::class.simpleName
-class DBDemo2OpenHelper(context: Context) :
+class DBDemo2OpenHelper(context: Context?) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     // Name und Attribute der Tabelle "mood"
-    private val id = "_id"
+    private val columnId = "_id"
     private val tableMoodName = "mood"
 
     // Tabelle "mood" anlegen
     private val tableMoodCreate = """
         CREATE TABLE $tableMoodName (
-        $id INTEGER PRIMARY KEY AUTOINCREMENT,
+        $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
         $MOOD_TIME INTEGER,
         $MOOD_MOOD INTEGER);")        
     """.trimIndent()
@@ -73,5 +72,36 @@ class DBDemo2OpenHelper(context: Context) :
         } finally {
             Log.d(TAG, "insert(): rowId=$rowId")
         }
+    }
+
+    fun query(): Cursor? {
+        val db = writableDatabase
+        return db.query(
+            tableMoodName,
+            null, null, null,
+            null, null,
+            "$MOOD_TIME DESC"
+        )
+    }
+
+    fun update(id: Long, smiley: Int) {
+        val db = writableDatabase
+        val values = ContentValues()
+        values.put(MOOD_MOOD, smiley)
+        val numUpdated = db.update(
+            tableMoodName,
+            values, "$columnId = ?", arrayOf(id.toString())
+        )
+        Log.d(TAG, "update(): id=$id -> $numUpdated")
+    }
+
+    fun delete(id: Long) {
+        val db = writableDatabase
+        val numDeleted = db.delete(
+            tableMoodName,
+            "$columnId = ?",
+            arrayOf(id.toString())
+        )
+        Log.d(TAG, "delete(): id=$id -> $numDeleted")
     }
 }

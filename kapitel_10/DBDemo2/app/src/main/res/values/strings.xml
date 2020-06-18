@@ -6,4 +6,8 @@
     <string name="ad1">Icon: grüner lachender Smiley</string>
     <string name="ad2">Icon: gelber neutraler Smiley</string>
     <string name="ad3">Icon: roter trauriger Smiley</string>
+    <string name="mi_good">Gut</string>
+    <string name="mi_ok">OK</string>
+    <string name="mi_bad">Schlecht</string>
+    <string name="mi_delete">Löschen</string>
 </resources>

@@ -2,22 +2,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
-    android:padding="6dip">
+    android:padding="16dip">
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="6dip"
-        android:contentDescription="@null" />
+        android:layout_marginEnd="16dip"
+        android:contentDescription="@null"
+        android:scaleType="centerInside" />
 
     <TextView
         android:id="@+id/text1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dip"
+        android:layout_marginTop="8dip"
         android:layout_toEndOf="@id/icon"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 

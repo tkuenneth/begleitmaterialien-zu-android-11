@@ -8,7 +8,7 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DBDemo2Adapter(val context: Context) : CursorAdapter(context, null, 0) {
+class DBDemo2Adapter(context: Context?) : CursorAdapter(context, null, 0) {
     private val dateFormat = SimpleDateFormat
         .getDateInstance(DateFormat.MEDIUM)
     private val timeFormat = SimpleDateFormat
@@ -17,13 +17,17 @@ class DBDemo2Adapter(val context: Context) : CursorAdapter(context, null, 0) {
     private val inflater = LayoutInflater.from(context)
     private val date = Date()
 
-    override fun newView(context: Context?, cursor: Cursor?,
-                         parent: ViewGroup?): View {
+    override fun newView(
+        context: Context?, cursor: Cursor?,
+        parent: ViewGroup?
+    ): View {
         return inflater.inflate(R.layout.icon_text_text, null)
     }
 
-    override fun bindView(view: View?, context: Context?,
-                          cursor: Cursor?) {
+    override fun bindView(
+        view: View?, context: Context?,
+        cursor: Cursor?
+    ) {
         val ciMood = cursor?.getColumnIndex(MOOD_MOOD)
         ciMood?.let {
             val mood = cursor.getInt(ciMood)
