@@ -4,7 +4,6 @@ import android.content.*
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.thomaskuenneth.androidbuch.dbdemo2.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class DBDemo3Activity : AppCompatActivity() {

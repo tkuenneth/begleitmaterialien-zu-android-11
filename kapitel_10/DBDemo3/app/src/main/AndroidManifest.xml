@@ -17,6 +17,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".HistoryActivity" />
+
+        <provider
+            android:name=".DBDemo3Provider"
+            android:authorities="com.thomaskuenneth.androidbuch.dbdemo3.dbdemo3provider"
+            android:exported="false" />
+
     </application>
 
 </manifest>
