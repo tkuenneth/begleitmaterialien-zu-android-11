@@ -8,7 +8,6 @@ import com.thomaskuenneth.androidbuch.dbdemo2.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class DBDemo3Activity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
