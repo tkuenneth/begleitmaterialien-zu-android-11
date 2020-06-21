@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Rasender Reporter</string>
+    <string name="record">Aufnehmen</string>
+    <string name="finish">Beenden</string>
+</resources>
