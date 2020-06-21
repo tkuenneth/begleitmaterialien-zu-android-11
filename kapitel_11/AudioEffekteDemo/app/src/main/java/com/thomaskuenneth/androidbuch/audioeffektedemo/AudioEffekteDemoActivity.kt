@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 private val TAG = AudioEffekteDemoActivity::class.simpleName
-
 class AudioEffekteDemoActivity : AppCompatActivity() {
     private var mediaPlayer: MediaPlayer? = null
     private var bassBoost: BassBoost? = null
@@ -37,7 +36,8 @@ class AudioEffekteDemoActivity : AppCompatActivity() {
             bassBoost?.setStrength(1000.toShort())
         }
         // Checkbox schaltet BassBoost aus und ein
-        cbBassBoost.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
+        cbBassBoost.setOnCheckedChangeListener { _: CompoundButton?,
+                                                 isChecked: Boolean ->
             val result = bassBoost?.setEnabled(isChecked)
             if (result != AudioEffect.SUCCESS) {
                 Log.e(TAG, "Bass Boost: setEnabled($isChecked) = $result")
@@ -48,7 +48,8 @@ class AudioEffekteDemoActivity : AppCompatActivity() {
         virtualizer = Virtualizer(0, sessionId ?: 0)
         virtualizer?.setStrength(1000.toShort())
         // Checkbox schaltet Virtualizer aus und ein
-        cbVirtualizer.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
+        cbVirtualizer.setOnCheckedChangeListener { _: CompoundButton?,
+                                                   isChecked: Boolean ->
             val result = virtualizer?.setEnabled(isChecked)
             if (result != AudioEffect.SUCCESS) {
                 Log.e(TAG, "Virtualizer: setEnabled($isChecked) = $result")
@@ -63,7 +64,8 @@ class AudioEffekteDemoActivity : AppCompatActivity() {
         }
         mediaPlayer?.setAuxEffectSendLevel(1f)
         // Checkbox schaltet Hall aus und ein
-        cbReverb.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
+        cbReverb.setOnCheckedChangeListener { _: CompoundButton?,
+                                              isChecked: Boolean ->
             val result = reverb?.setEnabled(isChecked)
             if (result != AudioEffect.SUCCESS) {
                 Log.e(TAG, "PresetReverb: setEnabled($isChecked) = $result")
