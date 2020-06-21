@@ -32,7 +32,7 @@ class AudioEffekteDemoActivity : AppCompatActivity() {
         val sessionId = mediaPlayer?.audioSessionId
         // BassBoost instanziieren und an Audio Session binden
         bassBoost = BassBoost(0, sessionId ?: 0)
-        Log.d(TAG, "getRoundedStrength(): ${bassBoost?.roundedStrength}")
+        Log.d(TAG, "roundedStrength: ${bassBoost?.roundedStrength}")
         if (bassBoost?.strengthSupported == true) {
             bassBoost?.setStrength(1000.toShort())
         }
