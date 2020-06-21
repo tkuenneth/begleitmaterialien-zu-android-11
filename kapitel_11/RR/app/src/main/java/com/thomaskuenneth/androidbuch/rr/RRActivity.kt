@@ -57,11 +57,11 @@ class RRActivity : AppCompatActivity() {
             true
         }
         b.setOnClickListener {
-            when {
-                mode == Waiting -> {
+            when (mode) {
+                Waiting -> {
                     currentFile = recordToFile()
                 }
-                mode == Recording -> {
+                Recording -> {
                     // die Aufnahme stoppen
                     recorder?.stop()
                     releaseRecorder()
@@ -70,7 +70,7 @@ class RRActivity : AppCompatActivity() {
                     mode = Waiting
                     updateButtonText()
                 }
-                mode == Playing -> {
+                Playing -> {
                     player?.stop()
                     releasePlayer()
                     mode = Waiting
