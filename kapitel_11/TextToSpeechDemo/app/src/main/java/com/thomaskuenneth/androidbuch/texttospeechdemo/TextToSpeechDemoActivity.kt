@@ -1,0 +1,128 @@
+package com.thomaskuenneth.androidbuch.texttospeechdemo
+
+import android.content.Intent
+import android.os.*
+import android.speech.tts.TextToSpeech
+import android.speech.tts.UtteranceProgressListener
+import android.util.Log
+import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
+import java.io.File
+import java.util.*
+
+private val TAG = TextToSpeechDemoActivity::class.simpleName
+class TextToSpeechDemoActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
+
+    private val supportedLanguages = Hashtable<String, Locale>()
+    private val checkTtsData = 1
+    private var tts: TextToSpeech? = null
+    private var lastUtteranceId: String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // die Sprachsynthesekomponente wurde
+        // noch nicht initialisiert
+        tts = null
+        // prüfen, ob Sprachpakete vorhanden sind
+        val intent = Intent()
+        intent.action = TextToSpeech.Engine.ACTION_CHECK_TTS_DATA
+        startActivityForResult(intent, checkTtsData)
+    }
+
+    // ggf. Ressourcen freigeben
+    override fun onDestroy() {
+        super.onDestroy()
+        tts?.shutdown()
+    }
+
+    override fun onActivityResult(requestCode: Int,
+                                  resultCode: Int,
+                                  data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        // Sind Sprachpakete vorhanden?
+        if (requestCode == checkTtsData) {
+            if (resultCode ==
+                    TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
+                // Initialisierung der Sprachkomponente starten
+                tts = TextToSpeech(this, this)
+            } else {
+                // Installation der Sprachpakete vorbereiten
+                val installIntent = Intent()
+                installIntent.action = TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA
+                startActivity(installIntent)
+                // Activity beenden
+                finish()
+            }
+        }
+    }
+
+    override fun onInit(status: Int) {
+        if (status != TextToSpeech.SUCCESS) {
+            // die Initialisierung war nicht erfolgreich
+            finish()
+        }
+        // Activity initialisieren
+        setContentView(R.layout.activity_main)
+        button.setOnClickListener {
+            val text = input.text.toString()
+            val key = spinner.selectedItem as String
+            supportedLanguages[key]?.let {
+                button.isEnabled = false
+                tts?.language = it
+                lastUtteranceId = System
+                        .currentTimeMillis().toString()
+                tts?.speak(text, TextToSpeech.QUEUE_FLUSH,
+                        null, lastUtteranceId)
+                // in Datei schreiben
+                val file = File(getExternalFilesDir(
+                        Environment.DIRECTORY_PODCASTS), lastUtteranceId
+                        + ".wav")
+                tts?.synthesizeToFile(text, null, file, lastUtteranceId)
+                Log.d(TAG, file.absolutePath)
+            }
+        }
+        tts?.setOnUtteranceProgressListener(
+                object : UtteranceProgressListener() {
+                    override fun onStart(utteranceId: String) {
+                        Log.d(TAG, "onStart(): $utteranceId")
+                    }
+
+                    override fun onDone(utteranceId: String) {
+                        Log.d(TAG, "onDone(): $utteranceId")
+                        val h = Handler(Looper.getMainLooper())
+                        h.post {
+                            if (utteranceId == lastUtteranceId) {
+                                button.isEnabled = true
+                            }
+                        }
+                    }
+
+                    override fun onError(utteranceId: String) {
+                        Log.d(TAG, "onError(): $utteranceId")
+                    }
+                })
+        // Liste der Sprachen ermitteln
+        val languages = Locale.getISOLanguages()
+        for (lang in languages) {
+            val loc = Locale(lang)
+            when (tts?.isLanguageAvailable(loc)) {
+                TextToSpeech.LANG_MISSING_DATA, TextToSpeech.LANG_NOT_SUPPORTED -> {
+                    Log.d(TAG, "language not available for $loc")
+                }
+                else -> {
+                    val key = loc.displayLanguage
+                    if (!supportedLanguages.containsKey(key)) {
+                        supportedLanguages[key] = loc
+                    }
+                }
+            }
+        }
+        val adapter = ArrayAdapter<Any>(this,
+                android.R.layout.simple_spinner_item, supportedLanguages
+                .keys.toTypedArray())
+        adapter.setDropDownViewResource(
+                android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+    }
+}
