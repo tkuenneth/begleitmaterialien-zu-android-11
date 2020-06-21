@@ -8,7 +8,7 @@ import android.media.MediaRecorder
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.thomaskuenneth.androidbuch.rr.MODE.*
+import com.thomaskuenneth.androidbuch.rr.Mode.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import java.io.IOException
@@ -26,14 +26,14 @@ fun getBaseDir(ctx: Context): File? {
     return dir
 }
 
-private enum class MODE {
-    WAITING, RECORDING, PLAYING
+private enum class Mode {
+    Waiting, Recording, Playing
 }
 
 private val TAG = RRActivity::class.simpleName
 class RRActivity : AppCompatActivity() {
     private val requestRecordAudio = 123
-    private var mode = WAITING
+    private var mode = Waiting
     private var currentFile: File? = null
     private var player: MediaPlayer? = null
     private var recorder: MediaRecorder? = null
@@ -58,28 +58,28 @@ class RRActivity : AppCompatActivity() {
         }
         b.setOnClickListener {
             when {
-                mode == WAITING -> {
+                mode == Waiting -> {
                     currentFile = recordToFile()
                 }
-                mode == RECORDING -> {
+                mode == Recording -> {
                     // die Aufnahme stoppen
                     recorder?.stop()
                     releaseRecorder()
                     listAdapter.add(currentFile)
                     currentFile = null
-                    mode = WAITING
+                    mode = Waiting
                     updateButtonText()
                 }
-                mode == PLAYING -> {
+                mode == Playing -> {
                     player?.stop()
                     releasePlayer()
-                    mode = WAITING
+                    mode = Waiting
                     updateButtonText()
                 }
             }
         }
         currentFile = null
-        mode = WAITING
+        mode = Waiting
         player = null
         recorder = null
         updateButtonText()
@@ -120,7 +120,7 @@ class RRActivity : AppCompatActivity() {
     }
 
     private fun updateButtonText() {
-        b.text = getString(if (mode != WAITING) R.string.finish else R.string.record)
+        b.text = getString(if (mode != Waiting) R.string.finish else R.string.record)
     }
 
     private fun recordToFile(): File? {
@@ -140,7 +140,7 @@ class RRActivity : AppCompatActivity() {
                     it.setOutputFile(f.absolutePath)
                     it.prepare()
                     it.start()
-                    mode = RECORDING
+                    mode = Recording
                     updateButtonText()
                 } catch (e: IOException) {
                     Log.e(TAG, "Konnte Aufnahme nicht starten", e)
@@ -162,14 +162,14 @@ class RRActivity : AppCompatActivity() {
         player?.let {
             it.setOnCompletionListener {
                 releasePlayer()
-                mode = WAITING
+                mode = Waiting
                 updateButtonText()
             }
             try {
                 it.setDataSource(filename)
                 it.prepare()
                 it.start()
-                mode = PLAYING
+                mode = Playing
                 updateButtonText()
             } catch (thr: Exception) {
                 Log.e(TAG, "konnte Audio nicht wiedergeben", thr)
