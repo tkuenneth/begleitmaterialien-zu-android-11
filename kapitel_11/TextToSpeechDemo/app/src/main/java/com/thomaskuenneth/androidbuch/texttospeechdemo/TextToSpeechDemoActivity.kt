@@ -1,10 +1,7 @@
 package com.thomaskuenneth.androidbuch.texttospeechdemo
 
 import android.content.Intent
-import android.os.Bundle
-import android.os.Environment
-import android.os.Handler
-import android.os.Looper
+import android.os.*
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
 import android.util.Log
