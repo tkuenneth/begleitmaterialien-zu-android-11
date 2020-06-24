@@ -83,12 +83,7 @@ class TextToSpeechDemoActivity : AppCompatActivity(), TextToSpeech.OnInitListene
                     null, lastUtteranceId
                 )
                 // in Datei schreiben
-                val file = File(
-                    getExternalFilesDir(
-                        Environment.DIRECTORY_PODCASTS
-                    ), lastUtteranceId
-                            + ".wav"
-                )
+                val file = File(filesDir, "${lastUtteranceId}.wav")
                 tts?.synthesizeToFile(text, null, file, lastUtteranceId)
                 Log.d(TAG, file.absolutePath)
             }
