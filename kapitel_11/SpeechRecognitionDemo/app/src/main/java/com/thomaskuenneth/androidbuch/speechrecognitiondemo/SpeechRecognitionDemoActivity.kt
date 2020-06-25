@@ -23,10 +23,13 @@ class SpeechRecognitionDemoActivity : AppCompatActivity() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(requestCode: Int,
+                                  resultCode: Int,
+                                  data: Intent?) {
         if (requestCode == requestVoiceRecognition
                 && resultCode == Activity.RESULT_OK) {
-            val matches = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+            val matches =
+                    data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
             matches?.let {
                 if (it.size > 0) {
                     textview.text = matches[0]
