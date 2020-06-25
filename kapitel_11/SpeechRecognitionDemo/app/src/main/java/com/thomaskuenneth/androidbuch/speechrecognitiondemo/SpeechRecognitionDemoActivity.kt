@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class SpeechRecognitionDemoActivity : AppCompatActivity() {
-
     private val requestVoiceRecognition = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
