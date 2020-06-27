@@ -10,7 +10,7 @@ class KameraDemo1Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        foto.setOnClickListener { v ->
+        foto.setOnClickListener {
             val intent = Intent(
                     MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA)
             startActivity(intent)
