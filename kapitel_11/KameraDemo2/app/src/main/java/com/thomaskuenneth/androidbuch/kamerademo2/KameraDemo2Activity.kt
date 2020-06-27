@@ -62,7 +62,8 @@ class KameraDemo2Activity : AppCompatActivity() {
                 val hSource = bitmapSource.height
                 // auf eine Höhe von maximal 300 Pixel skalieren
                 val hDesti = if (hSource > 300) 300 else hSource
-                val wDesti = (wSource.toFloat() / hSource.toFloat() * hDesti.toFloat()).toInt()
+                val wDesti = (wSource.toFloat() / hSource.toFloat()
+                        * hDesti.toFloat()).toInt()
                 val bitmapDesti = Bitmap.createScaledBitmap(bitmapSource,
                         wDesti, hDesti, false)
                 imageView.setImageBitmap(bitmapDesti)
