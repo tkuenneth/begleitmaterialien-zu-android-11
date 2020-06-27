@@ -23,8 +23,7 @@ class GalleryDemoActivity : AppCompatActivity() {
         if (requestCode == requestGalleryPick) {
             if (resultCode == Activity.RESULT_OK) {
                 data?.let {
-                    val uri = it.data
-                    val intentView = Intent(Intent.ACTION_VIEW, uri)
+                    val intentView = Intent(Intent.ACTION_VIEW, it.data)
                     startActivity(intentView)
                 }
             } else {
