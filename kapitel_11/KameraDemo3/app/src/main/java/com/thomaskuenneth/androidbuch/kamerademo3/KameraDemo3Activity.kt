@@ -67,11 +67,7 @@ class KameraDemo3Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        getSystemService(CameraManager::class.java)?.let {
-            manager = it
-        } ?: run {
-            finish()
-        }
+        manager = getSystemService(CameraManager::class.java)
         setContentView(R.layout.activity_main)
         camera = null
     }
@@ -143,7 +139,6 @@ class KameraDemo3Activity : AppCompatActivity() {
 
     private fun configureHolder() {
         surfaceview.holder.addCallback(surfaceHolderCallback)
-        manager = getSystemService(CameraManager::class.java)
         val sizes = findCameraFacingBack()
         if (sizes.isEmpty()) {
             Log.d(TAG, "keine passende Kamera gefunden")
