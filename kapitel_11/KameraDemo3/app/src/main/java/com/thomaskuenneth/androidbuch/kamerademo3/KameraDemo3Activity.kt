@@ -233,7 +233,6 @@ class KameraDemo3Activity : AppCompatActivity() {
 
     private fun takePicture() {
         try {
-            // für die Aufnahme
             val builder = camera?.createCaptureRequest(
                 CameraDevice.TEMPLATE_STILL_CAPTURE
             )
