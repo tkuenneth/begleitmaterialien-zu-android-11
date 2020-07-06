@@ -1,16 +1,17 @@
 package com.thomaskuenneth.androidbuch.kamerademo4
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.VideoCapture
+import androidx.core.content.FileProvider
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 
 class KameraDemo4Activity : AppCompatActivity() {
-
     private val requestPermissions = 123
     private val requestCameraRecordAudio =
         arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO)
@@ -70,7 +71,9 @@ class KameraDemo4Activity : AppCompatActivity() {
         isRecording = !isRecording
         updateButton()
         if (isRecording) {
-            val file = File(filesDir, "${System.currentTimeMillis()}.mp4")
+            val dir = File(cacheDir, "videos")
+            dir.mkdirs()
+            val file = File(dir, "${System.currentTimeMillis()}.mp4")
             preview.startRecording(file, mainExecutor,
                 object : VideoCapture.OnVideoSavedCallback {
                     override fun onVideoSaved(file: File) {
@@ -79,6 +82,28 @@ class KameraDemo4Activity : AppCompatActivity() {
                             file.absolutePath,
                             Toast.LENGTH_LONG
                         ).show()
+                        val uri = FileProvider.getUriForFile(
+                            this@KameraDemo4Activity,
+                            "com.thomaskuenneth.androidbuch.kamerademo4.fileprovider",
+                            file
+                        )
+                        val intent = Intent(Intent.ACTION_SEND)
+                        intent.type = "video/*"
+                        intent.putExtra(Intent.EXTRA_STREAM, uri)
+                        val chooser = Intent.createChooser(intent, getString(R.string.share))
+                        val l = packageManager.queryIntentActivities(
+                            chooser,
+                            PackageManager.MATCH_DEFAULT_ONLY
+                        )
+                        for (resolveInfo in l) {
+                            val packageName = resolveInfo.activityInfo.packageName
+                            grantUriPermission(
+                                packageName,
+                                uri,
+                                Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION
+                            )
+                        }
+                        startActivity(chooser)
                     }
 
                     override fun onError(
