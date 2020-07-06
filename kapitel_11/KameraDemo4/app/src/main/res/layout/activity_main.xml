@@ -23,8 +23,5 @@
         app:lensFacing="back"
         app:pinchToZoomEnabled="false"
         app:scaleType="fitCenter"
-        tools:context=".KameraDemo4Activity">
-
-    </androidx.camera.view.CameraView>
-
+        tools:context=".KameraDemo4Activity"></androidx.camera.view.CameraView>
 </RelativeLayout>
