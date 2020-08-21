@@ -12,11 +12,11 @@ import java.util.*
 
 class BootCompletedReceiver : BroadcastReceiver() {
 
-    private val d = 42
+    private val id = 42
     private val channelId = "BCR_01"
 
     override fun onReceive(context: Context?, intent: Intent?) {
-        if ((intent == null) || (context == null)) return
+        if (intent == null || context == null) return
         if (Intent.ACTION_BOOT_COMPLETED == intent.action) {
             // Benachrichtigung zusammenbauen
             val msg = DateFormat.getDateTimeInstance().format(Date())
@@ -36,7 +36,7 @@ class BootCompletedReceiver : BroadcastReceiver() {
             )
             manager.createNotificationChannel(channel)
             // anzeigen
-            manager.notify(d, notification)
+            manager.notify(id, notification)
         }
     }
 }
