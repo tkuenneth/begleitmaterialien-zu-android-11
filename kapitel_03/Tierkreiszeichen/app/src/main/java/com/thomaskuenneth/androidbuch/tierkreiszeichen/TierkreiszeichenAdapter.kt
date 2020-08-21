@@ -14,7 +14,7 @@ class TierkreiszeichenAdapter(context: Context) : BaseAdapter() {
     private val cal = Calendar.getInstance()
 
     // Legt fest, in welchem Format das Datum ausgegeben wird
-    private val df: DateFormat = SimpleDateFormat(
+    private val df = SimpleDateFormat(
         context.getString(R.string.format_string),
         Locale.US
     )
