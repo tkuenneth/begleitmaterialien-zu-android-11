@@ -1,20 +1,15 @@
 package com.thomaskuenneth.androidbuch.tierkreiszeichen
 
 import android.content.Context
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.ImageView
-import android.widget.TextView
-import java.text.DateFormat
-import java.text.SimpleDateFormat
+import android.view.*
+import android.widget.*
+import java.text.*
 import java.util.*
 import kotlin.collections.ArrayList
 
 class TierkreiszeichenAdapter(context: Context) : BaseAdapter() {
 
-    private val inflater: LayoutInflater = LayoutInflater.from(context)
+    private val inflater = LayoutInflater.from(context)
     private val zodiak = ArrayList<Tierkreiszeichen>()
     private val cal = Calendar.getInstance()
 
@@ -61,8 +56,7 @@ class TierkreiszeichenAdapter(context: Context) : BaseAdapter() {
             // Holder erzeugen
             holder = ViewHolder()
             holder.name = view.findViewById(R.id.text1)
-            holder.datumsbereich = view
-                .findViewById(R.id.text2)
+            holder.datumsbereich = view.findViewById(R.id.text2)
             holder.icon = view.findViewById(R.id.icon)
             view.tag = holder
         } else {
@@ -70,30 +64,28 @@ class TierkreiszeichenAdapter(context: Context) : BaseAdapter() {
             holder = convertView.tag as ViewHolder
             view = convertView
         }
-        val context: Context = parent.context
         var zeichen = getItem(currentPosition) as Tierkreiszeichen
-        holder.name?.text = zeichen.getName(context)
-        holder.icon?.setImageResource(zeichen.idForDrawable)
+        holder.name.text = zeichen.getName(parent.context)
+        holder.icon.setImageResource(zeichen.idForDrawable)
         cal.set(Calendar.DAY_OF_MONTH, zeichen.tag)
         cal.set(Calendar.MONTH, zeichen.monat)
-        val datum1: String = df.format(cal.time)
+        val datum1 = df.format(cal.time)
         if (++currentPosition >= count) {
             currentPosition = 0
         }
         zeichen = getItem(currentPosition) as Tierkreiszeichen
         cal.set(Calendar.DAY_OF_MONTH, zeichen.tag - 1)
         cal.set(Calendar.MONTH, zeichen.monat)
-        val datum2: String = df.format(cal.time)
-        holder.datumsbereich?.text = context.getString(
-            R.string.interval,
-            datum1, datum2
+        val datum2 = df.format(cal.time)
+        holder.datumsbereich.text = parent.context.getString(
+            R.string.interval, datum1, datum2
         )
         return view
     }
 }
 
 private class ViewHolder {
-    var name: TextView? = null
-    var datumsbereich: TextView? = null
-    var icon: ImageView? = null
+    lateinit var name: TextView
+    lateinit var datumsbereich: TextView
+    lateinit var icon: ImageView
 }
