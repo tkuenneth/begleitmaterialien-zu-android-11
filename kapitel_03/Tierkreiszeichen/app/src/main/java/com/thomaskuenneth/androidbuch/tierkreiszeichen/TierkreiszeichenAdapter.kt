@@ -65,11 +65,14 @@ class TierkreiszeichenAdapter(context: Context) : BaseAdapter() {
             view = convertView
         }
         var zeichen = getItem(currentPosition) as Tierkreiszeichen
+        // Name und Symbol
         holder.name.text = zeichen.getName(parent.context)
         holder.icon.setImageResource(zeichen.idForDrawable)
+        // Erster Tag des Tierkreiszeichens
         cal.set(Calendar.DAY_OF_MONTH, zeichen.tag)
         cal.set(Calendar.MONTH, zeichen.monat)
         val datum1 = df.format(cal.time)
+        // Den letzten Tag des Tierkreiszeichens ermitteln
         if (++currentPosition >= count) {
             currentPosition = 0
         }
