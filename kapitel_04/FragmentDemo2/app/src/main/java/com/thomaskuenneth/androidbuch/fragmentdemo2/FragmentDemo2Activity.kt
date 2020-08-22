@@ -2,11 +2,10 @@ package com.thomaskuenneth.androidbuch.fragmentdemo2
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.*
 
 class FragmentDemo2Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
