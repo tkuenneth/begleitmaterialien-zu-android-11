@@ -1,33 +1,24 @@
 package com.thomaskuenneth.androidbuch.fragmentdemo3
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ScrollView
-import android.widget.TextView
+import android.view.*
+import android.widget.*
 import androidx.fragment.app.Fragment
 
 const val INDEX = "index"
-
 class DetailsFragment : Fragment() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        var scroller: ScrollView? = null
-        if (container != null) {
-            scroller = ScrollView(context)
+        container?.let {
             val text = TextView(context)
+            text.text = getString(R.string.template, 1 + getIndex())
+            val scroller = ScrollView(context)
             scroller.addView(text)
-            text.text = getString(
-                R.string.template,
-                1 + getIndex()
-            )
+            return scroller
         }
-        return scroller
+        return null
     }
 
     fun getIndex(): Int {
