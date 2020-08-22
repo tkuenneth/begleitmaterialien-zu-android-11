@@ -8,18 +8,17 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.thomaskuenneth.androidbuch.navigationdemo1.MainFragment"
-        android:label="fragment_main"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_main">
         <action
-            android:id="@+id/main_to_fragment1"
-            app:destination="@id/fragment1">
-        </action>
+            android:id="@+id/mainToChildFragment"
+            app:destination="@id/childFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/fragment1"
+        android:id="@+id/childFragment"
         android:name="com.thomaskuenneth.androidbuch.navigationdemo1.ChildFragment"
-        android:label="fragment_main"
+        android:label="@string/destination"
         tools:layout="@layout/fragment_child">
         <argument
             android:name="color"
