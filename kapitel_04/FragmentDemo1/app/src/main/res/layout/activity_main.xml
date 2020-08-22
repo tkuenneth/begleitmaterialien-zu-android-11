@@ -11,8 +11,8 @@
 
     <fragment
         android:id="@+id/fragment"
-        android:name="com.thomaskuenneth.androidbuch.fragmentdemo1.TestFragment1"
+        android:name=
+            "com.thomaskuenneth.androidbuch.fragmentdemo1.TestFragment1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
 </LinearLayout>
