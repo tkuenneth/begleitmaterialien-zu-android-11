@@ -2,23 +2,20 @@ package com.thomaskuenneth.androidbuch.fragmentdemo3
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ListView
-import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.ListFragment
+import android.view.*
+import android.widget.*
+import androidx.fragment.app.*
 
 class AuswahlFragment : ListFragment() {
 
-    private val strZuletztSelektiert = "zuletztSelektiert"
-    private var zweiSpaltenModus = false
-    private var zuletztSelektiert = 0
+    private val strLastSelected = "lastSelected"
+    private var twoColumnMode = false
+    private var lastSelected = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         listAdapter = ArrayAdapter(
-            context!!,
+            requireContext(),
             android.R.layout.simple_list_item_activated_1,
             arrayOf("eins", "zwei", "drei")
         )
@@ -27,53 +24,59 @@ class AuswahlFragment : ListFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (savedInstanceState != null) {
-            zuletztSelektiert = savedInstanceState.getInt(strZuletztSelektiert, 0)
+            lastSelected = savedInstanceState.getInt(strLastSelected, 0)
         }
     }
 
-    override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {
-        detailsAnzeigen(position)
+    override fun onListItemClick(l: ListView, v: View,
+                                 position: Int, id: Long) {
+        showDetails(position)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt(strZuletztSelektiert, zuletztSelektiert)
+        outState.putInt(strLastSelected, lastSelected)
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
-        zweiSpaltenModus = activity?.findViewById<ViewGroup>(R.id.container) != null
-        if (zweiSpaltenModus) {
-            listView.choiceMode = ListView.CHOICE_MODE_SINGLE
-            detailsAnzeigen(zuletztSelektiert)
-        } else {
-            listView.choiceMode = ListView.CHOICE_MODE_NONE
+        activity?.run {
+            twoColumnMode =
+                findViewById<ViewGroup>(R.id.container) != null
+            if (twoColumnMode) {
+                listView.choiceMode = ListView.CHOICE_MODE_SINGLE
+                showDetails(lastSelected)
+            } else {
+                listView.choiceMode = ListView.CHOICE_MODE_NONE
+            }
         }
     }
 
-    private fun detailsAnzeigen(index: Int) {
-        zuletztSelektiert = index
-        if (zweiSpaltenModus) {
+    private fun showDetails(index: Int) {
+        lastSelected = index
+        if (twoColumnMode) {
             listView.setItemChecked(index, true)
-            var details = fragmentManager?.findFragmentById(R.id.container) as DetailsFragment?
-            if (details == null || details.getIndex() != index) {
-                // neues Fragment passend zum selektierten
-                // Eintrag erzeugen und anzeigen
-                details = DetailsFragment()
-                val args = Bundle()
-                args.putInt(INDEX, index)
-                details.arguments = args
-                fragmentManager?.beginTransaction()
-                    ?.replace(R.id.container, details)
-                    // einen Übergang darstellen
-                    ?.setTransition(
-                        FragmentTransaction.TRANSIT_FRAGMENT_FADE
-                    )
-                    ?.commit()
+            fragmentManager?.run {
+                var details =
+                    findFragmentById(R.id.container) as DetailsFragment?
+                if (details?.getIndex() ?: -1 != index) {
+                    // neues Fragment passend zum selektierten
+                    // Eintrag erzeugen und anzeigen
+                    details = DetailsFragment()
+                    val args = Bundle()
+                    args.putInt(INDEX, index)
+                    details.arguments = args
+                    beginTransaction()
+                        .replace(R.id.container, details)
+                        // einen Übergang darstellen
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .commit()
+                }
             }
         } else {
             val intent = Intent()
-            intent.setClass(activity!!, DetailsActivity::class.java)
+            intent.setClass(requireActivity(),
+                DetailsActivity::class.java)
             intent.putExtra(INDEX, index)
             startActivity(intent)
         }
