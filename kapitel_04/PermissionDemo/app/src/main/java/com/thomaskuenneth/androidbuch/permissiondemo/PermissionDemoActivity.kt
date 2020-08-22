@@ -6,16 +6,13 @@ import android.os.Bundle
 import android.telephony.TelephonyManager
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
-
 private val TAG = PermissionDemoActivity::class.simpleName
-
 class PermissionDemoActivity : AppCompatActivity() {
 
-    private val rqReadPhoneNumbers = 123
+    private val requestReadPhoneNumbers = 123
 
     private lateinit var tv: TextView
     private lateinit var bt: Button
@@ -32,9 +29,9 @@ class PermissionDemoActivity : AppCompatActivity() {
         super.onStart()
         bt.visibility = View.GONE
         if (checkSelfPermission(Manifest.permission.READ_PHONE_NUMBERS)
-                != PackageManager.PERMISSION_GRANTED) {
+            != PackageManager.PERMISSION_GRANTED) {
             if (shouldShowRequestPermissionRationale(
-                            Manifest.permission.READ_PHONE_NUMBERS)) {
+                    Manifest.permission.READ_PHONE_NUMBERS)) {
                 tv.setText(R.string.explain1)
                 bt.visibility = View.VISIBLE
             } else {
@@ -48,11 +45,12 @@ class PermissionDemoActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(requestCode: Int,
                                             permissions: Array<String>,
                                             grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == rqReadPhoneNumbers) {
+        super.onRequestPermissionsResult(requestCode, permissions,
+            grantResults)
+        if (requestCode == requestReadPhoneNumbers) {
             bt.visibility = View.GONE
             if (grantResults.isNotEmpty() && grantResults[0]
-                    == PackageManager.PERMISSION_GRANTED) {
+                == PackageManager.PERMISSION_GRANTED) {
                 outputLine1Number()
             } else {
                 tv.setText(R.string.explain2)
@@ -62,21 +60,20 @@ class PermissionDemoActivity : AppCompatActivity() {
 
     private fun requestPermission() {
         requestPermissions(arrayOf(
-                Manifest.permission.READ_PHONE_NUMBERS),
-                rqReadPhoneNumbers)
+            Manifest.permission.READ_PHONE_NUMBERS),
+            requestReadPhoneNumbers)
     }
 
     private fun outputLine1Number() {
         tv.text = getString(R.string.template,
-                getLine1Number())
+            getLine1Number())
     }
 
     private fun getLine1Number(): String {
         var result = "???"
-        val tm = getSystemService(TelephonyManager::class.java)
-        if (tm != null) {
+        getSystemService(TelephonyManager::class.java)?.run {
             try {
-                result = tm.line1Number
+                result = line1Number
             } catch (ex: SecurityException) {
                 Log.e(TAG, "getLine1Number()", ex)
             }
