@@ -3,13 +3,12 @@ package com.thomaskuenneth.androidbuch.dialogdemo
 import android.app.DatePickerDialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.widget.Button
-import android.widget.DatePicker
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
-class DialogDemoActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
-        DialogInterface.OnClickListener {
+class DialogDemoActivity : AppCompatActivity(),
+    DatePickerDialog.OnDateSetListener,
+    DialogInterface.OnClickListener {
 
     private lateinit var datePickerFragment: DatePickerFragment
     private lateinit var alertFragment: AlertFragment
@@ -24,14 +23,14 @@ class DialogDemoActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListen
         val buttonDatePicker = findViewById<Button>(R.id.button_datepicker)
         buttonDatePicker.setOnClickListener {
             datePickerFragment.show(supportFragmentManager,
-                    DatePickerFragment.TAG)
+                DatePickerFragment.TAG)
         }
         // Alert
         alertFragment = AlertFragment()
         val buttonAlert = findViewById<Button>(R.id.button_alert)
         buttonAlert.setOnClickListener {
             alertFragment.show(supportFragmentManager,
-                    AlertFragment.TAG)
+                AlertFragment.TAG)
         }
     }
 
