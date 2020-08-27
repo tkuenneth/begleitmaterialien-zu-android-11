@@ -10,12 +10,12 @@ import java.util.*
 
 class DatePickerFragment : DialogFragment() {
 
-    private lateinit var l: OnDateSetListener
+    private lateinit var listener: OnDateSetListener
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnDateSetListener) {
-            l = context
+            listener = context
         }
     }
 
@@ -28,7 +28,7 @@ class DatePickerFragment : DialogFragment() {
         // einen DatePickerDialog erzeugen und zurückliefern
         return DatePickerDialog(
             context!!,
-            l, year, month, day
+            listener, year, month, day
         )
     }
 
