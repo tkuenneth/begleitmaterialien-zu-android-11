@@ -46,7 +46,8 @@ class DatumsdifferenzActivity : AppCompatActivity() {
         var days = 0
         while (cal1[Calendar.YEAR] != cal2[Calendar.YEAR]
             || cal1[Calendar.MONTH] != cal2[Calendar.MONTH]
-            || cal1[Calendar.DAY_OF_MONTH] != cal2[Calendar.DAY_OF_MONTH]) {
+            || cal1[Calendar.DAY_OF_MONTH]
+            != cal2[Calendar.DAY_OF_MONTH]) {
             days += 1
             cal1.add(Calendar.DAY_OF_YEAR, 1)
         }
