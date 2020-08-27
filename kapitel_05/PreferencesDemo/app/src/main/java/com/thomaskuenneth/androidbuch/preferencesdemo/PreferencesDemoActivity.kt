@@ -49,9 +49,6 @@ class PreferencesDemoActivity : AppCompatActivity() {
             getString(R.string.not_set)
         val et1 = prefs.getString("edittext_1", null)
             ?: getString(R.string.not_set)
-        textview.text = getString(
-            R.string.template,
-            cb1.toString(), cb2.toString(), et1
-        )
+        textview.text = getString(R.string.template, cb1, cb2, et1)
     }
 }
