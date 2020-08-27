@@ -14,7 +14,8 @@ import androidx.loader.app.LoaderManager
 import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
 
-class MiniContactsFragment : ListFragment(), LoaderManager.LoaderCallbacks<Cursor> {
+class MiniContactsFragment : ListFragment(),
+    LoaderManager.LoaderCallbacks<Cursor> {
 
     private val requestPermissionReadContacts = 123
     private val projection = arrayOf(
@@ -77,7 +78,8 @@ class MiniContactsFragment : ListFragment(), LoaderManager.LoaderCallbacks<Curso
         adapter.swapCursor(null)
     }
 
-    override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {
+    override fun onListItemClick(l: ListView, v: View,
+                                 position: Int, id: Long) {
         val intent = Intent(Intent.ACTION_VIEW)
         val c = listView.getItemAtPosition(position) as Cursor
         val uri = ContactsContract.Contacts.getLookupUri(
