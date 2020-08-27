@@ -8,15 +8,13 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
 private val TAG = WidgetDemoActivity::class.simpleName
-
 class WidgetDemoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.widgetdemo)
         val params = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
+            ViewGroup.LayoutParams.WRAP_CONTENT)
         val f = findViewById<FrameLayout>(R.id.frame)
         val e = findViewById<EditText>(R.id.textfield)
         val b = findViewById<Button>(R.id.apply)
