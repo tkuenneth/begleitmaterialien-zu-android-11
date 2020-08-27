@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/hint"
         android:imeOptions="actionGo"
+        android:importantForAutofill="no"
         android:inputType="textNoSuggestions"
         android:lines="1" />
     <Button
