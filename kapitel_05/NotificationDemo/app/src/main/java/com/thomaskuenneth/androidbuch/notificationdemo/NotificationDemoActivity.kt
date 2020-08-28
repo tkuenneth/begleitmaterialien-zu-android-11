@@ -21,8 +21,7 @@ class NotificationDemoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val button = findViewById<Button>(R.id.button)
-        button.setOnClickListener {
+        findViewById<Button>(R.id.button).setOnClickListener {
             createAndSendNotification()
             finish()
         }
@@ -39,8 +38,7 @@ class NotificationDemoActivity : AppCompatActivity() {
     }
 
     private fun createAndSendNotification() {
-        val pendingIntent = PendingIntent.getActivity(
-            this, 0,
+        val pendingIntent = PendingIntent.getActivity(this, 0,
             Intent(this, NotificationDemoActivity::class.java),
             PendingIntent.FLAG_UPDATE_CURRENT
         )
@@ -60,8 +58,7 @@ class NotificationDemoActivity : AppCompatActivity() {
         val actionBuilder = NotificationCompat.Action.Builder(
             R.mipmap.ic_launcher,
             "Eine Aktion",
-            pendingIntent
-        )
+            pendingIntent)
         // Eingaben machen
         val remoteInput = RemoteInput.Builder(resultKey)
             .setLabel(getString(R.string.reply))
@@ -71,20 +68,14 @@ class NotificationDemoActivity : AppCompatActivity() {
         builder.addAction(actionBuilder.build())
         // Kanal anlegen und Notification anzeigen
         val manager = NotificationManagerCompat.from(this)
-        val channel = NotificationChannel(
-            channelId,
+        val channel = NotificationChannel(channelId,
             getString(R.string.channel_name),
             NotificationManager.IMPORTANCE_DEFAULT
         )
         manager.createNotificationChannel(channel)
-        manager.notify(
-            notificationId,
-            builder.build()
-        )
+        manager.notify(notificationId, builder.build())
     }
 
-    private fun getMessageText(intent: Intent): CharSequence? {
-        val remoteInput = RemoteInput.getResultsFromIntent(intent)
-        return remoteInput?.getCharSequence(resultKey)
-    }
+    private fun getMessageText(intent: Intent): CharSequence? =
+        RemoteInput.getResultsFromIntent(intent)?.getCharSequence(resultKey)
 }
