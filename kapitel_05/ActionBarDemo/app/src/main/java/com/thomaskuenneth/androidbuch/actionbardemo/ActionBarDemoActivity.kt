@@ -1,8 +1,7 @@
 package com.thomaskuenneth.androidbuch.actionbardemo
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
+import android.view.*
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
