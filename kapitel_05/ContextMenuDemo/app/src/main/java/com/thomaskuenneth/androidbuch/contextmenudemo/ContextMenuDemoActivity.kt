@@ -28,11 +28,7 @@ class ContextMenuDemoActivity : AppCompatActivity() {
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.item1 -> {
-                tv.text = item.title
-                true
-            }
-            R.id.item2 -> {
+            R.id.item1, R.id.item2 -> {
                 tv.text = item.title
                 true
             }
