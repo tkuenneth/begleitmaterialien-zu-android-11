@@ -15,7 +15,8 @@ class SnackbarDemoActivity : AppCompatActivity() {
         val button = findViewById<Button>(R.id.button)
         val info = findViewById<TextView>(R.id.info)
         button.setOnClickListener {
-            val snackbar = Snackbar.make(button, R.string.info, Snackbar.LENGTH_LONG)
+            val snackbar = Snackbar.make(button,
+                R.string.info, Snackbar.LENGTH_LONG)
             snackbar.setAction(R.string.action) {
                 info.text = getString(R.string.template, ++count)
             }
@@ -24,7 +25,8 @@ class SnackbarDemoActivity : AppCompatActivity() {
                     button.isEnabled = false
                 }
 
-                override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                override fun onDismissed(transientBottomBar: Snackbar?,
+                                         event: Int) {
                     button.isEnabled = true
                 }
             })
