@@ -10,7 +10,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import java.util.*
 
-private const val ACTION = "com.thomaskuenneth.androidbuch.appshortcutdemo.AppShortcut"
+private const val ACTION =
+    "com.thomaskuenneth.androidbuch.appshortcutdemo.AppShortcut"
 
 class AppShortcutActivity : AppCompatActivity() {
 
@@ -33,16 +34,15 @@ class AppShortcutActivity : AppCompatActivity() {
         val intent = Intent(this, AppShortcutActivity::class.java)
         intent.action = ACTION
         intent.data = Uri.parse("https://www.rheinwerk-verlag.de/")
-        val mgr = getSystemService(ShortcutManager::class.java)
-        if (mgr != null) {
+        getSystemService(ShortcutManager::class.java)?.let {
             val shortcut = ShortcutInfo.Builder(this,
-                    "dynamic1")
-                    .setShortLabel(getString(R.string.dynamic_shortcut))
-                    .setIcon(Icon.createWithResource(this,
-                            R.drawable.ic_cloud))
-                    .setIntent(intent)
-                    .build()
-            mgr.dynamicShortcuts = Collections.singletonList(shortcut)
+                "dynamic1")
+                .setShortLabel(getString(R.string.dynamic_shortcut))
+                .setIcon(Icon.createWithResource(this,
+                    R.drawable.ic_cloud))
+                .setIntent(intent)
+                .build()
+            it.dynamicShortcuts = Collections.singletonList(shortcut)
         }
         textview.text = message
     }

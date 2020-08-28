@@ -6,9 +6,12 @@
         android:shortcutId="static1"
         android:shortcutShortLabel="@string/static_shortcut">
         <intent
-            android:action="com.thomaskuenneth.androidbuch.appshortcutdemo.AppShortcut"
-            android:targetClass="com.thomaskuenneth.androidbuch.appshortcutdemo.AppShortcutActivity"
-            android:targetPackage="com.thomaskuenneth.androidbuch.appshortcutdemo" />
+            android:action=
+                "com.thomaskuenneth.androidbuch.appshortcutdemo.AppShortcut"
+            android:targetClass=
+                "com.thomaskuenneth.androidbuch.appshortcutdemo.AppShortcutActivity"
+            android:targetPackage=
+                "com.thomaskuenneth.androidbuch.appshortcutdemo" />
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
 </shortcuts>
