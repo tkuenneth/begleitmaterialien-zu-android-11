@@ -1,8 +1,7 @@
 package com.thomaskuenneth.androidbuch.toastdemo
 
 import android.os.*
-import android.widget.Button
-import android.widget.Toast
+import android.widget.*
 import android.widget.Toast.Callback
 import androidx.appcompat.app.AppCompatActivity
 
@@ -13,11 +12,8 @@ class ToastDemoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val button = findViewById<Button>(R.id.button)
         button.setOnClickListener {
-            val toast = Toast.makeText(
-                this,
-                R.string.app_name,
-                Toast.LENGTH_LONG
-            )
+            val toast = Toast.makeText(this, R.string.app_name,
+                Toast.LENGTH_LONG)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 toast.addCallback(object : Callback() {
                     override fun onToastHidden() {
