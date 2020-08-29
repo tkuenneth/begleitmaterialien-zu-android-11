@@ -9,25 +9,30 @@ import androidx.appcompat.app.AppCompatActivity
 
 private val TAG = WidgetDemoActivity::class.simpleName
 class WidgetDemoActivity : AppCompatActivity() {
+
+    private lateinit var frame: FrameLayout
+    private lateinit var textfield: EditText
+    private lateinit var apply: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.widgetdemo)
         val params = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT)
-        val f = findViewById<FrameLayout>(R.id.frame)
-        val e = findViewById<EditText>(R.id.textfield)
-        val b = findViewById<Button>(R.id.apply)
-        b.setOnClickListener {
-            val name = e.text.toString()
+        frame = findViewById(R.id.frame)
+        textfield = findViewById(R.id.textfield)
+        apply = findViewById(R.id.apply)
+        apply.setOnClickListener {
+            val name = textfield.text.toString()
             try {
                 val c = Class.forName(name)
                 val o = c.getDeclaredConstructor(Context::class.java)
                     .newInstance(this)
                 if (o is View) {
-                    f.removeAllViews()
-                    f.addView(o, params)
-                    f.forceLayout()
+                    frame.removeAllViews()
+                    frame.addView(o, params)
+                    frame.forceLayout()
                 }
             } catch (tr: Throwable) {
                 val str = getString(R.string.error, name)
@@ -35,8 +40,8 @@ class WidgetDemoActivity : AppCompatActivity() {
                 Log.e(TAG, "Fehler beim Instanzieren von $name", tr)
             }
         }
-        e.setOnEditorActionListener { _, _, _ ->
-            b.performClick()
+        textfield.setOnEditorActionListener { _, _, _ ->
+            apply.performClick()
             true
         }
     }
