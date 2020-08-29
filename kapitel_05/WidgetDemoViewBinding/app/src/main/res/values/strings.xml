@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">WidgetDemoViewBinding</string>
+    <string name="hint">Name einer Klasse</string>
+    <string name="apply">Übernehmen</string>
+    <string name="error">Klasse %1$s nicht gefunden</string>
+</resources>
