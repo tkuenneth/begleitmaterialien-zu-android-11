@@ -5,8 +5,9 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import java.util.*
 
-class StopwatchLifecycleObserver internal constructor(private val model: StopwatchViewModel) :
-    LifecycleObserver {
+class StopWatchDemoLifecycleObserver
+internal constructor(private val model: StopwatchViewModel)
+    : LifecycleObserver {
 
     private lateinit var timer: Timer
     private lateinit var timerTask: TimerTask

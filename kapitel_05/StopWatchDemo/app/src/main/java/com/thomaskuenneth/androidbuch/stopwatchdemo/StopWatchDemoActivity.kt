@@ -24,7 +24,7 @@ class StopWatchDemoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         model = ViewModelProviders.of(this).get(StopwatchViewModel::class.java)
-        val observer = StopwatchLifecycleObserver(model)
+        val observer = StopWatchDemoLifecycleObserver(model)
         model.running.observe(this, { running: Boolean? ->
             running?.let {
                 startStop.setText(if (it) R.string.stop else R.string.start)
