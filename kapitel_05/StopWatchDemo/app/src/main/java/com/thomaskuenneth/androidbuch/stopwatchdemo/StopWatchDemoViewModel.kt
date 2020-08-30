@@ -3,7 +3,7 @@ package com.thomaskuenneth.androidbuch.stopwatchdemo
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class StopwatchViewModel : ViewModel() {
+class StopWatchDemoViewModel : ViewModel() {
     val running = MutableLiveData<Boolean>()
     val diff = MutableLiveData<Long>()
     val started = MutableLiveData<Long>()

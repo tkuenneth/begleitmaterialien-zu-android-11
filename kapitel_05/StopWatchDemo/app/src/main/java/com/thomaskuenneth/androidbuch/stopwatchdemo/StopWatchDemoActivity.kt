@@ -18,12 +18,12 @@ class StopWatchDemoActivity : AppCompatActivity() {
         dateFormat.timeZone = TimeZone.getTimeZone("UTC")
     }
 
-    private lateinit var model: StopwatchViewModel
+    private lateinit var model: StopWatchDemoViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        model = ViewModelProviders.of(this).get(StopwatchViewModel::class.java)
+        model = ViewModelProviders.of(this).get(StopWatchDemoViewModel::class.java)
         val observer = StopWatchDemoLifecycleObserver(model)
         model.running.observe(this, { running: Boolean? ->
             running?.let {
