@@ -14,7 +14,6 @@ const val MsgFakultaetIn = 1
 const val MsgFakultaetOut = 2
 
 private val TAG = ServiceDemo3Activity::class.simpleName
-
 class ServiceDemo3Activity : AppCompatActivity() {
 
     private var mService: Messenger? = null
