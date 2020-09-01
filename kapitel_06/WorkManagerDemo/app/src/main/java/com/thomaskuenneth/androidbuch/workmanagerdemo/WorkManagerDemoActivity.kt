@@ -14,8 +14,9 @@ class WorkManagerDemoActivity : AppCompatActivity() {
             val constraints = Constraints.Builder()
                 .setRequiresCharging(true)
                 .build()
-            val repeatInterval = Duration.ofMillis(PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS)
-            val work = PeriodicWorkRequestBuilder<DemoWorker>(repeatInterval)
+            val interval = Duration.ofMillis(
+                PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS)
+            val work = PeriodicWorkRequestBuilder<DemoWorker>(interval)
                 .setConstraints(constraints)
                 .setInputData(Data.Builder().putInt(KeyNumber, 123).build())
                 .build()
