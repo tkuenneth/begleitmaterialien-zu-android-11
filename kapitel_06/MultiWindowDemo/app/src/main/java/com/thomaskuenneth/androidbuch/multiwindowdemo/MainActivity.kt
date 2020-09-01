@@ -4,26 +4,18 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
-import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
 private val TAG = MainActivity::class.simpleName
-
 class MainActivity : AppCompatActivity() {
 
     private val sb = StringBuilder()
 
-    private lateinit var tv: TextView
-    private lateinit var view: AnimatedNumberView
-    private lateinit var bt: Button
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        tv = findViewById(R.id.tv)
-        view = findViewById(R.id.anim)
-        bt = findViewById(R.id.launch)
-        bt.setOnClickListener {
+        button.setOnClickListener {
             val intent = Intent(this, ChildActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT or
                     Intent.FLAG_ACTIVITY_NEW_TASK
@@ -33,14 +25,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        view.isEnabled = false
+        animation.isEnabled = false
         Log.d(TAG, "onStop()")
     }
 
     override fun onStart() {
         super.onStart()
         updateTextView()
-        view.isEnabled = true
+        animation.isEnabled = true
         Log.d(TAG, "onStart()")
     }
 
@@ -72,6 +64,6 @@ class MainActivity : AppCompatActivity() {
         sb.append("isInPictureInPictureMode(): ")
             .append(isInPictureInPictureMode)
             .append("\n")
-        tv.text = sb.toString()
+        textview.text = sb.toString()
     }
 }
