@@ -1,46 +1,42 @@
 package com.thomaskuenneth.androidbuch.servicedemo2
 
-import android.content.ComponentName
-import android.content.Context
+import android.content.*
 import android.content.Intent
 import android.content.ServiceConnection
-import android.os.Bundle
-import android.os.IBinder
+import android.os.*
 import android.view.KeyEvent
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.thomaskuenneth.androidbuch.servicedemo2.LocalService.LocalBinder
+import kotlinx.android.synthetic.main.activity_main.*
 
 class ServiceDemo2Activity : AppCompatActivity() {
 
-    private var mService: LocalService? = null
+    private var service: LocalService? = null
 
-    private val mConnection = object : ServiceConnection {
+    private val connection = object : ServiceConnection {
         override fun onServiceConnected(
             name: ComponentName,
             service: IBinder
         ) {
             val binder = service as LocalBinder
-            mService = binder.service
+            this@ServiceDemo2Activity.service = binder.service
         }
 
         override fun onServiceDisconnected(name: ComponentName) {
-            mService = null
+            this@ServiceDemo2Activity.service = null
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val textview = findViewById<TextView>(R.id.textview)
-        val edittext = findViewById<EditText>(R.id.edittext)
-        val button = findViewById<Button>(R.id.button)
         button.setOnClickListener {
-            if (mService != null) {
+            service?.let {
                 try {
                     val n =
                         edittext.text.toString().toInt()
-                    val fak = mService?.fakultaet(n)
+                    val fak = service?.fakultaet(n)
                     textview.text = getString(
                         R.string.template,
                         n, fak
@@ -50,7 +46,8 @@ class ServiceDemo2Activity : AppCompatActivity() {
                 }
             }
         }
-        edittext.setOnEditorActionListener { _: TextView?, _: Int, _: KeyEvent? ->
+        edittext.setOnEditorActionListener { _: TextView?,
+                                             _: Int, _: KeyEvent? ->
             button.performClick()
             true
         }
@@ -59,14 +56,14 @@ class ServiceDemo2Activity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         val intent = Intent(this, LocalService::class.java)
-        bindService(intent, mConnection, Context.BIND_AUTO_CREATE)
+        bindService(intent, connection, Context.BIND_AUTO_CREATE)
     }
 
     override fun onStop() {
         super.onStop()
-        if (mService != null) {
-            unbindService(mConnection)
-            mService = null
+        service?.let {
+            unbindService(connection)
+            service = null
         }
     }
 }
