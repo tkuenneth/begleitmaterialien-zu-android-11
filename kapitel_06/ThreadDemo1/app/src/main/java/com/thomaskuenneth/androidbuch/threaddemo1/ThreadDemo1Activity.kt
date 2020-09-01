@@ -71,15 +71,13 @@ class ThreadDemo1Activity : AppCompatActivity() {
         keepRunning = false
     }
 
-    private fun bewegeGegner2(): Runnable {
-        return Runnable {
-            while (keepRunning) {
-                Log.i(TAG, "bewege Gegner 2")
-                try {
-                    Thread.sleep(3000)
-                } catch (e: InterruptedException) {
-                    Log.e(TAG, "sleepTester()", e)
-                }
+    private fun bewegeGegner2() = Runnable {
+        while (keepRunning) {
+            Log.i(TAG, "bewege Gegner 2")
+            try {
+                Thread.sleep(3000)
+            } catch (e: InterruptedException) {
+                Log.e(TAG, "sleepTester()", e)
             }
         }
     }
