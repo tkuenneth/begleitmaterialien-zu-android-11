@@ -5,6 +5,7 @@ import android.os.Looper
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import kotlin.concurrent.thread
 
 private val TAG = ThreadDemo2Activity::class.simpleName
 class ThreadDemo2Activity : AppCompatActivity() {
@@ -55,7 +56,7 @@ class ThreadDemo2Activity : AppCompatActivity() {
 
             // korrekte Version mit Handler
 //            val h = android.os.Handler(Looper.getMainLooper())
-//            Thread {
+//            thread {
 //                try {
 //                    h.post { tv.text = getString(R.string.begin) }
 //                    Thread.sleep(10000)
@@ -63,10 +64,10 @@ class ThreadDemo2Activity : AppCompatActivity() {
 //                } catch (e: InterruptedException) {
 //                    Log.e(TAG, "sleep()", e)
 //                }
-//            }.start()
+//            }
 
             // ebenfalls korrekte Version mit runOnUiThread()
-            val t = Thread {
+            thread {
                 try {
                     Thread.sleep(10000)
                 } catch (e: InterruptedException) {
@@ -75,7 +76,6 @@ class ThreadDemo2Activity : AppCompatActivity() {
                 runOnUiThread { tv.text = getString(R.string.end) }
             }
             tv.text = getString(R.string.begin)
-            t.start()
 
             // --- Ende Experimente ---
         }
