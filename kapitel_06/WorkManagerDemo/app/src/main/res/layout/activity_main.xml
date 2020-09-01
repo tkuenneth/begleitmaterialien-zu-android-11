@@ -7,9 +7,9 @@
     tools:context=".WorkManagerDemoActivity">
 
     <Button
+        android:id="@+id/start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="handleButtonClicked"
         android:text="@string/button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
