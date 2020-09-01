@@ -7,11 +7,8 @@ import androidx.work.WorkerParameters
 
 const val KeyNumber = "key"
 private val TAG = DemoWorker::class.simpleName
-
-class DemoWorker(
-    appContext: Context,
-    workerParams: WorkerParameters
-) : Worker(appContext, workerParams) {
+class DemoWorker(appContext: Context, workerParams: WorkerParameters)
+    : Worker(appContext, workerParams) {
 
     override fun doWork(): Result {
         Log.d(TAG, applicationContext.getString(R.string.worker_started))
