@@ -1,6 +1,7 @@
 package com.thomaskuenneth.androidbuch.threaddemo2
 
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -53,7 +54,7 @@ class ThreadDemo2Activity : AppCompatActivity() {
 //            }.start()
 
             // korrekte Version mit Handler
-//            val h = android.os.Handler()
+//            val h = android.os.Handler(Looper.getMainLooper())
 //            Thread {
 //                try {
 //                    h.post { tv.text = getString(R.string.begin) }
