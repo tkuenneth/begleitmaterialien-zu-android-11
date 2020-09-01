@@ -6,7 +6,6 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
 private val TAG = ThreadDemo2Activity::class.simpleName
-
 class ThreadDemo2Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
