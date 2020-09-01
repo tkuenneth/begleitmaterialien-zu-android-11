@@ -5,11 +5,12 @@ import android.content.Intent
 import android.os.IBinder
 import android.util.Log
 import java.util.*
+import kotlin.concurrent.thread
 
 private val TAG = DemoService::class.simpleName
-
 class DemoService : Service() {
 
+    @Volatile
     private var shouldBeRunning = false
 
     override fun onBind(intent: Intent?): IBinder? {
@@ -21,7 +22,7 @@ class DemoService : Service() {
         super.onCreate()
         Log.d(TAG, "onCreate()")
         shouldBeRunning = true
-        Thread {
+        thread {
             while (shouldBeRunning) {
                 Log.d(TAG, Date().toString())
                 try {
@@ -31,7 +32,7 @@ class DemoService : Service() {
                     shouldBeRunning = false
                 }
             }
-        }.start()
+        }
     }
 
     override fun onDestroy() {
