@@ -4,19 +4,17 @@ import android.app.job.JobInfo
 import android.app.job.JobScheduler
 import android.content.ComponentName
 import android.os.Bundle
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
 class JobSchedulerDemoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val tv = findViewById<TextView>(R.id.textview)
-        val scheduler = getSystemService(JobScheduler::class.java)
-        if (scheduler != null) {
+        getSystemService(JobScheduler::class.java)?.run {
             // ausstehende Jobs anzeigen
-            val jobs = scheduler.allPendingJobs
+            val jobs = allPendingJobs
             val sb = StringBuilder()
             for (info in jobs) {
                 sb.append(info.toString() + "\n")
@@ -26,17 +24,17 @@ class JobSchedulerDemoActivity : AppCompatActivity() {
             }
             val jobId = 123
             // die Klasse des Jobs
-            val serviceEndpoint = ComponentName(this,
-                    JobSchedulerDemoService::class.java)
-            val jobInfo = JobInfo.Builder(jobId, serviceEndpoint)
-                    // alle 20 Minuten wiederholen
-                    .setPeriodic(20 * 60 * 10000)
-                    // nur wenn das Ladekabel angeschlossen ist
-                    .setRequiresCharging(true)
-                    .build()
+            val service = ComponentName(this@JobSchedulerDemoActivity,
+                JobSchedulerDemoService::class.java)
+            val jobInfo = JobInfo.Builder(jobId, service)
+                // alle 20 Minuten wiederholen
+                .setPeriodic(20 * 60 * 10000)
+                // nur wenn das Ladekabel angeschlossen ist
+                .setRequiresCharging(true)
+                .build()
             // die Ausführung planen
-            scheduler.schedule(jobInfo)
-            tv.text = sb.toString()
+            schedule(jobInfo)
+            textview.text = sb.toString()
         }
     }
 }
