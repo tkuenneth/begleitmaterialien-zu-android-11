@@ -41,18 +41,18 @@ class DemoService : Service() {
         shouldBeRunning = false
     }
 
-//    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+//    override fun onStartCommand(intent: Intent?, flags: Int,
+//                                startId: Int): Int {
+//        if (android.os.Build.VERSION.SDK_INT >=
+//            android.os.Build.VERSION_CODES.O) {
 //            val channelId = "channelId_1234"
 //            val channel = android.app.NotificationChannel(
 //                channelId,
 //                getString(R.string.app_name),
 //                android.app.NotificationManager.IMPORTANCE_DEFAULT
 //            )
-//            val nm =
-//                getSystemService(android.app.NotificationManager::class.java)
-//            if (nm != null) {
-//                nm.createNotificationChannel(channel)
+//            getSystemService(android.app.NotificationManager::class.java)?.let {
+//                it.createNotificationChannel(channel)
 //                val b = android.app.Notification.Builder(
 //                    this,
 //                    channelId
