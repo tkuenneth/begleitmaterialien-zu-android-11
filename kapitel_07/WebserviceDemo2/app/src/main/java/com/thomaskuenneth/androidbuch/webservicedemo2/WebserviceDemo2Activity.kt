@@ -4,15 +4,13 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.net.HttpURLConnection
-import java.net.URL
+import java.io.*
+import java.net.*
 import java.nio.charset.Charset
 import java.util.regex.Pattern
+import kotlin.concurrent.thread
 
 private val TAG = WebserviceDemo2Activity::class.simpleName
-
 class WebserviceDemo2Activity : AppCompatActivity() {
     private val pattern = Pattern.compile(".*charset\\s*=\\s*(.*)$")
 
@@ -21,12 +19,12 @@ class WebserviceDemo2Activity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         input.setOnEditorActionListener { _, _, _ -> button.performClick() }
         button.setOnClickListener {
-            Thread {
+            thread {
                 val result = talkToServer(input.text.toString())
                 runOnUiThread {
                     output.text = result
                 }
-            }.start()
+            }
         }
     }
 
