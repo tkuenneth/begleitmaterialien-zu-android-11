@@ -7,51 +7,49 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
 class AnrufDemoActivity : AppCompatActivity() {
     private val requestCallPhone = 123
-    private lateinit var buttonSofort: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        buttonSofort = findViewById(R.id.sofort)
-        buttonSofort.setOnClickListener {
+        sofort.setOnClickListener {
             // sofort wählen
             val intent = Intent(Intent.ACTION_CALL,
-                    Uri.parse("tel:+49 (999) 44 55 66"))
+                Uri.parse("tel:+49 (999) 44 55 66"))
             try {
                 startActivity(intent)
             } catch (e: SecurityException) {
                 Toast.makeText(this,
-                        R.string.no_permission,
-                        Toast.LENGTH_LONG).show()
+                    R.string.no_permission,
+                    Toast.LENGTH_LONG).show()
             }
         }
-        buttonSofort.isEnabled = if (checkSelfPermission(Manifest.permission.CALL_PHONE)
-                != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(arrayOf(Manifest.permission.CALL_PHONE),
+        sofort.isEnabled =
+            if (checkSelfPermission(Manifest.permission.CALL_PHONE) !=
+                PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(arrayOf(Manifest.permission.CALL_PHONE),
                     requestCallPhone)
-            false
-        } else {
-            true
-        }
-        val buttonDialog = findViewById<Button>(R.id.dialog)
-        buttonDialog.setOnClickListener {
+                false
+            }
+            else
+                true
+        dialog.setOnClickListener {
             // Wähldialog anzeigen
             val intent = Intent(Intent.ACTION_DIAL,
-                    Uri.parse("tel:+49 (999) 44 55 66"))
+                Uri.parse("tel:+49 (999) 44 55 66"))
             startActivity(intent)
         }
-        val sms = findViewById<Button>(R.id.sms)
         sms.setOnClickListener {
             // SMS senden
             val telnr = "123-456-789"
             val smsUri = Uri.parse("smsto:$telnr")
             val sendIntent = Intent(Intent.ACTION_SENDTO,
-                    smsUri)
+                smsUri)
             sendIntent.putExtra("sms_body",
-                    "Hier steht der Text der Nachricht...")
+                "Hier steht der Text der Nachricht...")
             startActivity(sendIntent)
         }
     }
@@ -60,10 +58,9 @@ class AnrufDemoActivity : AppCompatActivity() {
                                             permissions: Array<String>,
                                             grantResults: IntArray) {
         if (requestCode == requestCallPhone &&
-                (grantResults.isNotEmpty()
-                        && grantResults[0] ==
-                        PackageManager.PERMISSION_GRANTED)) {
-            buttonSofort.isEnabled = true
+            (grantResults.isNotEmpty() &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+            sofort.isEnabled = true
         }
     }
 }
