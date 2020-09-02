@@ -1,7 +1,6 @@
 package com.thomaskuenneth.androidbuch.calllogdemo
 
 import android.Manifest
-import android.app.ListActivity
 import android.content.ContentValues
 import android.content.pm.PackageManager
 import android.database.ContentObserver
@@ -11,14 +10,18 @@ import android.provider.CallLog
 import android.view.View
 import android.widget.*
 import android.widget.AdapterView.OnItemClickListener
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cursoradapter.widget.SimpleCursorAdapter
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.concurrent.thread
 
-class CallLogDemoActivity : ListActivity() {
+class CallLogDemoActivity : AppCompatActivity() {
 
     private val requestReadCallLog = 123
     private val requestWriteCallLOg = 321
 
-    private val contentObserver = object : ContentObserver(Handler()) {
+    private val handler = Handler(Looper.getMainLooper())
+    private val contentObserver = object : ContentObserver(handler) {
         override fun onChange(selfChange: Boolean) {
             updateAdapter()
         }
@@ -28,15 +31,18 @@ class CallLogDemoActivity : ListActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
         cursorAdapter = SimpleCursorAdapter(this,
-                android.R.layout.simple_list_item_1,
-                null, arrayOf(CallLog.Calls.NUMBER), intArrayOf(android.R.id.text1), 0)
-        cursorAdapter.viewBinder = SimpleCursorAdapter.ViewBinder { view: View, cursor: Cursor, columnIndex: Int ->
+            android.R.layout.simple_list_item_1,
+            null, arrayOf(CallLog.Calls.NUMBER),
+            intArrayOf(android.R.id.text1), 0)
+        cursorAdapter.viewBinder = SimpleCursorAdapter.ViewBinder {
+                view: View, cursor: Cursor, columnIndex: Int ->
             if (columnIndex ==
-                    cursor.getColumnIndex(CallLog.Calls.NUMBER)) {
+                cursor.getColumnIndex(CallLog.Calls.NUMBER)) {
                 var number = cursor.getString(columnIndex)
                 val isNew = cursor.getInt(cursor.getColumnIndex(
-                        CallLog.Calls.NEW))
+                    CallLog.Calls.NEW))
                 if (isNew != 0) {
                     number += " (neu)"
                 }
@@ -46,11 +52,12 @@ class CallLogDemoActivity : ListActivity() {
                 false
             }
         }
-        listAdapter = cursorAdapter
-        listView.onItemClickListener = OnItemClickListener { _: AdapterView<*>?, _: View?, position: Int, _: Long ->
+        listview.adapter = cursorAdapter
+        listview.onItemClickListener = OnItemClickListener {
+                _: AdapterView<*>?, _: View?, position: Int, _: Long ->
             val c = cursorAdapter.getItem(position) as Cursor
             val callLogId = c.getLong(c.getColumnIndex(
-                    CallLog.Calls._ID))
+                CallLog.Calls._ID))
             updateCallLogData(callLogId)
         }
         updateAdapter()
@@ -78,28 +85,26 @@ class CallLogDemoActivity : ListActivity() {
 
     private fun updateAdapter() {
         if (checkSelfPermission(Manifest.permission.READ_CALL_LOG)
-                != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(arrayOf(
-                    Manifest.permission.READ_CALL_LOG),
-                    requestReadCallLog)
+            != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(arrayOf(Manifest.permission.READ_CALL_LOG),
+                requestReadCallLog)
         } else {
             if (!contentObserverWasRegistered) {
                 contentResolver.registerContentObserver(
-                        CallLog.Calls.CONTENT_URI,
-                        false, contentObserver)
+                    CallLog.Calls.CONTENT_URI,
+                    false, contentObserver)
                 contentObserverWasRegistered = true
             }
-            val t = Thread(Runnable {
+            thread {
                 val c = getMissedCalls()
                 runOnUiThread { cursorAdapter.changeCursor(c) }
-            })
-            t.start()
+            }
         }
         if (checkSelfPermission(Manifest.permission.WRITE_CALL_LOG)
-                != PackageManager.PERMISSION_GRANTED) {
+            != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(arrayOf(
-                    Manifest.permission.WRITE_CALL_LOG),
-                    requestWriteCallLOg)
+                Manifest.permission.WRITE_CALL_LOG),
+                requestWriteCallLOg)
         }
     }
 
