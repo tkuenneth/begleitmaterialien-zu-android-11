@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 private val TAG = SubscriptionManagerDemoActivity::class.simpleName
-
 class SubscriptionManagerDemoActivity : AppCompatActivity() {
 
     private val requestReadPhoneState = 123
@@ -33,6 +32,7 @@ class SubscriptionManagerDemoActivity : AppCompatActivity() {
             manager = getSystemService(SubscriptionManager::class.java)
         } catch (ex: RuntimeException) {
             Log.e(TAG, "getSystemService()", ex)
+            finish()
         }
     }
 
