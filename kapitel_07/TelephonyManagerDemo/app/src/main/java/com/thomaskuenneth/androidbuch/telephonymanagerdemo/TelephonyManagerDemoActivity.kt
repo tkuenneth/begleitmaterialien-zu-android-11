@@ -5,14 +5,12 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.telephony.PhoneStateListener
 import android.telephony.TelephonyManager
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
 class TelephonyManagerDemoActivity : AppCompatActivity() {
 
     private val requestPermissions = 123
-
-    private lateinit var textview: TextView
     private lateinit var manager: TelephonyManager
 
     private val listener = object : PhoneStateListener() {
@@ -37,7 +35,6 @@ class TelephonyManagerDemoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        textview = findViewById(R.id.textview)
         textview.text = ""
         manager = getSystemService(TelephonyManager::class.java)
     }
