@@ -1,0 +1,4 @@
+.DS_Store
+target/*
+nbactions.xml
+!target/hello-*-SNAPSHOT.jar
