@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.concurrent.thread
 
 private val TAG = WebserviceDemo1Activity::class.simpleName
 class WebserviceDemo1Activity : AppCompatActivity() {
@@ -11,7 +12,7 @@ class WebserviceDemo1Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         button.setOnClickListener {
-            Thread(Runnable {
+            thread {
                 try {
                     val weather = getWeather(city.text.toString())
                     val bitmapWeather = getImage(weather)
@@ -28,7 +29,7 @@ class WebserviceDemo1Activity : AppCompatActivity() {
                 } catch (e: Exception) {
                     Log.e(TAG, "getWeather()", e)
                 }
-            }).start()
+            }
         }
         city.setOnEditorActionListener { _, _, _ ->
             button.performClick()
