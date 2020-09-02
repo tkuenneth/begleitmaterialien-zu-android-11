@@ -16,21 +16,19 @@ class ConnectivityManagerDemoActivity : AppCompatActivity() {
             val properties = mgr.getLinkProperties(it)
             textview.append("${properties?.interfaceName}\n")
             val capabilities = mgr.getNetworkCapabilities(it)
-            val notRoaming =
-                capabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING)
-                    ?: true
-            textview.append("Roaming ist ${if (notRoaming) "aus" else "ein"}\n")
+            val notRoaming = capabilities?.hasCapability(
+                NetworkCapabilities.NET_CAPABILITY_NOT_ROAMING) ?: true
+            textview.append("Roaming ist ${if (notRoaming) "aus"
+            else "ein"}\n")
             // ab API-Level 29 vorhanden
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                textview.append("Signalstärke: ${capabilities?.signalStrength}\n")
+                textview.append("Signalstärke: ${
+                    capabilities?.signalStrength}\n")
             }
-            val foreground =
-                capabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_FOREGROUND)
-                    ?: false
-            textview.append("Nutzbar durch Apps: $foreground\n")
-            if (textview.text.isNotEmpty()) {
-                textview.append("\n")
-            }
+            val foreground = capabilities?.hasCapability(
+                NetworkCapabilities.NET_CAPABILITY_FOREGROUND)
+                ?: false
+            textview.append("Nutzbar durch Apps: $foreground\n\n")
         }
     }
 }
