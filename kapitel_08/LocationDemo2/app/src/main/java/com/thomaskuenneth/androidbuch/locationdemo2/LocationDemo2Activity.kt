@@ -104,9 +104,9 @@ class LocationDemo2Activity : AppCompatActivity(), OnMapReadyCallback {
         val options = MarkerOptions()
         val m = getSystemService(LocationManager::class.java)
         // Hier könnte eine SecurityException geworfen werden
-        val loc: Location? = m.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER)
-        if (loc != null) {
-            val pos = LatLng(loc.latitude, loc.longitude)
+        val loc = m.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER)
+        loc?.run {
+            val pos = LatLng(latitude, longitude)
             options.position(pos)
             options.icon(
                 BitmapDescriptorFactory.defaultMarker(
