@@ -1,22 +1,20 @@
 package com.thomaskuenneth.androidbuch.blescannerdemo
 
-import android.Manifest
+import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothGattCallback
 import android.bluetooth.BluetoothManager
 import android.bluetooth.le.ScanCallback
 import android.bluetooth.le.ScanResult
-import android.content.pm.PackageManager
+import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.Bundle
 import android.util.Log
-import android.widget.ArrayAdapter
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 private val TAG = BLEScannerDemoActivity::class.simpleName
-
 class BLEScannerDemoActivity : AppCompatActivity() {
 
     private val requestAccessFineLocation = 321
@@ -24,10 +22,11 @@ class BLEScannerDemoActivity : AppCompatActivity() {
     private val scanCallback = object : ScanCallback() {
         override fun onScanFailed(errorCode: Int) {
             Toast.makeText(this@BLEScannerDemoActivity,
-                    getString(R.string.error, errorCode), Toast.LENGTH_LONG).show()
+                getString(R.string.error, errorCode), Toast.LENGTH_LONG).show()
         }
 
-        override fun onScanResult(callbackType: Int, result: ScanResult?) {
+        override fun onScanResult(callbackType: Int,
+                                  result: ScanResult?) {
             updateData(result)
         }
 
@@ -39,7 +38,8 @@ class BLEScannerDemoActivity : AppCompatActivity() {
     }
 
     private val gattCallback = object : BluetoothGattCallback() {
-        override fun onServicesDiscovered(gatt: BluetoothGatt, status: Int) {
+        override fun onServicesDiscovered(gatt: BluetoothGatt,
+                                          status: Int) {
             if (status == BluetoothGatt.GATT_SUCCESS) {
                 logGattServices(gatt)
             } else {
@@ -56,14 +56,13 @@ class BLEScannerDemoActivity : AppCompatActivity() {
 
     private lateinit var listAdapter: ArrayAdapter<String>
     private lateinit var scanResults: HashMap<String?, ScanResult?>
-
     private var adapter: BluetoothAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         listAdapter = ArrayAdapter(this,
-                android.R.layout.simple_list_item_1)
+            android.R.layout.simple_list_item_1)
         scanResults = HashMap()
         lv.adapter = listAdapter
         lv.setOnItemClickListener { _, _, pos, _ ->
@@ -79,11 +78,10 @@ class BLEScannerDemoActivity : AppCompatActivity() {
         listAdapter.clear()
         scanResults.clear()
         tv.text = ""
-        if (checkSelfPermission(
-                        Manifest.permission.ACCESS_FINE_LOCATION) !=
-                PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                    requestAccessFineLocation)
+        if (checkSelfPermission(ACCESS_FINE_LOCATION) !=
+            PERMISSION_GRANTED) {
+            requestPermissions(arrayOf(ACCESS_FINE_LOCATION),
+                requestAccessFineLocation)
         } else {
             startOrFinish()
         }
@@ -100,8 +98,8 @@ class BLEScannerDemoActivity : AppCompatActivity() {
                                             permissions: Array<String?>,
                                             grantResults: IntArray) {
         if (requestCode == requestAccessFineLocation &&
-                grantResults.isNotEmpty() &&
-                grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            grantResults.isNotEmpty() &&
+            grantResults[0] == PERMISSION_GRANTED) {
             startOrFinish()
         } else {
             finish()
@@ -125,7 +123,7 @@ class BLEScannerDemoActivity : AppCompatActivity() {
         }
         if (!enabled) {
             Toast.makeText(this, R.string.enable_bluetooth, Toast.LENGTH_LONG)
-                    .show()
+                .show()
         }
         return enabled
     }
@@ -153,7 +151,7 @@ class BLEScannerDemoActivity : AppCompatActivity() {
         tv.text = result?.toString()
         val device = result?.device
         val gatt = device?.connectGatt(this,
-                true, gattCallback)
+            true, gattCallback)
         val started = gatt?.discoverServices()
         Log.d(TAG, "discoverServices(): $started")
     }
