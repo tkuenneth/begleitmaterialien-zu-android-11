@@ -21,15 +21,9 @@ class ServerSocketThread(
         name = TAG!!
         try {
             serverSocket = adapter.listenUsingRfcommWithServiceRecord(
-                serviceName,
-                uuid
-            )
+                serviceName, uuid)
         } catch (e: IOException) {
-            Log.e(
-                TAG,
-                "listenUsingRfcommWithServiceRecord() failed",
-                e
-            )
+            Log.e(TAG, "listenUsingRfcommWithServiceRecord() failed", e)
         }
     }
 
