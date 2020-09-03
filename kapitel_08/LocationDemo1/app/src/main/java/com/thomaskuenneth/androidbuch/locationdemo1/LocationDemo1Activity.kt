@@ -28,11 +28,9 @@ class LocationDemo1Activity : AppCompatActivity() {
             tv.append("onProviderDisabled()\n")
         }
 
-        override fun onLocationChanged(loc: Location?) {
+        override fun onLocationChanged(loc: Location) {
             tv.append("\nonLocationChanged()\n")
-            if (loc != null) {
-                tv.append("Breite: ${loc.latitude}\nLänge: ${loc.longitude}\n")
-            }
+            tv.append("Breite: ${loc.latitude}\nLänge: ${loc.longitude}\n")
         }
     }
 
