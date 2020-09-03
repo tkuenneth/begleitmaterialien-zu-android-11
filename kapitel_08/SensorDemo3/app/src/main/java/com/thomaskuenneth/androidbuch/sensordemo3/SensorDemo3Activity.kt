@@ -7,8 +7,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import android.os.Build
-import android.os.Bundle
+import android.os.*
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.no_permission.*
@@ -30,9 +29,7 @@ private fun getSharedPreferences(context: Context?) = context?.getSharedPreferen
 
 class SensorDemo3Activity : AppCompatActivity(), SensorEventListener {
     private val requestActivityRecognition = 123
-
     private lateinit var manager: SensorManager
-
     private var sensor: Sensor? = null
     private var hasSensor = false
     private var last = 0
@@ -43,7 +40,8 @@ class SensorDemo3Activity : AppCompatActivity(), SensorEventListener {
         sensor = manager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
         hasSensor = sensor != null
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q &&
-            checkSelfPermission(Manifest.permission.ACTIVITY_RECOGNITION) != PackageManager.PERMISSION_GRANTED
+            checkSelfPermission(Manifest.permission.ACTIVITY_RECOGNITION)
+            != PackageManager.PERMISSION_GRANTED
         ) {
             setContentView(R.layout.no_permission)
             button_permission.setOnClickListener {
@@ -62,7 +60,8 @@ class SensorDemo3Activity : AppCompatActivity(), SensorEventListener {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        super.onRequestPermissionsResult(requestCode, permissions,
+            grantResults)
         if (requestCode == requestActivityRecognition &&
             grantResults.isNotEmpty() &&
             grantResults[0] == PackageManager.PERMISSION_GRANTED
