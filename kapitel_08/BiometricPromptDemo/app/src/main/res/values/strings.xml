@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">BiometricPromptDemo</string>
+    <string name="descr">Beschreibung</string>
+    <string name="title">Titel</string>
+    <string name="subtitle">Untertitel</string>
+    <string name="button">Hier klicken</string>
+    <string name="ok">OK</string>
+    <string name="error">Fehler</string>
+    <string name="failed">Nicht erfolgreich</string>
+    <string name="clicked">Button wurde angeklickt</string>
+</resources>
