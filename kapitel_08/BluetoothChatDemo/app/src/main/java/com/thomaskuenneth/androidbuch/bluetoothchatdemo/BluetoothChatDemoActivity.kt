@@ -7,12 +7,10 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import java.io.InputStream
-import java.io.OutputStream
+import java.io.*
 import java.util.*
 
 private val TAG = BluetoothChatDemoActivity::class.simpleName
@@ -83,7 +81,8 @@ class BluetoothChatDemoActivity : AppCompatActivity() {
     private fun isBluetoothEnabled(): Boolean {
         val enabled = adapter?.isEnabled ?: false
         if (!enabled) {
-            Toast.makeText(this, R.string.enable_bluetooth, Toast.LENGTH_LONG).show()
+            Toast.makeText(this, R.string.enable_bluetooth,
+                Toast.LENGTH_LONG).show()
         }
         return enabled
     }
@@ -91,9 +90,11 @@ class BluetoothChatDemoActivity : AppCompatActivity() {
     private fun connect() {
         val myName = adapter?.name
         val otherName = if (device1 == myName) device2 else device1
-        for (device in adapter?.bondedDevices ?: emptyList<BluetoothDevice>()) {
+        for (device in adapter?.bondedDevices ?:
+        emptyList<BluetoothDevice>()) {
             if (otherName == device.name) {
-                val serverSocketThread = ServerSocketThread(adapter, TAG, myUuid)
+                val serverSocketThread = ServerSocketThread(adapter,
+                    TAG, myUuid)
                 serverThread = createAndStartThread(serverSocketThread)
                 val clientSocketThread = ClientSocketThread(device, myUuid)
                 clientThread = createAndStartThread(clientSocketThread)
@@ -112,11 +113,8 @@ class BluetoothChatDemoActivity : AppCompatActivity() {
                     Log.d(TAG, "joining " + t.name)
                     t.join()
                     t.getSocket()?.run {
-                        Log.d(
-                            TAG, String.format(
-                                "connection type %d for %s",
-                                connectionType, t.name
-                            )
+                        Log.d(TAG, String.format("connection type %d for %s",
+                            connectionType, t.name)
                         )
                         input.setOnEditorActionListener { _: TextView?, _: Int,
                                                           _: KeyEvent? ->
