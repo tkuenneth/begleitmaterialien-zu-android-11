@@ -1,11 +1,11 @@
 package com.thomaskuenneth.androidbuch.bluetoothscannerdemo
 
-import android.Manifest
+import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.content.*
-import android.content.pm.PackageManager
+import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -18,7 +18,7 @@ class BluetoothScannerDemoActivity : AppCompatActivity() {
     private val requestEnableBluetooth = 123
     private val requestFineLocation = 321
     private val adapter = BluetoothAdapter.getDefaultAdapter()
-    private val receiver: BroadcastReceiver = object : BroadcastReceiver() {
+    private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent) {
             if (BluetoothDevice.ACTION_FOUND == intent.action) {
                 val device = intent.getParcelableExtra<BluetoothDevice>(
@@ -50,10 +50,9 @@ class BluetoothScannerDemoActivity : AppCompatActivity() {
         if (getBluetoothState() == BluetoothState.NotAvailable) {
             tv.text = getString(R.string.not_available)
         } else {
-            if (checkSelfPermission(
-                    Manifest.permission.ACCESS_FINE_LOCATION) !=
-                PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+            if (checkSelfPermission(ACCESS_FINE_LOCATION) !=
+                PERMISSION_GRANTED) {
+                requestPermissions(arrayOf(ACCESS_FINE_LOCATION),
                     requestFineLocation)
             } else {
                 showDevices()
@@ -74,7 +73,7 @@ class BluetoothScannerDemoActivity : AppCompatActivity() {
                                             grantResults: IntArray) {
         if (requestCode == requestFineLocation &&
             grantResults.isNotEmpty() &&
-            grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            grantResults[0] == PERMISSION_GRANTED) {
             showDevices()
         }
     }
@@ -99,7 +98,8 @@ class BluetoothScannerDemoActivity : AppCompatActivity() {
             BluetoothState.NotAvailable
         }
         if (state == BluetoothState.Disabled) {
-            val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+            val enableBtIntent =
+                Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
             startActivityForResult(enableBtIntent, requestEnableBluetooth)
         }
         return state
