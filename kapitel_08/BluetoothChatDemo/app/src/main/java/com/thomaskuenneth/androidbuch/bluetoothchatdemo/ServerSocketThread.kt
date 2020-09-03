@@ -8,7 +8,6 @@ import java.io.IOException
 import java.util.*
 
 private val TAG = ServerSocketThread::class.simpleName
-
 class ServerSocketThread(
     adapter: BluetoothAdapter,
     serviceName: String?,
