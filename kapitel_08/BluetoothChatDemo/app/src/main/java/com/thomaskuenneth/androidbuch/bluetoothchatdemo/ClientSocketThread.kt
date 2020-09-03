@@ -7,7 +7,6 @@ import java.io.IOException
 import java.util.*
 
 private val TAG = ClientSocketThread::class.simpleName
-
 class ClientSocketThread(device: BluetoothDevice, uuid: UUID) :
     SocketThread() {
 
