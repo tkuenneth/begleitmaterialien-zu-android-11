@@ -3,6 +3,8 @@ package com.thomaskuenneth.androidbuch.biometricprompt
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricManager.BIOMETRIC_SUCCESS
 import androidx.biometric.BiometricPrompt
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -12,6 +14,8 @@ class BiometricPromptDemoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         button.setOnClickListener { showDialog() }
+        val biometricManager = BiometricManager.from(this)
+        button.isEnabled = biometricManager.canAuthenticate() == BIOMETRIC_SUCCESS
     }
 
     private fun toast(resid: Int) = Toast.makeText(this, resid, Toast.LENGTH_LONG).show()
