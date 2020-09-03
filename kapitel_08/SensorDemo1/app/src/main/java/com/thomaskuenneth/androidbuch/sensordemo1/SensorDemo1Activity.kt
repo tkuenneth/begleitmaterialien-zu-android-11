@@ -69,7 +69,7 @@ class SensorDemo1Activity : AppCompatActivity() {
                 it.vendor, it.version, it.isDynamicSensor.toString()))
         }
         // Helligkeitssensor ermitteln
-        manager.getDefaultSensor(Sensor.TYPE_LIGHT)?.let { sensor ->
+        manager.getDefaultSensor(Sensor.TYPE_LIGHT)?.also { sensor ->
             manager.registerListener(listener, sensor,
                 SensorManager.SENSOR_DELAY_NORMAL)
             listenerWasRegistered = true
