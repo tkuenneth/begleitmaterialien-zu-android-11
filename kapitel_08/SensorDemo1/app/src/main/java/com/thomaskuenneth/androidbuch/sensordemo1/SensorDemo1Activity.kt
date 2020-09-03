@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 private val TAG = SensorDemo1Activity::class.simpleName
-
 class SensorDemo1Activity : AppCompatActivity() {
     private lateinit var manager: SensorManager
     private val map = HashMap<String, Boolean>()
@@ -25,9 +24,8 @@ class SensorDemo1Activity : AppCompatActivity() {
             if (event.values.isNotEmpty()) {
                 val light = event.values[0]
                 var text = light.toString()
-                if (SensorManager.LIGHT_SUNLIGHT <= light
-                        && light <=
-                        SensorManager.LIGHT_SUNLIGHT_MAX) {
+                if (SensorManager.LIGHT_SUNLIGHT <= light &&
+                    light <= SensorManager.LIGHT_SUNLIGHT_MAX) {
                     text = getString(R.string.sunny)
                 }
                 // jeden Wert nur einmal ausgeben
@@ -43,12 +41,12 @@ class SensorDemo1Activity : AppCompatActivity() {
     private val callback = object : DynamicSensorCallback() {
         override fun onDynamicSensorConnected(sensor: Sensor) {
             textview.append(getString(R.string.connected,
-                    sensor.name))
+                sensor.name))
         }
 
         override fun onDynamicSensorDisconnected(sensor: Sensor) {
             textview.append(getString(R.string.disconnected,
-                    sensor.name))
+                sensor.name))
         }
     }
 
@@ -67,25 +65,19 @@ class SensorDemo1Activity : AppCompatActivity() {
         manager = getSystemService(SensorManager::class.java)
         // Liste der vorhandenen Sensoren ausgeben
         manager.getSensorList(Sensor.TYPE_ALL).forEach {
-            textview.append(getString(R.string.template,
-                    it.name,
-                    it.vendor,
-                    it.version,
-                    it.isDynamicSensor.toString()))
+            textview.append(getString(R.string.template, it.name,
+                it.vendor, it.version, it.isDynamicSensor.toString()))
         }
         // Helligkeitssensor ermitteln
-        val sensor = manager.getDefaultSensor(Sensor.TYPE_LIGHT)
-        if (sensor != null) {
+        manager.getDefaultSensor(Sensor.TYPE_LIGHT)?.let { sensor ->
             manager.registerListener(listener, sensor,
-                    SensorManager.SENSOR_DELAY_NORMAL)
+                SensorManager.SENSOR_DELAY_NORMAL)
             listenerWasRegistered = true
-        } else {
-            textview.append(getString(R.string.no_seonsor))
-        }
+        } ?: textview.append(getString(R.string.no_seonsor))
         // Callback für dynamische Sensoren
         if (manager.isDynamicSensorDiscoverySupported) {
             manager.registerDynamicSensorCallback(callback,
-                    Handler())
+                Handler(Looper.getMainLooper()))
             callbackWasRegistered = true
         }
     }
