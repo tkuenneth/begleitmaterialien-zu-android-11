@@ -23,10 +23,8 @@ class SensorDemo2Activity : AppCompatActivity() {
         }
     }
     private var shouldCallWaitForTriggerInOnResume = false
-
-    private lateinit var manager: SensorManager
-
     private var sensor: Sensor? = null
+    private lateinit var manager: SensorManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,16 +35,16 @@ class SensorDemo2Activity : AppCompatActivity() {
         }
         manager = getSystemService(SensorManager::class.java)
         sensor = manager.getDefaultSensor(Sensor.TYPE_SIGNIFICANT_MOTION)
-        if (sensor == null) {
+        sensor?.also {
+            shouldCallWaitForTriggerInOnResume = true
+            savedInstanceState?.run {
+                shouldCallWaitForTriggerInOnResume = getBoolean(key1)
+                textview.text = getString(key2)
+            }
+        } ?: run {
             shouldCallWaitForTriggerInOnResume = false
             button.visibility = View.GONE
             textview.setText(R.string.no_sensors)
-        } else {
-            shouldCallWaitForTriggerInOnResume = true
-            if (savedInstanceState != null) {
-                shouldCallWaitForTriggerInOnResume = savedInstanceState.getBoolean(key1)
-                textview.text = savedInstanceState.getString(key2)
-            }
         }
     }
 
@@ -58,7 +56,7 @@ class SensorDemo2Activity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (sensor != null) {
+        sensor?.let {
             if (shouldCallWaitForTriggerInOnResume) {
                 waitForTrigger()
             }
@@ -67,7 +65,7 @@ class SensorDemo2Activity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        if (sensor != null) {
+        sensor?.let {
             manager.cancelTriggerSensor(listener, sensor)
         }
     }
