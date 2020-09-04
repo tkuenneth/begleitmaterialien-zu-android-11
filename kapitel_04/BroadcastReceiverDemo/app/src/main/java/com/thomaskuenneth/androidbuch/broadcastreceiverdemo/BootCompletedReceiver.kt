@@ -2,25 +2,22 @@ package com.thomaskuenneth.androidbuch.broadcastreceiverdemo
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
+import android.content.*
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import java.text.DateFormat
 import java.util.*
 
+private val ID = 42
+private val CHANNEL_ID = "BCR_01"
 class BootCompletedReceiver : BroadcastReceiver() {
-
-    private val id = 42
-    private val channelId = "BCR_01"
 
     override fun onReceive(context: Context?, intent: Intent?) {
         if (intent == null || context == null) return
         if (Intent.ACTION_BOOT_COMPLETED == intent.action) {
             // Benachrichtigung zusammenbauen
             val msg = DateFormat.getDateTimeInstance().format(Date())
-            val builder = NotificationCompat.Builder(context, channelId)
+            val builder = NotificationCompat.Builder(context, CHANNEL_ID)
             builder.setSmallIcon(
                 R.mipmap.ic_launcher
             ).setContentTitle(
@@ -30,13 +27,13 @@ class BootCompletedReceiver : BroadcastReceiver() {
             val manager = NotificationManagerCompat.from(context)
             // Kanal anlegen
             val channel = NotificationChannel(
-                channelId,
+                CHANNEL_ID,
                 context.getString(R.string.app_name),
                 NotificationManager.IMPORTANCE_DEFAULT
             )
             manager.createNotificationChannel(channel)
             // anzeigen
-            manager.notify(id, notification)
+            manager.notify(ID, notification)
         }
     }
 }
