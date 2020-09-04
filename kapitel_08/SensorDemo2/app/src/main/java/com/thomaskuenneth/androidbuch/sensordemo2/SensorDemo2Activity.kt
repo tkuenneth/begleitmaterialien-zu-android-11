@@ -11,9 +11,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.text.DateFormat
 import java.util.*
 
+private const val KEY1 = "shouldCallWaitForTriggerInOnResume"
+private const val KEY2 = "tv"
 class SensorDemo2Activity : AppCompatActivity() {
-    private val key1 = "shouldCallWaitForTriggerInOnResume"
-    private val key2 = "tv"
     private val dateFormat = DateFormat.getTimeInstance()
     private val listener = object : TriggerEventListener() {
         override fun onTrigger(event: TriggerEvent) {
@@ -38,8 +38,8 @@ class SensorDemo2Activity : AppCompatActivity() {
         sensor?.also {
             shouldCallWaitForTriggerInOnResume = true
             savedInstanceState?.run {
-                shouldCallWaitForTriggerInOnResume = getBoolean(key1)
-                textview.text = getString(key2)
+                shouldCallWaitForTriggerInOnResume = getBoolean(KEY1)
+                textview.text = getString(KEY2)
             }
         } ?: run {
             shouldCallWaitForTriggerInOnResume = false
@@ -50,8 +50,8 @@ class SensorDemo2Activity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putBoolean(key1, shouldCallWaitForTriggerInOnResume)
-        outState.putString(key2, textview.text.toString())
+        outState.putBoolean(KEY1, shouldCallWaitForTriggerInOnResume)
+        outState.putString(KEY2, textview.text.toString())
     }
 
     override fun onResume() {
