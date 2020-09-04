@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricManager.BIOMETRIC_SUCCESS
 import androidx.biometric.BiometricPrompt
+import androidx.biometric.BiometricPrompt.AuthenticationCallback
+import androidx.biometric.BiometricPrompt.AuthenticationResult
+import androidx.biometric.BiometricPrompt.PromptInfo
 import kotlinx.android.synthetic.main.activity_main.*
 
 class BiometricPromptDemoActivity : AppCompatActivity() {
@@ -15,13 +18,15 @@ class BiometricPromptDemoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         button.setOnClickListener { showDialog() }
         val biometricManager = BiometricManager.from(this)
-        button.isEnabled = biometricManager.canAuthenticate() == BIOMETRIC_SUCCESS
+        button.isEnabled =
+                biometricManager.canAuthenticate() == BIOMETRIC_SUCCESS
     }
 
-    private fun toast(resid: Int) = Toast.makeText(this, resid, Toast.LENGTH_LONG).show()
+    private fun toast(resid: Int) = Toast.makeText(this, resid,
+            Toast.LENGTH_LONG).show()
 
     private fun showDialog() {
-        val info = BiometricPrompt.PromptInfo.Builder()
+        val info = PromptInfo.Builder()
                 .setDescription(getString(R.string.descr))
                 .setTitle(getString(R.string.title))
                 .setConfirmationRequired(true)
@@ -29,12 +34,14 @@ class BiometricPromptDemoActivity : AppCompatActivity() {
                 .setNegativeButtonText(getString(R.string.cancel))
                 .build()
         BiometricPrompt(this, mainExecutor,
-                object : BiometricPrompt.AuthenticationCallback() {
-                    override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                object : AuthenticationCallback() {
+                    override fun onAuthenticationError(errorCode: Int,
+                                                       errString: CharSequence) {
                         toast(R.string.error)
                     }
 
-                    override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                    override fun onAuthenticationSucceeded(
+                            result: AuthenticationResult) {
                         toast(R.string.ok)
                     }
 
