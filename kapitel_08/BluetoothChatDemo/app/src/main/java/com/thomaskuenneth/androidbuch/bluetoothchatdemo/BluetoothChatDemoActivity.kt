@@ -14,14 +14,14 @@ import java.io.*
 import java.util.*
 import kotlin.concurrent.thread
 
+private const val DEVICE1 = "..."
+private const val DEVICE2 = "..."
 private const val REQUEST_FINE_LOCATION = 321
+private val MY_UUID = UUID.fromString(
+    "dc4f9aa6-ce43-4709-bd2e-7845a3e705f1")
 private val TAG = BluetoothChatDemoActivity::class.simpleName
 class BluetoothChatDemoActivity : AppCompatActivity() {
     private val adapter = BluetoothAdapter.getDefaultAdapter()
-    private val device1 = "..."
-    private val device2 = "..."
-    private val myUuid: UUID =
-        UUID.fromString("dc4f9aa6-ce43-4709-bd2e-7845a3e705f1")
 
     private var serverThread: Thread? = null
     private var clientThread: Thread? = null
@@ -87,14 +87,14 @@ class BluetoothChatDemoActivity : AppCompatActivity() {
 
     private fun connect() {
         val myName = adapter?.name
-        val otherName = if (device1 == myName) device2 else device1
+        val otherName = if (DEVICE1 == myName) DEVICE2 else DEVICE1
         for (device in adapter?.bondedDevices ?:
         emptyList<BluetoothDevice>()) {
             if (otherName == device.name) {
                 val serverSocketThread = ServerSocketThread(adapter,
-                    TAG, myUuid)
+                    TAG, MY_UUID)
                 serverThread = createAndStartThread(serverSocketThread)
-                val clientSocketThread = ClientSocketThread(device, myUuid)
+                val clientSocketThread = ClientSocketThread(device, MY_UUID)
                 clientThread = createAndStartThread(clientSocketThread)
                 input.isEnabled = true
                 break
