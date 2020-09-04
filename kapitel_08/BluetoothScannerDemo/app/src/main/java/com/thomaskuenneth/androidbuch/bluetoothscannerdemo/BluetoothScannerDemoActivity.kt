@@ -10,13 +10,14 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
+private const val REQUEST_ENABLE_BLUETOOTH = 123
+private const val REQUEST_FINE_LOCATION = 321
+
 private enum class BluetoothState {
     NotAvailable, Disabled, Enabled
 }
 
 class BluetoothScannerDemoActivity : AppCompatActivity() {
-    private val requestEnableBluetooth = 123
-    private val requestFineLocation = 321
     private val adapter = BluetoothAdapter.getDefaultAdapter()
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent) {
@@ -53,7 +54,7 @@ class BluetoothScannerDemoActivity : AppCompatActivity() {
             if (checkSelfPermission(ACCESS_FINE_LOCATION) !=
                 PERMISSION_GRANTED) {
                 requestPermissions(arrayOf(ACCESS_FINE_LOCATION),
-                    requestFineLocation)
+                    REQUEST_FINE_LOCATION)
             } else {
                 showDevices()
             }
@@ -71,7 +72,7 @@ class BluetoothScannerDemoActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(requestCode: Int,
                                             permissions: Array<String?>,
                                             grantResults: IntArray) {
-        if (requestCode == requestFineLocation &&
+        if (requestCode == REQUEST_FINE_LOCATION &&
             grantResults.isNotEmpty() &&
             grantResults[0] == PERMISSION_GRANTED) {
             showDevices()
@@ -82,7 +83,7 @@ class BluetoothScannerDemoActivity : AppCompatActivity() {
                                   data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK &&
-            requestCode == requestEnableBluetooth) {
+            requestCode == REQUEST_ENABLE_BLUETOOTH) {
             showDevices()
         }
     }
@@ -100,7 +101,8 @@ class BluetoothScannerDemoActivity : AppCompatActivity() {
         if (state == BluetoothState.Disabled) {
             val enableBtIntent =
                 Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-            startActivityForResult(enableBtIntent, requestEnableBluetooth)
+            startActivityForResult(enableBtIntent,
+                REQUEST_ENABLE_BLUETOOTH)
         }
         return state
     }
