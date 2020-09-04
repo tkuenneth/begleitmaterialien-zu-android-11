@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.*
 import java.util.*
+import kotlin.concurrent.thread
 
 private const val REQUEST_FINE_LOCATION = 321
 private val TAG = BluetoothChatDemoActivity::class.simpleName
@@ -102,41 +103,36 @@ class BluetoothChatDemoActivity : AppCompatActivity() {
         }
     }
 
-    private fun createAndStartThread(t: SocketThread): Thread {
-        val workerThread = object : Thread() {
-            var keepRunning = true
-            override fun run() {
-                try {
-                    t.start()
-                    Log.d(TAG, "joining " + t.name)
-                    t.join()
-                    t.getSocket()?.run {
-                        Log.d(TAG, String.format("connection type %d for %s",
-                            connectionType, t.name)
-                        )
-                        input.setOnEditorActionListener { _: TextView?, _: Int,
-                                                          _: KeyEvent? ->
-                            send(outputStream, input.text.toString())
-                            runOnUiThread { input.setText("") }
-                            true
-                        }
-                        while (keepRunning) {
-                            receive(inputStream)?.let {
-                                runOnUiThread { output?.append(it) }
-                            }
-                        }
+    private fun createAndStartThread(t: SocketThread): Thread
+            = thread {
+        var keepRunning = true
+        try {
+            t.start()
+            Log.d(TAG, "joining " + t.name)
+            t.join()
+            t.getSocket()?.run {
+                Log.d(TAG, String.format("connection type %d for %s",
+                    connectionType, t.name)
+                )
+                input.setOnEditorActionListener { _: TextView?, _: Int,
+                                                  _: KeyEvent? ->
+                    send(outputStream, input.text.toString())
+                    runOnUiThread { input.setText("") }
+                    true
+                }
+                while (keepRunning) {
+                    receive(inputStream)?.let {
+                        runOnUiThread { output?.append(it) }
                     }
-                } catch (t: Throwable) { // InterruptedException, IOException
-                    Log.e(TAG, t.message, t)
-                    keepRunning = false
-                } finally {
-                    Log.d(TAG, "calling cancel() of " + t.name)
-                    t.cancel()
                 }
             }
+        } catch (t: Throwable) { // InterruptedException, IOException
+            Log.e(TAG, t.message, t)
+            keepRunning = false
+        } finally {
+            Log.d(TAG, "calling cancel() of " + t.name)
+            t.cancel()
         }
-        workerThread.start()
-        return workerThread
     }
 
     private fun send(stream: OutputStream, text: String) {
