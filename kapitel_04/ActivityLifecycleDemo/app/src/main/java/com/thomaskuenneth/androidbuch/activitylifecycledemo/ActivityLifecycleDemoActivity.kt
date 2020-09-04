@@ -8,9 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 private val TAG = ActivityLifecycleDemoActivity::class.simpleName
-
 private var zaehler = 1
-
 class ActivityLifecycleDemoActivity : AppCompatActivity() {
 
     private var lokalerZaehler = zaehler++
@@ -24,7 +22,7 @@ class ActivityLifecycleDemoActivity : AppCompatActivity() {
         val buttonNew: Button = findViewById(R.id.id_new)
         buttonNew.setOnClickListener {
             val i = Intent(this,
-                    ActivityLifecycleDemoActivity::class.java)
+                ActivityLifecycleDemoActivity::class.java)
             startActivity(i)
         }
         val buttonFinish: Button = findViewById(R.id.id_finish)
