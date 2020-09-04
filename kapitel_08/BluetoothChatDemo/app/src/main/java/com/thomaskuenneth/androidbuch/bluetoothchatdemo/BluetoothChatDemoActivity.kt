@@ -18,7 +18,6 @@ private const val REQUEST_FINE_LOCATION = 321
 private val TAG = BluetoothChatDemoActivity::class.simpleName
 class BluetoothChatDemoActivity : AppCompatActivity() {
     private val adapter = BluetoothAdapter.getDefaultAdapter()
-
     private val device1 = "..."
     private val device2 = "..."
     private val myUuid: UUID =
