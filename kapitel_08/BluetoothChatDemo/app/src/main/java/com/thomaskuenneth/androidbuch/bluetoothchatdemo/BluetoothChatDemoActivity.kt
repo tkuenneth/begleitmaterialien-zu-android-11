@@ -126,8 +126,8 @@ class BluetoothChatDemoActivity : AppCompatActivity() {
                     }
                 }
             }
-        } catch (t: Throwable) { // InterruptedException, IOException
-            Log.e(TAG, t.message, t)
+        } catch (thr: Throwable) { // InterruptedException, IOException
+            Log.e(TAG, thr.message, thr)
             keepRunning = false
         } finally {
             Log.d(TAG, "calling cancel() of " + t.name)
