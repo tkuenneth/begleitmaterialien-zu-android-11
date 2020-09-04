@@ -9,10 +9,9 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
+private const val REQUEST_READ_PHONE_NUMBER = 123
 private val TAG = PermissionDemoActivity::class.simpleName
 class PermissionDemoActivity : AppCompatActivity() {
-
-    private val requestReadPhoneNumbers = 123
 
     private lateinit var tv: TextView
     private lateinit var bt: Button
@@ -47,7 +46,7 @@ class PermissionDemoActivity : AppCompatActivity() {
                                             grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions,
             grantResults)
-        if (requestCode == requestReadPhoneNumbers) {
+        if (requestCode == REQUEST_READ_PHONE_NUMBER) {
             bt.visibility = View.GONE
             if (grantResults.isNotEmpty() && grantResults[0]
                 == PackageManager.PERMISSION_GRANTED) {
@@ -61,7 +60,7 @@ class PermissionDemoActivity : AppCompatActivity() {
     private fun requestPermission() {
         requestPermissions(arrayOf(
             Manifest.permission.READ_PHONE_NUMBERS),
-            requestReadPhoneNumbers)
+            REQUEST_READ_PHONE_NUMBER)
     }
 
     private fun outputLine1Number() {
