@@ -6,9 +6,9 @@ import android.view.*
 import android.widget.*
 import androidx.fragment.app.*
 
+private const val STR_LAST_SELECTED = "lastSelected"
 class AuswahlFragment : ListFragment() {
 
-    private val strLastSelected = "lastSelected"
     private var twoColumnMode = false
     private var lastSelected = 0
 
@@ -24,7 +24,7 @@ class AuswahlFragment : ListFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (savedInstanceState != null) {
-            lastSelected = savedInstanceState.getInt(strLastSelected, 0)
+            lastSelected = savedInstanceState.getInt(STR_LAST_SELECTED, 0)
         }
     }
 
@@ -35,7 +35,7 @@ class AuswahlFragment : ListFragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt(strLastSelected, lastSelected)
+        outState.putInt(STR_LAST_SELECTED, lastSelected)
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
