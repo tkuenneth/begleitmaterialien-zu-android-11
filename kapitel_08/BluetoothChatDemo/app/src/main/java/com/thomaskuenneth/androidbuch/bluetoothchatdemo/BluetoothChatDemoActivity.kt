@@ -13,10 +13,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.io.*
 import java.util.*
 
+private const val REQUEST_FINE_LOCATION = 321
 private val TAG = BluetoothChatDemoActivity::class.simpleName
 class BluetoothChatDemoActivity : AppCompatActivity() {
-
-    private val requestAccessFineLocation = 321
     private val adapter = BluetoothAdapter.getDefaultAdapter()
 
     private val device1 = "..."
@@ -42,7 +41,7 @@ class BluetoothChatDemoActivity : AppCompatActivity() {
         ) {
             requestPermissions(
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                requestAccessFineLocation
+                REQUEST_FINE_LOCATION
             )
         } else {
             startOrFinish()
@@ -62,7 +61,7 @@ class BluetoothChatDemoActivity : AppCompatActivity() {
         permissions: Array<String?>,
         grantResults: IntArray
     ) {
-        if (requestCode == requestAccessFineLocation &&
+        if (requestCode == REQUEST_FINE_LOCATION &&
             grantResults.isNotEmpty() &&
             grantResults[0] == PackageManager.PERMISSION_GRANTED
         ) {
