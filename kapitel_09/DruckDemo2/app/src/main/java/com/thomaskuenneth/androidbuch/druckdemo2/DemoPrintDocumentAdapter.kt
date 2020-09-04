@@ -93,7 +93,8 @@ class DemoPrintDocumentAdapter(private val context: Context) : PrintDocumentAdap
         disposePdf()
     }
 
-    private fun computePageCount(printAttributes: PrintAttributes): Int {
+    private fun computePageCount(
+        printAttributes: PrintAttributes): Int {
         val size = printAttributes.mediaSize
         return if (size == null || !size.isPortrait) 2 else 1
     }
