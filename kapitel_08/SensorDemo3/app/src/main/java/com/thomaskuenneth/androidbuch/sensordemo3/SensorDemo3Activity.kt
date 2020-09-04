@@ -12,13 +12,14 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.no_permission.*
 
-private const val preferencesKey = "last"
+private const val PREFERENCES_KEY = "last"
+private const val REQUEST_ACTIVITY_RECOGNITION = 123
 fun updateSharedPrefs(
     context: Context?,
     last: Int
 ) {
     val edit = getSharedPreferences(context)?.edit()
-    edit?.putInt(preferencesKey, last)
+    edit?.putInt(PREFERENCES_KEY, last)
     edit?.apply()
 }
 
@@ -28,7 +29,6 @@ private fun getSharedPreferences(context: Context?) = context?.getSharedPreferen
 )
 
 class SensorDemo3Activity : AppCompatActivity(), SensorEventListener {
-    private val requestActivityRecognition = 123
     private lateinit var manager: SensorManager
     private var sensor: Sensor? = null
     private var hasSensor = false
@@ -47,7 +47,7 @@ class SensorDemo3Activity : AppCompatActivity(), SensorEventListener {
             button_permission.setOnClickListener {
                 requestPermissions(
                     arrayOf(Manifest.permission.ACTIVITY_RECOGNITION),
-                    requestActivityRecognition
+                    REQUEST_ACTIVITY_RECOGNITION
                 )
             }
         } else {
@@ -62,7 +62,7 @@ class SensorDemo3Activity : AppCompatActivity(), SensorEventListener {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions,
             grantResults)
-        if (requestCode == requestActivityRecognition &&
+        if (requestCode == REQUEST_ACTIVITY_RECOGNITION &&
             grantResults.isNotEmpty() &&
             grantResults[0] == PackageManager.PERMISSION_GRANTED
         ) {
@@ -84,7 +84,7 @@ class SensorDemo3Activity : AppCompatActivity(), SensorEventListener {
     }
 
     private fun getLastStoredStepCount() = getSharedPreferences(this)
-        ?.getInt(preferencesKey, 0) ?: 0
+        ?.getInt(PREFERENCES_KEY, 0) ?: 0
 
     private fun showStepCounterUi() {
         setContentView(R.layout.activity_main)
