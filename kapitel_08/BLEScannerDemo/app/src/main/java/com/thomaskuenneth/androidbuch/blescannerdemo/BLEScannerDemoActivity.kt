@@ -14,10 +14,9 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
+private const val REQUEST_FINE_LOCATION = 321
 private val TAG = BLEScannerDemoActivity::class.simpleName
 class BLEScannerDemoActivity : AppCompatActivity() {
-
-    private val requestAccessFineLocation = 321
 
     private val scanCallback = object : ScanCallback() {
         override fun onScanFailed(errorCode: Int) {
@@ -55,7 +54,7 @@ class BLEScannerDemoActivity : AppCompatActivity() {
     }
 
     private lateinit var listAdapter: ArrayAdapter<String>
-    private lateinit var scanResults: HashMap<String?, ScanResult?>
+    private val scanResults = HashMap<String?, ScanResult?>()
     private var adapter: BluetoothAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,7 +62,6 @@ class BLEScannerDemoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         listAdapter = ArrayAdapter(this,
             android.R.layout.simple_list_item_1)
-        scanResults = HashMap()
         lv.adapter = listAdapter
         lv.setOnItemClickListener { _, _, pos, _ ->
             val address = listAdapter.getItem(pos)
@@ -81,7 +79,7 @@ class BLEScannerDemoActivity : AppCompatActivity() {
         if (checkSelfPermission(ACCESS_FINE_LOCATION) !=
             PERMISSION_GRANTED) {
             requestPermissions(arrayOf(ACCESS_FINE_LOCATION),
-                requestAccessFineLocation)
+                REQUEST_FINE_LOCATION)
         } else {
             startOrFinish()
         }
@@ -97,7 +95,7 @@ class BLEScannerDemoActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(requestCode: Int,
                                             permissions: Array<String?>,
                                             grantResults: IntArray) {
-        if (requestCode == requestAccessFineLocation &&
+        if (requestCode == REQUEST_FINE_LOCATION &&
             grantResults.isNotEmpty() &&
             grantResults[0] == PERMISSION_GRANTED) {
             startOrFinish()
