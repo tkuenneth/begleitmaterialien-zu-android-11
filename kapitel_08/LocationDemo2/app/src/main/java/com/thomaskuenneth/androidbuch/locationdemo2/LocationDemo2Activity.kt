@@ -15,12 +15,10 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
-
+private const val REQUEST_FINE_LOCATION = 123
 class LocationDemo2Activity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
-
-    private val requestFineLocation = 123
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +34,7 @@ class LocationDemo2Activity : AppCompatActivity(), OnMapReadyCallback {
         permissions: Array<String?>,
         grantResults: IntArray
     ) {
-        if (requestCode == requestFineLocation &&
+        if (requestCode == REQUEST_FINE_LOCATION &&
             grantResults.isNotEmpty() && grantResults[0] ==
             PackageManager.PERMISSION_GRANTED
         ) {
@@ -68,7 +66,7 @@ class LocationDemo2Activity : AppCompatActivity(), OnMapReadyCallback {
         ) {
             requestPermissions(
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                requestFineLocation
+                REQUEST_FINE_LOCATION
             )
         } else {
             markerDemo()
