@@ -10,8 +10,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
+private const val REQUEST_FINE_LOCATION = 123
 class LocationDemo1Activity : AppCompatActivity() {
-    private val requestFineLocation = 123
     private val listener = object : LocationListener {
         override fun onStatusChanged(
             provider: String, status: Int,
@@ -46,7 +46,7 @@ class LocationDemo1Activity : AppCompatActivity() {
         ) {
             requestPermissions(
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                requestFineLocation
+                REQUEST_FINE_LOCATION
             )
         } else {
             doIt()
@@ -58,7 +58,7 @@ class LocationDemo1Activity : AppCompatActivity() {
         permissions: Array<String>,
         grantResults: IntArray
     ) {
-        if (requestCode == requestFineLocation &&
+        if (requestCode == REQUEST_FINE_LOCATION &&
             grantResults.isNotEmpty() && grantResults[0] ==
             PackageManager.PERMISSION_GRANTED
         ) {
