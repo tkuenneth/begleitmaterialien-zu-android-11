@@ -48,7 +48,7 @@ class FileDemo1Activity : AppCompatActivity() {
     private fun save(s: String) {
         try {
             openFileOutput(filename,
-                    Context.MODE_PRIVATE).use { fos ->
+                Context.MODE_PRIVATE).use { fos ->
                 OutputStreamWriter(fos).use { osw ->
                     osw.write(s)
                 }
