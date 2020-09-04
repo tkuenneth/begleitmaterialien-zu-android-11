@@ -36,7 +36,8 @@ class FileDemo2Activity : AppCompatActivity() {
             // Länge in Bytes ermitteln
             tv.append("Länge von $name in Byte: ${f.length()}\n")
             // Datei löschen
-            tv.append("Löschen ${if (!f.delete()) "nicht " else ""}erfolgreich\n")
+            tv.append("Löschen ${if (!f.delete())
+                "nicht " else ""}erfolgreich\n")
         }
     }
 }
