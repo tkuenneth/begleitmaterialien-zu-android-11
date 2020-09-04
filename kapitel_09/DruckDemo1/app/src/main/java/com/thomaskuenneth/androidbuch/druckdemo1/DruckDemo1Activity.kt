@@ -26,7 +26,8 @@ class DruckDemo1Activity : AppCompatActivity() {
                 // PrintManager-Instanz ermitteln
                 getSystemService(PrintManager::class.java)?.let {
                     // Der Adapter stellt den Dokumentinhalt bereit
-                    val adapter = webView.createPrintDocumentAdapter("Dokumentname")
+                    val adapter =
+                        webView.createPrintDocumentAdapter("Dokumentname")
                     // Druckauftrag erstellen und übergeben
                     val jobName = getString(R.string.app_name) + " Dokument"
                     val attributes = PrintAttributes.Builder().build()
@@ -36,13 +37,13 @@ class DruckDemo1Activity : AppCompatActivity() {
             }
         }
         val htmlDocument = """
-            <html><body>
-            <h1>Hallo Android</h1>
-            <p><img src="ic_launcher.png" />
-            <br />Ein Test</p>
-            </body></html>
-        """.trimIndent()
+      <html><body>
+      <h1>Hallo Android</h1>
+      <p><img src="ic_launcher.png" />
+      <br />Ein Test</p>
+      </body></html>
+    """.trimIndent()
         webView.loadDataWithBaseURL("file:///android_asset/",
-                htmlDocument, "text/html", "UTF-8", null)
+            htmlDocument, "text/html", "UTF-8", null)
     }
 }
