@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import java.lang.NullPointerException
 
 val TAG = MainActivity::class.simpleName
-
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
