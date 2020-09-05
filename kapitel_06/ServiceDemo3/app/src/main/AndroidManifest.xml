@@ -5,6 +5,7 @@
         android:name="com.thomaskuenneth.androidbuch.servicedemo3_service.USE" />
     <uses-permission
         android:name="com.thomaskuenneth.androidbuch.servicedemo3_service.USE" />
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
