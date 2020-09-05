@@ -12,7 +12,7 @@ import java.util.*
 
 private const val ACTION =
     "com.thomaskuenneth.androidbuch.appshortcutdemo.AppShortcut"
-
+private const val ID = "dynamic1"
 class AppShortcutActivity : AppCompatActivity() {
 
     private lateinit var textview: TextView
@@ -26,21 +26,21 @@ class AppShortcutActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         var message = getString(R.string.app_name)
-        if (intent != null && ACTION == intent.action) {
+        if (ACTION == intent?.action) {
             val uri = intent.data
             message = uri?.toString() ?: getString(R.string.txt_static)
         }
         // dynamischer Shortcut
-        val intent = Intent(this, AppShortcutActivity::class.java)
-        intent.action = ACTION
-        intent.data = Uri.parse("https://www.rheinwerk-verlag.de/")
+        val shortcutIntent = Intent(this, AppShortcutActivity::class.java)
+        shortcutIntent.action = ACTION
+        shortcutIntent.data = Uri.parse("https://www.rheinwerk-verlag.de/")
         getSystemService(ShortcutManager::class.java)?.let {
             val shortcut = ShortcutInfo.Builder(this,
-                "dynamic1")
+                ID)
                 .setShortLabel(getString(R.string.dynamic_shortcut))
                 .setIcon(Icon.createWithResource(this,
                     R.drawable.ic_cloud))
-                .setIntent(intent)
+                .setIntent(shortcutIntent)
                 .build()
             it.dynamicShortcuts = Collections.singletonList(shortcut)
         }
