@@ -5,13 +5,13 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 
 private val TAG = ThreadDemo1Activity::class.simpleName
-
 class ThreadDemo1Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val r = Runnable { Log.d(TAG, "run()-Methode wurde aufgerufen") }
+        val r = Runnable { Log.d(TAG,
+            "run()-Methode wurde aufgerufen") }
         val t = Thread(r)
         t.start()
         Log.d(TAG, "Thread wurde gestartet")
