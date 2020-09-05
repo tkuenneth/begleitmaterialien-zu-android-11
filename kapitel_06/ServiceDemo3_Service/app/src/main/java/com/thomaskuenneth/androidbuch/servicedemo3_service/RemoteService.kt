@@ -10,11 +10,11 @@ const val MSG_FACTORIAL_OUT = 2
 private val TAG = RemoteService::class.simpleName
 class RemoteService : Service() {
 
-    private lateinit var mMessenger: Messenger
+    private lateinit var messenger: Messenger
 
     override fun onBind(intent: Intent?): IBinder? {
-        mMessenger = Messenger(IncomingHandler())
-        return mMessenger.binder
+        messenger = Messenger(IncomingHandler())
+        return messenger.binder
     }
 
     private class IncomingHandler : Handler(Looper.getMainLooper()) {
