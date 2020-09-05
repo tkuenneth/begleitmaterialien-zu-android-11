@@ -14,10 +14,10 @@ import androidx.loader.app.LoaderManager
 import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
 
+private const val REQUEST_READ_CONTACTS = 123
 class MiniContactsFragment : ListFragment(),
     LoaderManager.LoaderCallbacks<Cursor> {
 
-    private val requestPermissionReadContacts = 123
     private val projection = arrayOf(
         ContactsContract.Data._ID,
         ContactsContract.Data.LOOKUP_KEY,
@@ -40,7 +40,7 @@ class MiniContactsFragment : ListFragment(),
         grantResults: IntArray
     ) {
         when (requestCode) {
-            requestPermissionReadContacts -> {
+            REQUEST_READ_CONTACTS -> {
                 if (grantResults.isNotEmpty()
                     && grantResults[0] ==
                     PackageManager.PERMISSION_GRANTED
@@ -95,7 +95,7 @@ class MiniContactsFragment : ListFragment(),
         ) {
             requestPermissions(
                 arrayOf(Manifest.permission.READ_CONTACTS),
-                requestPermissionReadContacts
+                REQUEST_READ_CONTACTS
             )
         } else {
             load()
