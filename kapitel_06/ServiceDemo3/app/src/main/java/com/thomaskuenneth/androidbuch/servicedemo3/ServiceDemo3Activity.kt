@@ -38,13 +38,13 @@ class ServiceDemo3Activity : AppCompatActivity() {
         val button = findViewById<Button>(R.id.button)
         val messenger = Messenger(IncomingHandler(this, textview))
         button.setOnClickListener {
-            if (service != null) {
+            service?.let {
                 try {
                     val n = edittext.text.toString().toInt()
                     val msg = Message.obtain(null,
                         MSG_FACTORIAL_IN, n, 0)
                     msg.replyTo = messenger
-                    service?.send(msg)
+                    it.send(msg)
                 } catch (e: NumberFormatException) {
                     textview.setText(R.string.info)
                 } catch (e: RemoteException) {
@@ -74,7 +74,7 @@ class ServiceDemo3Activity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        if (service != null) {
+        service?.let {
             unbindService(connection)
             service = null
         }
