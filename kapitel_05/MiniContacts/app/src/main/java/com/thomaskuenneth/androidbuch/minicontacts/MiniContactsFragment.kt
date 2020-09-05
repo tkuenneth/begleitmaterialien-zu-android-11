@@ -58,7 +58,7 @@ class MiniContactsFragment : ListFragment(),
         args: Bundle?
     ): Loader<Cursor> {
         return CursorLoader(
-            context!!,
+            requireContext(),
             ContactsContract.Contacts.CONTENT_URI,
             projection, selection, null, null
         )
