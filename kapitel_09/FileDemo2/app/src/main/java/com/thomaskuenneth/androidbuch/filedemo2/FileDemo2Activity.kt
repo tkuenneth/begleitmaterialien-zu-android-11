@@ -18,10 +18,7 @@ class FileDemo2Activity : AppCompatActivity() {
             try {
                 openFileOutput(name, Context.MODE_PRIVATE).use { fos ->
                     // ein Feld der Länge i mit dem Wert i füllen
-                    val bytes = ByteArray(i)
-                    for (j in bytes.indices) {
-                        bytes[j] = i.toByte()
-                    }
+                    val bytes = ByteArray(i) { i.toByte() }
                     fos.write(bytes)
                 }
             } catch (t: IOException) {
