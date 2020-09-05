@@ -6,9 +6,8 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 
+private const val REQUEST_SETTINGS = 1234
 class PreferencesDemoActivity : AppCompatActivity() {
-
-    private val requestSettings = 1234
 
     private lateinit var textview: TextView
 
@@ -20,7 +19,7 @@ class PreferencesDemoActivity : AppCompatActivity() {
                 this,
                 SettingsActivity::class.java
             )
-            startActivityForResult(intent, requestSettings)
+            startActivityForResult(intent, REQUEST_SETTINGS)
         }
         textview = findViewById(R.id.textview)
         updateTextView()
@@ -31,7 +30,7 @@ class PreferencesDemoActivity : AppCompatActivity() {
         resultCode: Int, data: Intent?
     ) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestSettings == requestCode) {
+        if (REQUEST_SETTINGS == requestCode) {
             updateTextView()
         }
     }
