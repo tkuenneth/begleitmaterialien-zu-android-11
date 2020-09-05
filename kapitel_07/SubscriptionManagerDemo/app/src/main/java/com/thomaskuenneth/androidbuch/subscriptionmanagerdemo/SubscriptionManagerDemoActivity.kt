@@ -12,10 +12,10 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
+private const val REQUEST_READ_PHONE_STATE = 123
 private val TAG = SubscriptionManagerDemoActivity::class.simpleName
 class SubscriptionManagerDemoActivity : AppCompatActivity() {
 
-    private val requestReadPhoneState = 123
     private lateinit var manager: SubscriptionManager
     private val listener = object : OnSubscriptionsChangedListener() {
         override fun onSubscriptionsChanged() {
@@ -41,7 +41,7 @@ class SubscriptionManagerDemoActivity : AppCompatActivity() {
         permissions: Array<String>,
         grantResults: IntArray
     ) {
-        if (requestCode == requestReadPhoneState &&
+        if (requestCode == REQUEST_READ_PHONE_STATE &&
             grantResults.isNotEmpty() && grantResults[0] ==
             PackageManager.PERMISSION_GRANTED
         ) {
@@ -58,7 +58,7 @@ class SubscriptionManagerDemoActivity : AppCompatActivity() {
         } else {
             requestPermissions(
                 arrayOf(Manifest.permission.READ_PHONE_STATE),
-                requestReadPhoneState
+                REQUEST_READ_PHONE_STATE
             )
         }
     }
