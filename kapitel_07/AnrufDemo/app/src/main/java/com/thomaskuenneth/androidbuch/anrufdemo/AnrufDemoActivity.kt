@@ -9,8 +9,8 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
+private const val REQUEST_CALL_PHONE = 123
 class AnrufDemoActivity : AppCompatActivity() {
-    private val requestCallPhone = 123
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +31,7 @@ class AnrufDemoActivity : AppCompatActivity() {
             if (checkSelfPermission(Manifest.permission.CALL_PHONE) !=
                 PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(arrayOf(Manifest.permission.CALL_PHONE),
-                    requestCallPhone)
+                    REQUEST_CALL_PHONE)
                 false
             }
             else
@@ -57,7 +57,7 @@ class AnrufDemoActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(requestCode: Int,
                                             permissions: Array<String>,
                                             grantResults: IntArray) {
-        if (requestCode == requestCallPhone &&
+        if (requestCode == REQUEST_CALL_PHONE &&
             (grantResults.isNotEmpty() &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
             sofort.isEnabled = true
