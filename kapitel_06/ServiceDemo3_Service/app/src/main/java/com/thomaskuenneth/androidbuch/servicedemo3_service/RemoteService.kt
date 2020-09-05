@@ -5,11 +5,9 @@ import android.content.Intent
 import android.os.*
 import android.util.Log
 
-private val TAG = RemoteService::class.simpleName
-
 const val MsgFakultaetIn = 1
 const val MsgFakultaetOut = 2
-
+private val TAG = RemoteService::class.simpleName
 class RemoteService : Service() {
 
     private lateinit var mMessenger: Messenger
