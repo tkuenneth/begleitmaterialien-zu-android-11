@@ -11,22 +11,23 @@ import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 
 private val TAG = FileDemo1Activity::class.simpleName
+private val FILENAME = "$TAG.txt"
 class FileDemo1Activity : AppCompatActivity() {
-    private val filename = "$TAG.txt"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         clear.setOnClickListener { edit.setText("") }
         load.setOnClickListener { load() }
         save.setOnClickListener { save(edit.text.toString()) }
-        Log.d(TAG, "getFilesDir(): " + filesDir.absolutePath)
+        Log.d(TAG, "filesDir: ${filesDir.absolutePath}")
         load()
     }
 
     private fun load() {
         val sb = StringBuilder()
         try {
-            openFileInput(filename).use { fis ->
+            openFileInput(FILENAME).use { fis ->
                 InputStreamReader(fis).use { isr ->
                     BufferedReader(isr).use { br ->
                         while (true) {
@@ -47,7 +48,7 @@ class FileDemo1Activity : AppCompatActivity() {
 
     private fun save(s: String) {
         try {
-            openFileOutput(filename,
+            openFileOutput(FILENAME,
                 Context.MODE_PRIVATE).use { fos ->
                 OutputStreamWriter(fos).use { osw ->
                     osw.write(s)
