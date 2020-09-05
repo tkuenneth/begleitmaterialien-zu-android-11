@@ -8,9 +8,9 @@ import android.telephony.TelephonyManager
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
+private const val REQUEST_PERMISSIONS = 123
 class TelephonyManagerDemoActivity : AppCompatActivity() {
 
-    private val requestPermissions = 123
     private lateinit var manager: TelephonyManager
 
     private val listener = object : PhoneStateListener() {
@@ -51,7 +51,7 @@ class TelephonyManagerDemoActivity : AppCompatActivity() {
                     Manifest.permission.READ_PHONE_STATE,
                     Manifest.permission.READ_CALL_LOG
                 ),
-                requestPermissions
+                REQUEST_PERMISSIONS
             )
         } else {
             listen()
@@ -63,7 +63,7 @@ class TelephonyManagerDemoActivity : AppCompatActivity() {
         permissions: Array<String>,
         grantResults: IntArray
     ) {
-        if (requestCode == requestPermissions &&
+        if (requestCode == REQUEST_PERMISSIONS &&
             grantResults.size == 2 && grantResults[0] ==
             PackageManager.PERMISSION_GRANTED && grantResults[1] ==
             PackageManager.PERMISSION_GRANTED
