@@ -5,8 +5,8 @@ import android.content.Intent
 import android.os.*
 import android.util.Log
 
-const val MsgFakultaetIn = 1
-const val MsgFakultaetOut = 2
+const val MSG_FACTORIAL_IN = 1
+const val MSG_FACTORIAL_OUT = 2
 private val TAG = RemoteService::class.simpleName
 class RemoteService : Service() {
 
@@ -17,17 +17,17 @@ class RemoteService : Service() {
         return mMessenger.binder
     }
 
-    private class IncomingHandler : Handler() {
+    private class IncomingHandler : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
             when (msg.what) {
-                MsgFakultaetIn -> {
+                MSG_FACTORIAL_IN -> {
                     val n = msg.arg1
                     Log.d(TAG, "Eingabe: $n")
                     val fak = fakultaet(n)
                     val m = msg.replyTo
                     val msg2 = Message.obtain(
                         null,
-                        MsgFakultaetOut, n, fak
+                        MSG_FACTORIAL_OUT, n, fak
                     )
                     try {
                         m.send(msg2)
