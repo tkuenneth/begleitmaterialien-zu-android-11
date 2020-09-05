@@ -19,13 +19,13 @@ class MiniContactsFragment : ListFragment(),
     LoaderManager.LoaderCallbacks<Cursor> {
 
     private val projection = arrayOf(
-        ContactsContract.Data._ID,
-        ContactsContract.Data.LOOKUP_KEY,
-        ContactsContract.Data.DISPLAY_NAME
+        ContactsContract.Contacts._ID,
+        ContactsContract.Contacts.LOOKUP_KEY,
+        ContactsContract.Contacts.DISPLAY_NAME
     )
     private val selection = "((" +
-            ContactsContract.Data.DISPLAY_NAME + " NOTNULL) AND (" +
-            ContactsContract.Data.DISPLAY_NAME + " != '' ))"
+            ContactsContract.Contacts.DISPLAY_NAME + " NOTNULL) AND (" +
+            ContactsContract.Contacts.DISPLAY_NAME + " != '' ))"
 
     private lateinit var adapter: SimpleCursorAdapter
 
@@ -59,7 +59,7 @@ class MiniContactsFragment : ListFragment(),
     ): Loader<Cursor> {
         return CursorLoader(
             context!!,
-            ContactsContract.Data.CONTENT_URI,
+            ContactsContract.Contacts.CONTENT_URI,
             projection, selection, null, null
         )
     }
@@ -105,7 +105,7 @@ class MiniContactsFragment : ListFragment(),
     private fun load() {
         // Welche Spalte wird in welcher View angezeigt?
         val fromColumns =
-            arrayOf(ContactsContract.Data.DISPLAY_NAME)
+            arrayOf(ContactsContract.Contacts.DISPLAY_NAME)
         val toViews = intArrayOf(android.R.id.text1)
         adapter = SimpleCursorAdapter(
             context,
