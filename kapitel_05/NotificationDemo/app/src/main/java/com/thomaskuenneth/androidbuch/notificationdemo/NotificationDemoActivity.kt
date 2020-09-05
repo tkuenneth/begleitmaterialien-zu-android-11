@@ -5,18 +5,16 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.RemoteInput
 
+private const val NOTIFICATION_ID = 42
+private const val CHANNEL_ID = "channel01"
+private const val RESULT_KEY = "resultKey"
 class NotificationDemoActivity : AppCompatActivity() {
-
-    private val notificationId = 42
-    private val channelId = "channel01"
-    private val resultKey = "resultKey"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,13 +24,11 @@ class NotificationDemoActivity : AppCompatActivity() {
             finish()
         }
         // Wurde ein Intent empfangen?
-        if (intent != null) {
+        intent?.let {
             // Dann verarbeiten
-            val text = getMessageText(intent)
-            if (text != null) {
-                val textview = findViewById<TextView>(R.id.textview)
-                textview.text = text
-                NotificationManagerCompat.from(this).cancel(notificationId)
+            getMessageText(it)?.let { text ->
+                findViewById<TextView>(R.id.textview).text = text
+                NotificationManagerCompat.from(this).cancel(NOTIFICATION_ID)
             }
         }
     }
@@ -42,7 +38,7 @@ class NotificationDemoActivity : AppCompatActivity() {
             Intent(this, NotificationDemoActivity::class.java),
             PendingIntent.FLAG_UPDATE_CURRENT
         )
-        val builder = NotificationCompat.Builder(this, channelId)
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle(getString(R.string.app_name))
             .setContentText(getString(R.string.notification_text))
             .setSmallIcon(R.mipmap.ic_launcher_round)
@@ -60,22 +56,21 @@ class NotificationDemoActivity : AppCompatActivity() {
             "Eine Aktion",
             pendingIntent)
         // Eingaben machen
-        val remoteInput = RemoteInput.Builder(resultKey)
+        val remoteInput = RemoteInput.Builder(RESULT_KEY)
             .setLabel(getString(R.string.reply))
             .setChoices(resources.getStringArray(R.array.choices))
             .build()
         actionBuilder.addRemoteInput(remoteInput)
         builder.addAction(actionBuilder.build())
-        // Kanal anlegen und Notification anzeigen
         val manager = NotificationManagerCompat.from(this)
-        val channel = NotificationChannel(channelId,
+        val channel = NotificationChannel(CHANNEL_ID,
             getString(R.string.channel_name),
             NotificationManager.IMPORTANCE_DEFAULT
         )
         manager.createNotificationChannel(channel)
-        manager.notify(notificationId, builder.build())
+        manager.notify(NOTIFICATION_ID, builder.build())
     }
 
     private fun getMessageText(intent: Intent): CharSequence? =
-        RemoteInput.getResultsFromIntent(intent)?.getCharSequence(resultKey)
+        RemoteInput.getResultsFromIntent(intent)?.getCharSequence(RESULT_KEY)
 }
