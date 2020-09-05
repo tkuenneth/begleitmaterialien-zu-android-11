@@ -55,7 +55,7 @@ class DemoPrintDocumentAdapter(private val context: Context) : PrintDocumentAdap
         cancellationSignal: CancellationSignal,
         callback: WriteResultCallback
     ) {
-        pdf?.let { it ->
+        pdf?.let { pdf ->
             // über alle Seiten des Dokuments iterieren
             for (i in 0 until numPages) {
                 // Abbruch?
@@ -64,16 +64,16 @@ class DemoPrintDocumentAdapter(private val context: Context) : PrintDocumentAdap
                     disposePdf()
                     return
                 }
-                val page = it.startPage(i)
+                val page = pdf.startPage(i)
                 drawPage(page)
-                it.finishPage(page)
+                pdf.finishPage(page)
             }
             // PDF-Dokument schreiben
             try {
                 FileOutputStream(
                     destination.fileDescriptor
                 ).let { stream ->
-                    it.writeTo(stream)
+                    pdf.writeTo(stream)
                 }
             } catch (e: IOException) {
                 callback.onWriteFailed(e.toString())
