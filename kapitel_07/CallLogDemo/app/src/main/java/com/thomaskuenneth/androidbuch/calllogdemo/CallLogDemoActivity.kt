@@ -15,10 +15,9 @@ import androidx.cursoradapter.widget.SimpleCursorAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.concurrent.thread
 
+private const val REQUEST_READ_CALL_LOG = 123
+private const val REQUEST_WRITE_CALL_LOG = 321
 class CallLogDemoActivity : AppCompatActivity() {
-
-    private val requestReadCallLog = 123
-    private val requestWriteCallLOg = 321
 
     private val handler = Handler(Looper.getMainLooper())
     private val contentObserver = object : ContentObserver(handler) {
@@ -76,8 +75,8 @@ class CallLogDemoActivity : AppCompatActivity() {
         if (grantResults.isNotEmpty() && grantResults[0] ==
                 PackageManager.PERMISSION_GRANTED) {
             when (requestCode) {
-                requestReadCallLog -> updateAdapter()
-                requestWriteCallLOg -> {
+                REQUEST_READ_CALL_LOG -> updateAdapter()
+                REQUEST_WRITE_CALL_LOG -> {
                 }
             }
         }
@@ -87,7 +86,7 @@ class CallLogDemoActivity : AppCompatActivity() {
         if (checkSelfPermission(Manifest.permission.READ_CALL_LOG)
             != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(arrayOf(Manifest.permission.READ_CALL_LOG),
-                requestReadCallLog)
+                REQUEST_READ_CALL_LOG)
         } else {
             if (!contentObserverWasRegistered) {
                 contentResolver.registerContentObserver(
@@ -104,7 +103,7 @@ class CallLogDemoActivity : AppCompatActivity() {
             != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(arrayOf(
                 Manifest.permission.WRITE_CALL_LOG),
-                requestWriteCallLOg)
+                REQUEST_WRITE_CALL_LOG)
         }
     }
 
