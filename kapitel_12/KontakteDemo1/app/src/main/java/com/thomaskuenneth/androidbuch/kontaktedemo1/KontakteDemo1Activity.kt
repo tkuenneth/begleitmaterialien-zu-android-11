@@ -27,7 +27,7 @@ class KontakteDemo1Activity : AppCompatActivity() {
     }
 
     override fun onRequestPermissionsResult(requestCode: Int,
-                                            permissions: Array<String?>,
+                                            permissions: Array<String>,
                                             grantResults: IntArray) {
         if (requestCode == REQUEST_READ_CONTACTS &&
                 grantResults.isNotEmpty() && grantResults[0] ==
@@ -41,9 +41,7 @@ class KontakteDemo1Activity : AppCompatActivity() {
         val mainQueryProjection = arrayOf(
                 ContactsContract.Contacts._ID,
                 ContactsContract.Contacts.DISPLAY_NAME)
-        val mainQuerySelection = """
-            ${ContactsContract.Contacts.IN_VISIBLE_GROUP} = ?            
-        """.trimIndent()
+        val mainQuerySelection = "${ContactsContract.Contacts.IN_VISIBLE_GROUP} = ?"
         val mainQuerySelectionArgs = arrayOf("1")
         contentResolver.query(
                 ContactsContract.Contacts.CONTENT_URI,
@@ -52,10 +50,9 @@ class KontakteDemo1Activity : AppCompatActivity() {
                 mainQuerySelectionArgs, null)?.run {
             // Trefferliste abarbeiten...
             while (moveToNext()) {
-                val contactId: String = getString(0)
-                val displayName: String = getString(1)
-                textview.append(("===> " + displayName
-                        + " (" + contactId + ")\n"))
+                val contactId = getString(0)
+                val displayName = getString(1)
+                textview.append("===> $displayName ($contactId)\n")
             }
             close()
         }
