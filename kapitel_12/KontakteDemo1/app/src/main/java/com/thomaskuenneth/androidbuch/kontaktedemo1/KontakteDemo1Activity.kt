@@ -77,20 +77,20 @@ class KontakteDemo1Activity : AppCompatActivity() {
                 val label = getString(2)
                 if (Event.TYPE_BIRTHDAY == type) {
                     val stringBirthday = getString(1)
-                    textview.append("  birthday: $stringBirthday\n")
+                    textview.append("_____birthday: $stringBirthday\n")
                 } else {
                     val stringAnniversary = getString(1)
                     textview.append(
-                            "  event: $stringAnniversary (type=$type, label=$label)")
+                            "_____event: $stringAnniversary (type=$type, label=$label)")
                     when {
                         Event.TYPE_ANNIVERSARY == type -> {
-                            textview.append("  TYPE_ANNIVERSARY\n")
+                            textview.append("_____TYPE_ANNIVERSARY\n")
                         }
                         Event.TYPE_CUSTOM == type -> {
-                            textview.append("  TYPE_CUSTOM\n")
+                            textview.append("_____TYPE_CUSTOM\n")
                         }
                         else -> {
-                            textview.append("  TYPE_OTHER\n")
+                            textview.append("_____TYPE_OTHER\n")
                         }
                     }
                 }
