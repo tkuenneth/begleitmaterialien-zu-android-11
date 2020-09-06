@@ -63,9 +63,12 @@ class KontakteDemo1Activity : AppCompatActivity() {
     }
 
     private fun infosAuslesen(contactId: String) {
-        val dataQueryProjection = arrayOf( Event.TYPE, Event.START_DATE, Event.LABEL)
-        val dataQuerySelection = "${Data.CONTACT_ID} = ? AND ${Data.MIMETYPE} = ?"
-        val dataQuerySelectionArgs = arrayOf(contactId, Event.CONTENT_ITEM_TYPE)
+        val dataQueryProjection = arrayOf( Event.TYPE, Event.START_DATE,
+                Event.LABEL)
+        val dataQuerySelection =
+                "${Data.CONTACT_ID} = ? AND ${Data.MIMETYPE} = ?"
+        val dataQuerySelectionArgs = arrayOf(contactId,
+                Event.CONTENT_ITEM_TYPE)
         contentResolver.query(Data.CONTENT_URI, dataQueryProjection,
                 dataQuerySelection, dataQuerySelectionArgs,
                 null)?.run {
@@ -74,19 +77,20 @@ class KontakteDemo1Activity : AppCompatActivity() {
                 val label = getString(2)
                 if (Event.TYPE_BIRTHDAY == type) {
                     val stringBirthday = getString(1)
-                    textview.append("   birthday: $stringBirthday\n")
+                    textview.append("  birthday: $stringBirthday\n")
                 } else {
                     val stringAnniversary = getString(1)
-                    textview.append("   event: $stringAnniversary (type=$type, label=$label)")
+                    textview.append(
+                            "  event: $stringAnniversary (type=$type, label=$label)")
                     when {
                         Event.TYPE_ANNIVERSARY == type -> {
-                            textview.append("   TYPE_ANNIVERSARY\n")
+                            textview.append("  TYPE_ANNIVERSARY\n")
                         }
                         Event.TYPE_CUSTOM == type -> {
-                            textview.append("   TYPE_CUSTOM\n")
+                            textview.append("  TYPE_CUSTOM\n")
                         }
                         else -> {
-                            textview.append("   TYPE_OTHER\n")
+                            textview.append("  TYPE_OTHER\n")
                         }
                     }
                 }
