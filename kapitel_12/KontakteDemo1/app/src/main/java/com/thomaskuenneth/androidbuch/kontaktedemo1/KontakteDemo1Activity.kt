@@ -1,7 +1,7 @@
 package com.thomaskuenneth.androidbuch.kontaktedemo1
 
-import android.Manifest
-import android.content.pm.PackageManager
+import android.Manifest.permission.*
+import android.content.pm.PackageManager.*
 import android.os.Bundle
 import android.provider.ContactsContract
 import androidx.appcompat.app.AppCompatActivity
@@ -17,9 +17,9 @@ class KontakteDemo1Activity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        if (checkSelfPermission(Manifest.permission.READ_CONTACTS)
-                != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS),
+        if (checkSelfPermission(READ_CONTACTS)
+                != PERMISSION_GRANTED) {
+            requestPermissions(arrayOf(READ_CONTACTS),
                     REQUEST_READ_CONTACTS)
         } else {
             listContacts()
@@ -31,7 +31,7 @@ class KontakteDemo1Activity : AppCompatActivity() {
                                             grantResults: IntArray) {
         if (requestCode == REQUEST_READ_CONTACTS &&
                 grantResults.isNotEmpty() && grantResults[0] ==
-                PackageManager.PERMISSION_GRANTED) {
+                PERMISSION_GRANTED) {
             listContacts()
         }
     }
@@ -41,7 +41,8 @@ class KontakteDemo1Activity : AppCompatActivity() {
         val mainQueryProjection = arrayOf(
                 ContactsContract.Contacts._ID,
                 ContactsContract.Contacts.DISPLAY_NAME)
-        val mainQuerySelection = "${ContactsContract.Contacts.IN_VISIBLE_GROUP} = ?"
+        val mainQuerySelection =
+                "${ContactsContract.Contacts.IN_VISIBLE_GROUP} = ?"
         val mainQuerySelectionArgs = arrayOf("1")
         contentResolver.query(
                 ContactsContract.Contacts.CONTENT_URI,
