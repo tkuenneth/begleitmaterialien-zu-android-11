@@ -8,7 +8,13 @@ import android.provider.ContactsContract.CommonDataKinds.*
 import android.provider.ContactsContract.Data
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+//import java.util.*
+//import java.util.regex.*
+//import java.text.*
+//import android.util.*
 
+//private val FORMAT_YYYYMMDD = SimpleDateFormat("yyyyMMdd", Locale.US)
+//private val TAG = KontakteDemo1Activity::class.simpleName
 private const val REQUEST_READ_CONTACTS = 123
 class KontakteDemo1Activity : AppCompatActivity() {
 
@@ -98,4 +104,19 @@ class KontakteDemo1Activity : AppCompatActivity() {
             close()
         }
     }
+
+//    fun getDateFromString1(string: String): Date {
+//        val p = Pattern.compile("(\\d\\d\\d\\d).*(\\d\\d).*(\\d\\d)",
+//                Pattern.DOTALL)
+//        val m = p.matcher(string.subSequence(0, string.length))
+//        if (m.matches()) {
+//            val date = "${m.group(1)}${m.group(2)}${m.group(3)}"
+//            try {
+//                return FORMAT_YYYYMMDD.parse(date) ?: Date()
+//            } catch (tr: Throwable) {
+//                Log.e(TAG, "getDateFromString1()", tr)
+//            }
+//        }
+//        return Date()
+//    }
 }
