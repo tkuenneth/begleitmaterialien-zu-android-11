@@ -51,7 +51,7 @@ class KontakteDemo2Activity : AppCompatActivity() {
         val mainQuerySelection = """
             ${Contacts.IN_VISIBLE_GROUP} = ? AND 
             ${Contacts.DISPLAY_NAME} IS ?
-        """.trimIndent()
+        """.cleanup()
         val mainQuerySelectionArgs = arrayOf("1", "Testperson")
         contentResolver.query(
             Contacts.CONTENT_URI,
@@ -81,7 +81,7 @@ class KontakteDemo2Activity : AppCompatActivity() {
             ${Data.CONTACT_ID} = ? AND
             ${Data.MIMETYPE} = ? AND
             ${CommonDataKinds.Event.TYPE} = ?
-        """.trimIndent()
+        """.cleanup()
         val dataQuerySelectionArgs = arrayOf(
             contactId,
             CommonDataKinds.Event.CONTENT_ITEM_TYPE,
@@ -111,7 +111,7 @@ class KontakteDemo2Activity : AppCompatActivity() {
                         ${CommonDataKinds.Event._ID} = ? AND
                         ${Data.MIMETYPE} = ? AND
                         ${CommonDataKinds.Event.TYPE} = ?
-                    """.trimIndent()
+                    """.cleanup()
                     val updateSelectionArgs = arrayOf(
                         dataId,
                         CommonDataKinds.Event.CONTENT_ITEM_TYPE,
@@ -171,7 +171,7 @@ class KontakteDemo2Activity : AppCompatActivity() {
                             ---> Hinzufügen des Geburtstags
                             für RawContacts-Id $rawContactId war
                             ${if ((uri == null)) " nicht erfolgreich" else " erfolgreich"}
-                        """.trimIndent()
+                        """.cleanup()
                         )
                     }
                     close()
@@ -184,4 +184,6 @@ class KontakteDemo2Activity : AppCompatActivity() {
     private fun output(s: String) {
         textview.append("$s\n")
     }
+    
+    private fun String.cleanup(): String = trimIndent().replace("\n", " ")
 }
