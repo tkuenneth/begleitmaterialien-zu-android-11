@@ -126,7 +126,8 @@ class KontakteDemo2Activity : AppCompatActivity() {
                         Data.CONTENT_URI, values,
                         updateWhere, updateSelectionArgs
                     )
-                    output("update() war ${if ((numRows == 0)) "nicht " else ""}erfolgreich")
+                    output("update() war ${
+                        if (numRows == 0) "nicht " else ""}erfolgreich")
                 } catch (e: ParseException) {
                     output(e.toString())
                 }
@@ -170,7 +171,7 @@ class KontakteDemo2Activity : AppCompatActivity() {
                             """
                             ---> Hinzufügen des Geburtstags
                             für RawContacts-Id $rawContactId war
-                            ${if ((uri == null)) " nicht erfolgreich" else " erfolgreich"}
+                            ${if (uri == null) "nicht" else ""} erfolgreich
                         """.cleanup()
                         )
                     }
