@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 private const val REQUEST_ACCOUNT = 123
+private val TAG = AccountDemoActivity::class.simpleName
 class AccountDemoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
