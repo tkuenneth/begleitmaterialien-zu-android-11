@@ -7,7 +7,8 @@ import android.net.Uri
 import android.text.TextUtils
 import java.util.*
 
-val AUTHORITY = DBDemo3Provider::class.qualifiedName?.toLowerCase(Locale.US)
+val AUTHORITY =
+    DBDemo3Provider::class.qualifiedName?.toLowerCase(Locale.US)
 val CONTENT_URI: Uri = Uri.parse("content://$AUTHORITY/$TABLE_MOOD_NAME")
 class DBDemo3Provider : ContentProvider() {
     private val mood = 1
@@ -64,7 +65,8 @@ class DBDemo3Provider : ContentProvider() {
             moodId -> dbHelper.writableDatabase.update(
                 TABLE_MOOD_NAME,
                 values, "$COLUMN_ID = ${uri.pathSegments[1]}"
-                        + if (!TextUtils.isEmpty(selection)) " AND ($selection)" else "",
+                        + if (!TextUtils.isEmpty(selection)) " AND ($selection)"
+                else "",
                 selectionArgs
             )
             else -> throw IllegalArgumentException("Unknown URI $uri")
@@ -73,7 +75,8 @@ class DBDemo3Provider : ContentProvider() {
         return count
     }
 
-    override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int {
+    override fun delete(uri: Uri, selection: String?,
+                        selectionArgs: Array<out String>?): Int {
         val count = when (uriMatcher.match(uri)) {
             mood -> dbHelper.writableDatabase.delete(
                 TABLE_MOOD_NAME,
@@ -83,7 +86,9 @@ class DBDemo3Provider : ContentProvider() {
                 dbHelper.writableDatabase.delete(
                     TABLE_MOOD_NAME,
                     "$COLUMN_ID = ${uri.pathSegments[1]}"
-                            + if (!TextUtils.isEmpty(selection)) " AND ($selection)" else "",
+                            + if (!TextUtils.isEmpty(selection))
+                        " AND ($selection)"
+                    else "",
                     selectionArgs
                 )
             }
