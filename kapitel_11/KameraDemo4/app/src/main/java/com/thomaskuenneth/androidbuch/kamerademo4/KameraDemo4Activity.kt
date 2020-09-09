@@ -76,7 +76,7 @@ class KameraDemo4Activity : AppCompatActivity() {
             val file = File(dir, "${System.currentTimeMillis()}.mp4")
             preview.startRecording(file, mainExecutor,
                 object : VideoCapture.OnVideoSavedCallback {
-                    override fun onVideoSaved(file: File) {
+                    override fun onVideoSaved(outputFileResults: VideoCapture.OutputFileResults) {
                         Toast.makeText(
                             this@KameraDemo4Activity,
                             file.absolutePath,
