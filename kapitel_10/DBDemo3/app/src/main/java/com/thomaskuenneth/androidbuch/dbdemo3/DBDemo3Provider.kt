@@ -10,16 +10,16 @@ import java.util.*
 val AUTHORITY =
     DBDemo3Provider::class.qualifiedName!!.toLowerCase(Locale.US)
 val CONTENT_URI: Uri = Uri.parse("content://$AUTHORITY/$TABLE_MOOD_NAME")
+private const val MOOD = 1
+private const val MOOD_ID = 2
 class DBDemo3Provider : ContentProvider() {
-    private val mood = 1
-    private val moodId = 2
     private val uriMatcher = UriMatcher(UriMatcher.NO_MATCH)
 
     init {
-        uriMatcher.addURI(AUTHORITY, TABLE_MOOD_NAME, mood)
+        uriMatcher.addURI(AUTHORITY, TABLE_MOOD_NAME, MOOD)
         uriMatcher.addURI(
             AUTHORITY, "$TABLE_MOOD_NAME/#",
-            moodId
+            MOOD_ID
         )
     }
 
@@ -36,7 +36,7 @@ class DBDemo3Provider : ContentProvider() {
     ): Cursor? {
         val builder = SQLiteQueryBuilder()
         builder.tables = TABLE_MOOD_NAME // Ein bestimmer Eintrag?
-        if (uriMatcher.match(uri) == moodId) {
+        if (uriMatcher.match(uri) == MOOD_ID) {
             builder.appendWhere("$COLUMN_ID = ${uri.pathSegments[1]}")
         }
         val cursor = builder.query(
@@ -58,11 +58,11 @@ class DBDemo3Provider : ContentProvider() {
         selectionArgs: Array<out String>?
     ): Int {
         val count = when (uriMatcher.match(uri)) {
-            mood -> dbHelper.writableDatabase.update(
+            MOOD -> dbHelper.writableDatabase.update(
                 TABLE_MOOD_NAME,
                 values, selection, selectionArgs
             )
-            moodId -> dbHelper.writableDatabase.update(
+            MOOD_ID -> dbHelper.writableDatabase.update(
                 TABLE_MOOD_NAME,
                 values, "$COLUMN_ID = ${uri.pathSegments[1]}"
                         + if (!TextUtils.isEmpty(selection)) " AND ($selection)"
@@ -78,11 +78,11 @@ class DBDemo3Provider : ContentProvider() {
     override fun delete(uri: Uri, selection: String?,
                         selectionArgs: Array<out String>?): Int {
         val count = when (uriMatcher.match(uri)) {
-            mood -> dbHelper.writableDatabase.delete(
+            MOOD -> dbHelper.writableDatabase.delete(
                 TABLE_MOOD_NAME,
                 selection, selectionArgs
             )
-            moodId -> {
+            MOOD_ID -> {
                 dbHelper.writableDatabase.delete(
                     TABLE_MOOD_NAME,
                     "$COLUMN_ID = ${uri.pathSegments[1]}"
@@ -117,9 +117,10 @@ class DBDemo3Provider : ContentProvider() {
 
     override fun getType(uri: Uri): String? {
         return when (uriMatcher.match(uri)) {
-            mood ->
+            MOOD ->
                 "vnd.android.cursor.dir/vnd.$AUTHORITY/$TABLE_MOOD_NAME"
-            moodId -> "vnd.android.cursor.item/vnd.$AUTHORITY/$TABLE_MOOD_NAME"
+            MOOD_ID ->
+                "vnd.android.cursor.item/vnd.$AUTHORITY/$TABLE_MOOD_NAME"
             else -> throw IllegalArgumentException(
                 "Unsupported URI: "
                         + uri
