@@ -8,7 +8,7 @@ import android.text.TextUtils
 import java.util.*
 
 val AUTHORITY =
-    DBDemo3Provider::class.qualifiedName?.toLowerCase(Locale.US)
+    DBDemo3Provider::class.qualifiedName!!.toLowerCase(Locale.US)
 val CONTENT_URI: Uri = Uri.parse("content://$AUTHORITY/$TABLE_MOOD_NAME")
 class DBDemo3Provider : ContentProvider() {
     private val mood = 1
