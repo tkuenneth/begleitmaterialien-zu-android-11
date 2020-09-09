@@ -14,16 +14,12 @@ class DBDemo1Activity : AppCompatActivity() {
         fine.setOnClickListener { imageButtonClicked(MOOD_FINE) }
         ok.setOnClickListener { imageButtonClicked(MOOD_OK) }
         bad.setOnClickListener { imageButtonClicked(MOOD_BAD) }
+        openHelper = DBDemo1OpenHelper(this)
     }
 
     override fun onPause() {
         super.onPause()
         openHelper.close()
-    }
-
-    override fun onResume() {
-        super. onResume()
-        openHelper = DBDemo1OpenHelper(this)
     }
 
     private fun imageButtonClicked(mood: Int) {
