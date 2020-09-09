@@ -21,16 +21,12 @@ class DBDemo2Activity : AppCompatActivity() {
                     Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
         }
+        openHelper = DBDemo2OpenHelper(this)
     }
 
     override fun onPause() {
         super.onPause()
         openHelper.close()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        openHelper = DBDemo2OpenHelper(this)
     }
 
     private fun imageButtonClicked(mood: Int) {
