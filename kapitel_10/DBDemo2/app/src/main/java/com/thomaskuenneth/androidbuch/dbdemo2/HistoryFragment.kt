@@ -6,7 +6,6 @@ import android.widget.*
 import androidx.fragment.app.ListFragment
 
 class HistoryFragment : ListFragment() {
-
     private val menuInflater: MenuInflater?
         get() = activity?.menuInflater
 
@@ -25,7 +24,8 @@ class HistoryFragment : ListFragment() {
         dbHelper.close()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View,
+                               savedInstanceState: Bundle?) {
         registerForContextMenu(listView)
         updateList()
     }
