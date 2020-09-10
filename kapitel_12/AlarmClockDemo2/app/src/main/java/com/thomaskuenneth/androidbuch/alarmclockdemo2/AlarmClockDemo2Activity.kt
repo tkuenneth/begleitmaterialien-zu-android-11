@@ -20,7 +20,7 @@ class AlarmClockDemo2Activity : AppCompatActivity() {
                 bundle.keySet()?.let { keys ->
                     keys.forEach {
                         textview.append("$it\n")
-                        textview.append("$bundle[it]\n\n")
+                        textview.append("${bundle[it]}\n\n")
                     }
                 }
             }
