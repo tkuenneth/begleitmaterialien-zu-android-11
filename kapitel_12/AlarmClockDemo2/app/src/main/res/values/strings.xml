@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">AlarmClockDemo2</string>
+    <string name="no_intent">Es wurde kein Intent übergeben</string>
+</resources>
