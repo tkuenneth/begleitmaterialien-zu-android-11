@@ -16,6 +16,7 @@ class KalenderDemo1Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
         button.setOnClickListener {
             // Beginn und Ende eines Termins
             val cal = Calendar.getInstance()
@@ -29,13 +30,14 @@ class KalenderDemo1Activity : AppCompatActivity() {
         }
     }
 
-    private fun createEntry(title: String, description: String, from: Date,
-                            to: Date, allDay: Boolean) {
+    private fun createEntry(title: String, description: String,
+                            from: Date, to: Date, allDay: Boolean) {
         val intent = Intent(Intent.ACTION_INSERT,
                 Events.CONTENT_URI)
         intent.putExtra(Events.TITLE, title)
         intent.putExtra(Events.DESCRIPTION, description)
-        intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, from.time)
+        intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
+                from.time)
         intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, to.time)
         intent.putExtra(Events.ALL_DAY, allDay)
         try {
