@@ -120,33 +120,32 @@ class RRActivity : AppCompatActivity() {
     }
 
     private fun updateButtonText() {
-        b.text = getString(if (mode != Waiting) R.string.finish else R.string.record)
+        b.text = getString(if (mode != Waiting) R.string.finish
+        else R.string.record)
     }
 
     private fun recordToFile(): File? {
-        recorder = MediaRecorder()
-        recorder?.let {
-            it.setAudioSource(MediaRecorder.AudioSource.MIC)
-            it.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
-            it.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
-            RRFile(
-                getBaseDir(this), System
-                    .currentTimeMillis().toString() + EXT_3GP
-            ).let { f ->
-                try {
-                    if (!f.createNewFile()) {
-                        Log.d(TAG, "Datei schon vorhanden")
-                    }
-                    it.setOutputFile(f.absolutePath)
-                    it.prepare()
-                    it.start()
-                    mode = Recording
-                    updateButtonText()
-                } catch (e: IOException) {
-                    Log.e(TAG, "Konnte Aufnahme nicht starten", e)
+        recorder = MediaRecorder() ?: return
+        recorder.setAudioSource(MediaRecorder.AudioSource.MIC)
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
+        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
+        RRFile(
+            getBaseDir(this), System
+                .currentTimeMillis().toString() + EXT_3GP
+        ).let { f ->
+            try {
+                if (!f.createNewFile()) {
+                    Log.d(TAG, "Datei schon vorhanden")
                 }
-                return f
+                recorder.setOutputFile(f.absolutePath)
+                recorder.prepare()
+                recorder.start()
+                mode = Recording
+                updateButtonText()
+            } catch (e: IOException) {
+                Log.e(TAG, "Konnte Aufnahme nicht starten", e)
             }
+            return f
         }
         return null
     }
@@ -158,22 +157,20 @@ class RRActivity : AppCompatActivity() {
     }
 
     private fun playAudioFile(filename: String) {
-        player = MediaPlayer()
-        player?.let {
-            it.setOnCompletionListener {
-                releasePlayer()
-                mode = Waiting
-                updateButtonText()
-            }
-            try {
-                it.setDataSource(filename)
-                it.prepare()
-                it.start()
-                mode = Playing
-                updateButtonText()
-            } catch (thr: Exception) {
-                Log.e(TAG, "konnte Audio nicht wiedergeben", thr)
-            }
+        player = MediaPlayer() ?: return
+        player.setOnCompletionListener {
+            releasePlayer()
+            mode = Waiting
+            updateButtonText()
+        }
+        try {
+            player.setDataSource(filename)
+            player.prepare()
+            player.start()
+            mode = Playing
+            updateButtonText()
+        } catch (thr: Exception) {
+            Log.e(TAG, "konnte Audio nicht wiedergeben", thr)
         }
     }
 
