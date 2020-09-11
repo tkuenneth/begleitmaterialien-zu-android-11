@@ -125,10 +125,10 @@ class RRActivity : AppCompatActivity() {
     }
 
     private fun recordToFile(): File? {
-        recorder = MediaRecorder() ?: return
-        recorder.setAudioSource(MediaRecorder.AudioSource.MIC)
-        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
-        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
+        recorder = MediaRecorder()
+        recorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
+        recorder?.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
+        recorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
         RRFile(
             getBaseDir(this), System
                 .currentTimeMillis().toString() + EXT_3GP
@@ -137,9 +137,9 @@ class RRActivity : AppCompatActivity() {
                 if (!f.createNewFile()) {
                     Log.d(TAG, "Datei schon vorhanden")
                 }
-                recorder.setOutputFile(f.absolutePath)
-                recorder.prepare()
-                recorder.start()
+                recorder?.setOutputFile(f.absolutePath)
+                recorder?.prepare()
+                recorder?.start()
                 mode = Recording
                 updateButtonText()
             } catch (e: IOException) {
@@ -147,7 +147,6 @@ class RRActivity : AppCompatActivity() {
             }
             return f
         }
-        return null
     }
 
     // Recorder-Ressourcen freigeben
@@ -157,16 +156,16 @@ class RRActivity : AppCompatActivity() {
     }
 
     private fun playAudioFile(filename: String) {
-        player = MediaPlayer() ?: return
-        player.setOnCompletionListener {
+        player = MediaPlayer()
+        player?.setOnCompletionListener {
             releasePlayer()
             mode = Waiting
             updateButtonText()
         }
         try {
-            player.setDataSource(filename)
-            player.prepare()
-            player.start()
+            player?.setDataSource(filename)
+            player?.prepare()
+            player?.start()
             mode = Playing
             updateButtonText()
         } catch (thr: Exception) {
