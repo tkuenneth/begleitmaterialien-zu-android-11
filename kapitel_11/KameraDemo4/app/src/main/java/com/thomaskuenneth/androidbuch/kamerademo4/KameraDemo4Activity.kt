@@ -10,8 +10,10 @@ import androidx.camera.core.VideoCapture.*
 import androidx.core.content.FileProvider
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
+import android.util.Log
 
 private const val REQUEST_PERMISSIONS = 123
+private val TAG = KameraDemo4Activity::class.simpleName
 class KameraDemo4Activity : AppCompatActivity() {
     private val requestCameraRecordAudio =
         arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO)
@@ -115,6 +117,7 @@ class KameraDemo4Activity : AppCompatActivity() {
                         message: String,
                         cause: Throwable?
                     ) {
+                        Log.e(TAG, message, cause)
                     }
                 })
         } else
