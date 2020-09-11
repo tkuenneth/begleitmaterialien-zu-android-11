@@ -30,9 +30,9 @@ private enum class Mode {
     Waiting, Recording, Playing
 }
 
+private const val REQUEST_RECORD_AUDIO = 123
 private val TAG = RRActivity::class.simpleName
 class RRActivity : AppCompatActivity() {
-    private val requestRecordAudio = 123
     private var mode = Waiting
     private var currentFile: File? = null
     private var player: MediaPlayer? = null
@@ -93,7 +93,7 @@ class RRActivity : AppCompatActivity() {
             b.isEnabled = false
             requestPermissions(
                 arrayOf(Manifest.permission.RECORD_AUDIO),
-                requestRecordAudio
+                REQUEST_RECORD_AUDIO
             )
         } else {
             b.isEnabled = true
@@ -105,7 +105,7 @@ class RRActivity : AppCompatActivity() {
         permissions: Array<String>,
         grantResults: IntArray
     ) {
-        if (requestCode == requestRecordAudio &&
+        if (requestCode == REQUEST_RECORD_AUDIO &&
             grantResults.isNotEmpty() && grantResults[0] ==
             PackageManager.PERMISSION_GRANTED
         ) {
