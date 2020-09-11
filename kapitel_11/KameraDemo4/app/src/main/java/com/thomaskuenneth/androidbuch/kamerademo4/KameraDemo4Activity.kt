@@ -6,13 +6,13 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.camera.core.VideoCapture
+import androidx.camera.core.VideoCapture.*
 import androidx.core.content.FileProvider
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 
+private const val REQUEST_PERMISSIONS = 123
 class KameraDemo4Activity : AppCompatActivity() {
-    private val requestPermissions = 123
     private val requestCameraRecordAudio =
         arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO)
     private var isRecording = false
@@ -27,15 +27,16 @@ class KameraDemo4Activity : AppCompatActivity() {
             preview.post { startCamera() }
         } else {
             requestPermissions(
-                requestCameraRecordAudio, requestPermissions
+                requestCameraRecordAudio, REQUEST_PERMISSIONS
             )
         }
     }
 
     override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<String>, grantResults: IntArray
+        requestCode: Int, permissions: Array<String>,
+        grantResults: IntArray
     ) {
-        if (requestCode == requestPermissions) {
+        if (requestCode == REQUEST_PERMISSIONS) {
             if (checkPermissions()) {
                 preview.post { startCamera() }
             } else {
@@ -75,8 +76,9 @@ class KameraDemo4Activity : AppCompatActivity() {
             dir.mkdirs()
             val file = File(dir, "${System.currentTimeMillis()}.mp4")
             preview.startRecording(file, mainExecutor,
-                object : VideoCapture.OnVideoSavedCallback {
-                    override fun onVideoSaved(outputFileResults: VideoCapture.OutputFileResults) {
+                object : OnVideoSavedCallback {
+                    override fun onVideoSaved(outputFileResults:
+                                              OutputFileResults) {
                         Toast.makeText(
                             this@KameraDemo4Activity,
                             file.absolutePath,
@@ -90,7 +92,8 @@ class KameraDemo4Activity : AppCompatActivity() {
                         val intent = Intent(Intent.ACTION_SEND)
                         intent.type = "video/*"
                         intent.putExtra(Intent.EXTRA_STREAM, uri)
-                        val chooser = Intent.createChooser(intent, getString(R.string.share))
+                        val chooser = Intent.createChooser(intent,
+                            getString(R.string.share))
                         val l = packageManager.queryIntentActivities(
                             chooser,
                             PackageManager.MATCH_DEFAULT_ONLY
@@ -100,7 +103,8 @@ class KameraDemo4Activity : AppCompatActivity() {
                             grantUriPermission(
                                 packageName,
                                 uri,
-                                Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION
+                                Intent.FLAG_GRANT_WRITE_URI_PERMISSION or
+                                        Intent.FLAG_GRANT_READ_URI_PERMISSION
                             )
                         }
                         startActivity(chooser)
@@ -118,6 +122,7 @@ class KameraDemo4Activity : AppCompatActivity() {
     }
 
     private fun updateButton() {
-        button.text = getString(if (isRecording) R.string.stop else R.string.start)
+        button.text = getString(if (isRecording) R.string.stop
+        else R.string.start)
     }
 }
