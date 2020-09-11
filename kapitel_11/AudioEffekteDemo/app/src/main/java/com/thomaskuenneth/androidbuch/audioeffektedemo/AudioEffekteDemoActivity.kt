@@ -96,6 +96,7 @@ class AudioEffekteDemoActivity : AppCompatActivity() {
     }
 
     private fun updateButtonText() {
-        button.text = getString(if (playing) R.string.stop else R.string.start)
+        button.text = getString(if (playing) R.string.stop
+        else R.string.start)
     }
 }
