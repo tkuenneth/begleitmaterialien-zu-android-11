@@ -169,11 +169,10 @@ class KameraDemo3Activity : AppCompatActivity() {
                     CameraCharacteristics.LENS_FACING_BACK
                 ) {
                     cameraId = id
-                    val configs = cc.get(
+                    cc.get(
                         CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP
-                    )
-                    if (configs != null) {
-                        return configs.getOutputSizes(SurfaceHolder::class.java)
+                    )?.run {
+                        return getOutputSizes(SurfaceHolder::class.java)
                     }
                 }
             }
