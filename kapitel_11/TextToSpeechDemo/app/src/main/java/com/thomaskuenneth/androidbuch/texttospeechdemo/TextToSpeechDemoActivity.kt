@@ -11,10 +11,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import java.util.*
 
+private const val CHECK_TTS_DATA = 1
 private val TAG = TextToSpeechDemoActivity::class.simpleName
 class TextToSpeechDemoActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private val supportedLanguages = Hashtable<String, Locale>()
-    private val checkTtsData = 1
     private var tts: TextToSpeech? = null
     private var lastUtteranceId: String? = null
 
@@ -26,7 +26,7 @@ class TextToSpeechDemoActivity : AppCompatActivity(), TextToSpeech.OnInitListene
         // prüfen, ob Sprachpakete vorhanden sind
         val intent = Intent()
         intent.action = TextToSpeech.Engine.ACTION_CHECK_TTS_DATA
-        startActivityForResult(intent, checkTtsData)
+        startActivityForResult(intent, CHECK_TTS_DATA)
     }
 
     // ggf. Ressourcen freigeben
@@ -42,7 +42,7 @@ class TextToSpeechDemoActivity : AppCompatActivity(), TextToSpeech.OnInitListene
     ) {
         super.onActivityResult(requestCode, resultCode, data)
         // Sind Sprachpakete vorhanden?
-        if (requestCode == checkTtsData) {
+        if (requestCode == CHECK_TTS_DATA) {
             if (resultCode ==
                 TextToSpeech.Engine.CHECK_VOICE_DATA_PASS
             ) {
@@ -51,7 +51,8 @@ class TextToSpeechDemoActivity : AppCompatActivity(), TextToSpeech.OnInitListene
             } else {
                 // Installation der Sprachpakete vorbereiten
                 val installIntent = Intent()
-                installIntent.action = TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA
+                installIntent.action =
+                    TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA
                 startActivity(installIntent)
                 // Activity beenden
                 finish()
@@ -96,9 +97,8 @@ class TextToSpeechDemoActivity : AppCompatActivity(), TextToSpeech.OnInitListene
 
                 override fun onDone(utteranceId: String) {
                     Log.d(TAG, "onDone(): $utteranceId")
-                    val h = Handler(Looper.getMainLooper())
-                    h.post {
-                        if (utteranceId == lastUtteranceId) {
+                    if (utteranceId == lastUtteranceId) {
+                        Handler(Looper.getMainLooper()).post {
                             button.isEnabled = true
                         }
                     }
@@ -113,7 +113,8 @@ class TextToSpeechDemoActivity : AppCompatActivity(), TextToSpeech.OnInitListene
         for (lang in languages) {
             val loc = Locale(lang)
             when (tts?.isLanguageAvailable(loc)) {
-                TextToSpeech.LANG_MISSING_DATA, TextToSpeech.LANG_NOT_SUPPORTED -> {
+                TextToSpeech.LANG_MISSING_DATA,
+                TextToSpeech.LANG_NOT_SUPPORTED -> {
                     Log.d(TAG, "language not available for $loc")
                 }
                 else -> {
