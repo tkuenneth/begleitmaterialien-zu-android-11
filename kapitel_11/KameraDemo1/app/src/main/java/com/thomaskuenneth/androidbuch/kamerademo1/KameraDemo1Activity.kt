@@ -12,12 +12,12 @@ class KameraDemo1Activity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         foto.setOnClickListener {
             val intent = Intent(
-                    MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA)
+                MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA)
             startActivity(intent)
         }
         video.setOnClickListener {
             val intent = Intent(
-                    MediaStore.INTENT_ACTION_VIDEO_CAMERA)
+                MediaStore.INTENT_ACTION_VIDEO_CAMERA)
             startActivity(intent)
         }
     }
