@@ -12,10 +12,10 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
+private const val REQUEST_WRITE_EXTERNAL_STORAGE = 123
+private const val REQUEST_IMAGE_CAPTURE = 1
 private val TAG = KameraDemo2Activity::class.simpleName
 class KameraDemo2Activity : AppCompatActivity() {
-    private val requestWriteExternalStorage = 123
-    private val requestImageCapture = 1
     private lateinit var imageUri: Uri
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,11 +27,11 @@ class KameraDemo2Activity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         if (checkSelfPermission(
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(arrayOf(
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                    requestWriteExternalStorage)
+                Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                REQUEST_WRITE_EXTERNAL_STORAGE)
             button.isEnabled = false
         } else {
             button.isEnabled = true
@@ -42,9 +42,9 @@ class KameraDemo2Activity : AppCompatActivity() {
                                             permissions: Array<String>,
                                             grantResults: IntArray) {
         if (requestCode ==
-                requestWriteExternalStorage &&
-                grantResults.isNotEmpty() && grantResults[0] ==
-                PackageManager.PERMISSION_GRANTED) {
+            REQUEST_WRITE_EXTERNAL_STORAGE &&
+            grantResults.isNotEmpty() && grantResults[0] ==
+            PackageManager.PERMISSION_GRANTED) {
             button.isEnabled = true
         }
     }
@@ -53,9 +53,10 @@ class KameraDemo2Activity : AppCompatActivity() {
                                   resultCode: Int,
                                   data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == requestImageCapture) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE) {
             if (resultCode == Activity.RESULT_OK) {
-                val source = ImageDecoder.createSource(this.contentResolver, imageUri)
+                val source = ImageDecoder.createSource(this.contentResolver,
+                    imageUri)
                 val bitmapSource = ImageDecoder.decodeBitmap(source)
                 // Größe des aufgenommenen Bildes
                 val wSource = bitmapSource.width
@@ -65,11 +66,11 @@ class KameraDemo2Activity : AppCompatActivity() {
                 val wDesti = (wSource.toFloat() / hSource.toFloat()
                         * hDesti.toFloat()).toInt()
                 val bitmapDesti = Bitmap.createScaledBitmap(bitmapSource,
-                        wDesti, hDesti, false)
+                    wDesti, hDesti, false)
                 imageView.setImageBitmap(bitmapDesti)
             } else {
                 val rowsDeleted = contentResolver.delete(imageUri,
-                        null, null)
+                    null, null)
                 Log.d(TAG, "$rowsDeleted rows deleted")
             }
         }
@@ -78,18 +79,18 @@ class KameraDemo2Activity : AppCompatActivity() {
     private fun startCamera() {
         val values = ContentValues()
         values.put(MediaStore.Images.Media.TITLE,
-                getString(R.string.app_name))
+            getString(R.string.app_name))
         values.put(MediaStore.Images.Media.DESCRIPTION,
-                getString(R.string.descr))
+            getString(R.string.descr))
         values.put(MediaStore.Images.Media.MIME_TYPE,
-                "image/jpeg")
+            "image/jpeg")
         contentResolver.insert(
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                values)?.let {
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+            values)?.let {
             imageUri = it
         }
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
-        startActivityForResult(intent, requestImageCapture)
+        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
     }
 }
