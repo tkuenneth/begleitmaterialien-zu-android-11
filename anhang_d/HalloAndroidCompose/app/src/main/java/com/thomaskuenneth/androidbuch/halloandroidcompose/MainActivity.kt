@@ -13,8 +13,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.platform.setContent
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
@@ -25,14 +25,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ContentView()
+            ContentView({ finish() })
         }
     }
 }
 
 @Composable
-fun ContentView() {
-    val context = ContextAmbient.current
+fun ContentView(finish: () -> Unit) {
     val ersterKlick = remember { mutableStateOf(true) }
     val name = remember { mutableStateOf(TextFieldValue("")) }
     val enabled = remember { mutableStateOf(false) }
@@ -43,14 +42,14 @@ fun ContentView() {
     ) {
         if (ersterKlick.value) {
             GreetingText(
-                context.getString(R.string.willkommen)
+                stringResource(R.string.willkommen)
             )
             Row(
                 modifier = Modifier.preferredHeight(height)
             ) {
                 OutlinedTextField(
                     value = name.value,
-                    placeholder = { Text(context.getString(R.string.vorname_nachname)) },
+                    placeholder = { Text(stringResource(R.string.vorname_nachname)) },
                     onValueChange = {
                         name.value = it
                         enabled.value = name.value.text.isNotEmpty()
@@ -60,18 +59,18 @@ fun ContentView() {
                         ersterKlick.value = !enabled.value
                     },
                     modifier = Modifier.fillMaxWidth(),
-                    label = { Text(context.getString(R.string.ihr_name)) }
+                    label = { Text(stringResource(R.string.ihr_name)) }
                 )
             }
-            MyButton(context.getString(R.string.weiter), enabled.value) {
+            MyButton(stringResource(R.string.weiter), enabled.value) {
                 ersterKlick.value = false
             }
         } else {
             GreetingText(
-                context.getString(R.string.hallo, name.value.text)
+                stringResource(R.string.hallo, name.value.text)
             )
             Spacer(modifier = Modifier.preferredHeight(height))
-            MyButton(context.getString(R.string.fertig), true) {}
+            MyButton(stringResource(R.string.fertig), true) { finish() }
         }
     }
 }
@@ -99,6 +98,6 @@ fun MyButton(text: String, enabled: Boolean, onClick: () -> Unit) {
 @Composable
 fun DefaultPreview() {
     MaterialTheme {
-        ContentView()
+        ContentView({})
     }
 }
