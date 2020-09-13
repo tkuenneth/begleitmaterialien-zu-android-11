@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
 @Composable
 fun ContentView(finish: () -> Unit) {
-    val ersterKlick = remember { mutableStateOf(true) }
+    val firstPage = remember { mutableStateOf(true) }
     val name = remember { mutableStateOf(TextFieldValue("")) }
     val enabled = remember { mutableStateOf(false) }
     val height = 96.dp
@@ -40,9 +40,9 @@ fun ContentView(finish: () -> Unit) {
         horizontalGravity = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxWidth().padding(16.dp)
     ) {
-        if (ersterKlick.value) {
+        if (firstPage.value) {
             GreetingText(
-                stringResource(R.string.willkommen)
+                stringResource(R.string.welcome)
             )
             Row(
                 modifier = Modifier.preferredHeight(height)
@@ -56,21 +56,21 @@ fun ContentView(finish: () -> Unit) {
                     },
                     imeAction = ImeAction.Next,
                     onImeActionPerformed = { _, _ ->
-                        ersterKlick.value = !enabled.value
+                        firstPage.value = !enabled.value
                     },
                     modifier = Modifier.fillMaxWidth(),
-                    label = { Text(stringResource(R.string.ihr_name)) }
+                    label = { Text(stringResource(R.string.your_name)) }
                 )
             }
-            MyButton(stringResource(R.string.weiter), enabled.value) {
-                ersterKlick.value = false
+            MyButton(stringResource(R.string.next), enabled.value) {
+                firstPage.value = false
             }
         } else {
             GreetingText(
                 stringResource(R.string.hallo, name.value.text)
             )
             Spacer(modifier = Modifier.preferredHeight(height))
-            MyButton(stringResource(R.string.fertig), true) { finish() }
+            MyButton(stringResource(R.string.done), true) { finish() }
         }
     }
 }
