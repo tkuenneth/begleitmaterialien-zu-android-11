@@ -35,6 +35,7 @@ fun ContentView() {
     val context = ContextAmbient.current
     val ersterKlick = remember { mutableStateOf(true) }
     val name = remember { mutableStateOf(TextFieldValue("")) }
+    val enabled = remember { mutableStateOf(false) }
     val height = 96.dp
     Column(
         horizontalGravity = Alignment.CenterHorizontally,
@@ -52,16 +53,17 @@ fun ContentView() {
                     placeholder = { Text(context.getString(R.string.vorname_nachname)) },
                     onValueChange = {
                         name.value = it
+                        enabled.value = name.value.text.isNotEmpty()
                     },
                     imeAction = ImeAction.Next,
                     onImeActionPerformed = { _, _ ->
-                        ersterKlick.value = false
+                        ersterKlick.value = !enabled.value
                     },
                     modifier = Modifier.fillMaxWidth(),
                     label = { Text(context.getString(R.string.ihr_name)) }
                 )
             }
-            MyButton(context.getString(R.string.weiter)) {
+            MyButton(context.getString(R.string.weiter), enabled.value) {
                 ersterKlick.value = false
             }
         } else {
@@ -69,7 +71,7 @@ fun ContentView() {
                 context.getString(R.string.hallo, name.value.text)
             )
             Spacer(modifier = Modifier.preferredHeight(height))
-            MyButton(context.getString(R.string.fertig)) {}
+            MyButton(context.getString(R.string.fertig), true) {}
         }
     }
 }
@@ -84,9 +86,10 @@ fun GreetingText(text: String) {
 }
 
 @Composable
-fun MyButton(text: String, onClick: () -> Unit) {
+fun MyButton(text: String, enabled: Boolean, onClick: () -> Unit) {
     Button(
-        onClick = onClick
+        onClick = onClick,
+        enabled = enabled
     ) {
         Text(text = text)
     }
