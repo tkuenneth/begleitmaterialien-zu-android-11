@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ContentView({ finish() })
+            ContentView { finish() }
         }
     }
 }
@@ -98,6 +98,6 @@ fun MyButton(text: String, enabled: Boolean, onClick: () -> Unit) {
 @Composable
 fun DefaultPreview() {
     MaterialTheme {
-        ContentView({})
+        ContentView {}
     }
 }
