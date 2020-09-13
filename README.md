@@ -1,7 +1,6 @@
 ## Welcome / Willkommen ##
 
-This repo contains all samples accompanying my German book **Android 11**.
-
+This repo contains all samples accompanying my German book **Android 11**.  
 Dieses Repository enthält die Begleitmaterialien zu dem Buch **Android 11**.
 
 Android 11 - Das Praxisbuch für Entwickler  
