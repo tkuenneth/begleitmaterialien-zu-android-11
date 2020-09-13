@@ -49,7 +49,7 @@ fun ContentView(finish: () -> Unit) {
             ) {
                 OutlinedTextField(
                     value = name.value,
-                    placeholder = { Text(stringResource(R.string.vorname_nachname)) },
+                    placeholder = { Text(stringResource(R.string.firstname_surname)) },
                     onValueChange = {
                         name.value = it
                         enabled.value = name.value.text.isNotEmpty()

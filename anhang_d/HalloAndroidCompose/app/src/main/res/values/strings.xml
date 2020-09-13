@@ -10,6 +10,6 @@ Hallo %1$s. Ich freue mich, Sie kennenzulernen.
     </string>
     <string name="next">Weiter</string>
     <string name="done">Fertig</string>
-    <string name="vorname_nachname">Vorname Nachname</string>
+    <string name="firstname_surname">Vorname Nachname</string>
     <string name="your_name">Ihr Name</string>
 </resources>
