@@ -38,7 +38,6 @@ class KalenderDemo2Activity : AppCompatActivity() {
         }
     }
 
-    @Throws(SecurityException::class)
     private fun logEvents() {
         contentResolver.query(Events.CONTENT_URI, null, null,
                 null, null)?.run {
