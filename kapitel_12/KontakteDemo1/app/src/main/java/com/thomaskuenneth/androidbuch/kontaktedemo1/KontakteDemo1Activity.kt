@@ -110,7 +110,7 @@ class KontakteDemo1Activity : AppCompatActivity() {
 //    fun getDateFromString1(string: String): Date {
 //        val p = Pattern.compile("(\\d\\d\\d\\d).*(\\d\\d).*(\\d\\d)",
 //                Pattern.DOTALL)
-//        val m = p.matcher(string.subSequence(0, string.length))
+//        val m = p.matcher(string)
 //        if (m.matches()) {
 //            val date = "${m.group(1)}${m.group(2)}${m.group(3)}"
 //            try {
