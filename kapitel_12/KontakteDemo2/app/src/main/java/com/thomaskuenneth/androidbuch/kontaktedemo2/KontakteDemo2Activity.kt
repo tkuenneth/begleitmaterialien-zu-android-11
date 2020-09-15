@@ -99,7 +99,7 @@ class KontakteDemo2Activity : AppCompatActivity() {
                 output("Geburtstag (_id=$dataId): $date")
                 // Jahr um 1 verringern
                 try {
-                    DATE_FORMAT.parse(date)?.let { d->
+                    DATE_FORMAT.parse(date)?.let { d ->
                         val cal = Calendar.getInstance()
                         cal.time = d
                         cal.add(Calendar.YEAR, -1)
