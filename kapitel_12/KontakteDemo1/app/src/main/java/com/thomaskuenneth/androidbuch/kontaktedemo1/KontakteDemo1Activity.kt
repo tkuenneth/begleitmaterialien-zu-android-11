@@ -42,6 +42,8 @@ class KontakteDemo1Activity : AppCompatActivity() {
                 PERMISSION_GRANTED) {
             listContacts()
         }
+        else
+            textview.text = getString(R.string.no_permission)
     }
 
     private fun listContacts() {
