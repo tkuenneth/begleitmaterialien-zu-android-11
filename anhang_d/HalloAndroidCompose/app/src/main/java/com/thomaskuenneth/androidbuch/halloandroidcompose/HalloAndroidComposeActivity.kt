@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
 
 private val HEIGHT = 96.dp
-class MainActivity : AppCompatActivity() {
+class HalloAndroidComposeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
