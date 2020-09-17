@@ -10,7 +10,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.res.stringResource
+// import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.*
+// import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.*
 import androidx.ui.tooling.preview.Preview
 
@@ -21,9 +23,32 @@ class HalloAndroidComposeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ContentView { finish() }
+            // SliderView { println(it) }
         }
     }
 }
+
+//@Composable
+//fun SliderView(onValueChange: (Float) -> Unit) {
+//    var position by remember { mutableStateOf(4f) }
+//    Column(
+//        modifier = Modifier.fillMaxWidth().padding(16.dp),
+//    ) {
+//        Slider(
+//            value = position,
+//            valueRange = 0f..10f,
+//            onValueChange = {
+//                position = it
+//                onValueChange(it)
+//            })
+//        Text(
+//            text = position.toInt().toString(),
+//            modifier = Modifier.fillMaxWidth(),
+//            style = TextStyle(fontSize = TextUnit.Companion.Sp(32)),
+//            textAlign = TextAlign.Center
+//        )
+//    }
+//}
 
 
 @Composable
