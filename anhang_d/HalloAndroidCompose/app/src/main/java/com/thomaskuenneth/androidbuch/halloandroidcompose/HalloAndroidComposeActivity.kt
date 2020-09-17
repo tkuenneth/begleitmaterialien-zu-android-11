@@ -32,24 +32,25 @@ class HalloAndroidComposeActivity : AppCompatActivity() {
 @Composable
 fun ContentView(finish: () -> Unit) {
     val firstPage = remember { mutableStateOf(true) }
-    val name = remember { mutableStateOf(TextFieldValue("")) }
+    val name = remember { mutableStateOf("") }
     Column(
         horizontalGravity = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxWidth().padding(16.dp)
     ) {
         if (firstPage.value) {
-            FirstPage(HEIGHT, name.value.text) { currentName: String ->
+            FirstPage(HEIGHT, name.value) { currentName: String ->
                 firstPage.value = false
-                name.value = TextFieldValue(currentName)
+                name.value = currentName
             }
         } else {
-            SecondPage(HEIGHT, name.value.text) { finish() }
+            SecondPage(HEIGHT, name.value) { finish() }
         }
     }
 }
 
 @Composable
-fun FirstPage(height: Dp, initial: String, onClick: (name: String) -> Unit) {
+fun FirstPage(height: Dp, initial: String, onClick: (name: String)
+-> Unit) {
     val name = remember { mutableStateOf(initial) }
     val enabled = remember { mutableStateOf(false) }
     GreetingText(
