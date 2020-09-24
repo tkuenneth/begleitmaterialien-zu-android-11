@@ -29,10 +29,11 @@ class HalloAndroidComposeActivity : AppCompatActivity() {
 }
 
 //@Composable
-//fun SliderView(onValueChange: (Float) -> Unit) {
+//fun SliderView(modifier: Modifier = Modifier.padding(16.dp),
+//               onValueChange: (Float) -> Unit) {
 //    var position by remember { mutableStateOf(4f) }
 //    Column(
-//        modifier = Modifier.fillMaxWidth().padding(16.dp),
+//        modifier = Modifier.fillMaxWidth().composed { modifier },
 //    ) {
 //        Slider(
 //            value = position,
@@ -49,7 +50,6 @@ class HalloAndroidComposeActivity : AppCompatActivity() {
 //        )
 //    }
 //}
-
 
 @Composable
 fun ContentView(finish: () -> Unit) {
