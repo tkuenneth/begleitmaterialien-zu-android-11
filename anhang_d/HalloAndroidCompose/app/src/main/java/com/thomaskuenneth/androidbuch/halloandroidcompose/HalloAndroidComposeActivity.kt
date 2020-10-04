@@ -2,61 +2,43 @@ package com.thomaskuenneth.androidbuch.halloandroidcompose
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.*
+import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.ColumnScope.gravity
-import androidx.compose.material.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.*
+import androidx.compose.material.Button
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.res.stringResource
-// import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.input.*
-// import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.*
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
 
 private val HEIGHT = 96.dp
+
 class HalloAndroidComposeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             ContentView { finish() }
-            // SliderView { println(it) }
         }
     }
 }
 
-//@Composable
-//fun SliderView(modifier: Modifier = Modifier.padding(16.dp),
-//               onValueChange: (Float) -> Unit) {
-//    var position by remember { mutableStateOf(4f) }
-//    Column(
-//        modifier = Modifier.fillMaxWidth().composed { modifier },
-//    ) {
-//        Slider(
-//            value = position,
-//            valueRange = 0f..10f,
-//            onValueChange = {
-//                position = it
-//                onValueChange(it)
-//            })
-//        Text(
-//            text = position.toInt().toString(),
-//            modifier = Modifier.fillMaxWidth(),
-//            style = TextStyle(fontSize = TextUnit.Companion.Sp(32)),
-//            textAlign = TextAlign.Center
-//        )
-//    }
-//}
 
 @Composable
 fun ContentView(finish: () -> Unit) {
     val firstPage = remember { mutableStateOf(true) }
     val name = remember { mutableStateOf("") }
     Column(
-        horizontalGravity = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxWidth().padding(16.dp)
     ) {
         if (firstPage.value) {
@@ -71,14 +53,17 @@ fun ContentView(finish: () -> Unit) {
 }
 
 @Composable
-fun FirstPage(height: Dp, initial: String, onClick: (name: String)
--> Unit) {
+fun FirstPage(
+    height: Dp, initial: String, onClick: (name: String)
+    -> Unit
+) {
     val name = remember { mutableStateOf(initial) }
     val enabled = remember { mutableStateOf(false) }
     GreetingText(
         stringResource(R.string.welcome)
     )
     Box(
+        alignment = Alignment.TopCenter,
         modifier = Modifier.preferredHeight(height)
     ) {
         OutlinedTextField(
@@ -115,8 +100,8 @@ fun SecondPage(height: Dp, name: String, onClick: () -> Unit) {
 fun GreetingText(text: String) {
     Text(
         text = text,
-        modifier = Modifier.gravity(align = Alignment.Start)
-            .preferredHeight(48.dp)
+        textAlign = TextAlign.Start,
+        modifier = Modifier.preferredHeight(48.dp)
     )
 }
 
