@@ -22,10 +22,33 @@ class HalloAndroidComposeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ContentView { finish() }
+            //SliderView { println(it) }
         }
     }
 }
 
+//@Composable
+//fun SliderView(modifier: Modifier = Modifier.padding(16.dp),
+//               onValueChange: (Float) -> Unit) {
+//    var position by remember { mutableStateOf(4f) }
+//    Column(
+//        modifier = modifier.fillMaxWidth(),
+//    ) {
+//        Slider(
+//            value = position,
+//            valueRange = 0f..10f,
+//            onValueChange = {
+//                position = it
+//                onValueChange(it)
+//            })
+//        Text(
+//            text = position.toInt().toString(),
+//            modifier = Modifier.fillMaxWidth(),
+//            style = TextStyle(fontSize = TextUnit.Companion.Sp(32)),
+//            textAlign = TextAlign.Center
+//        )
+//    }
+//}
 
 @Composable
 fun ContentView(finish: () -> Unit) {
