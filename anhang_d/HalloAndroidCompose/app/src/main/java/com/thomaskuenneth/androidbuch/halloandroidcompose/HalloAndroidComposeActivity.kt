@@ -9,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.*
 import androidx.compose.ui.text.input.*
 import androidx.compose.ui.text.style.*
 import androidx.compose.ui.unit.*
