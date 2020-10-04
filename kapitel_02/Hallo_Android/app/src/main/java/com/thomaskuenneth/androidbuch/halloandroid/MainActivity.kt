@@ -10,45 +10,45 @@ import androidx.core.widget.doAfterTextChanged
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var nachricht: TextView
-    private lateinit var weiterFertig: Button
-    private lateinit var eingabe: EditText
+    private lateinit var message: TextView
+    private lateinit var nextFinish: Button
+    private lateinit var input: EditText
 
-    private var ersterKlick = true
+    private var firstClick = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        nachricht = findViewById(R.id.nachricht)
-        weiterFertig = findViewById(R.id.weiter_fertig)
-        eingabe = findViewById(R.id.eingabe)
-        eingabe.setOnEditorActionListener(fun(_, _, _): Boolean {
-            if (weiterFertig.isEnabled) {
-                weiterFertig.performClick()
+        message = findViewById(R.id.message)
+        nextFinish = findViewById(R.id.next_finish)
+        input = findViewById(R.id.input)
+        input.setOnEditorActionListener(fun(_, _, _): Boolean {
+            if (nextFinish.isEnabled) {
+                nextFinish.performClick()
             }
             return true
         })
 
-        nachricht.setText(R.string.willkommen)
-        weiterFertig.setText(R.string.weiter)
-        weiterFertig.setOnClickListener(fun(_: View) {
-            if (ersterKlick) {
-                nachricht.text = getString(
-                    R.string.hallo,
-                    eingabe.text
+        message.setText(R.string.welcome)
+        nextFinish.setText(R.string.next)
+        nextFinish.setOnClickListener(fun(_: View) {
+            if (firstClick) {
+                message.text = getString(
+                    R.string.hello,
+                    input.text
                 )
-                eingabe.visibility = View.INVISIBLE
-                weiterFertig.setText(R.string.fertig)
-                ersterKlick = false
+                input.visibility = View.INVISIBLE
+                nextFinish.setText(R.string.finish)
+                firstClick = false
             } else {
                 finish()
             }
         })
 
-        eingabe.doAfterTextChanged {
-            weiterFertig.isEnabled = it?.isNotEmpty() ?: false
+        input.doAfterTextChanged {
+            nextFinish.isEnabled = it?.isNotEmpty() ?: false
         }
-        weiterFertig.isEnabled = false
+        nextFinish.isEnabled = false
     }
 }

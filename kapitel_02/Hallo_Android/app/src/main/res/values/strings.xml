@@ -3,16 +3,16 @@
     <!-- Name der App -->
     <string name="app_name">Hallo Android!</string>
     <!-- Willkommensmeldung -->
-    <string name="willkommen">
+    <string name="welcome">
 Guten Tag. Schön, dass Sie mich gestartet haben.
 Bitte verraten Sie mir Ihren Namen.
     </string>
     <!-- Persönlicher Gruß -->
-    <string name="hallo">
+    <string name="hello">
 Hallo %1$s. Ich freue mich, Sie kennenzulernen.
     </string>
     <!-- Beschriftungen für Schaltflächen -->
-    <string name="weiter">Weiter</string>
-    <string name="fertig">Fertig</string>
-    <string name="vorname_nachname">Vorname Nachname</string>
+    <string name="next">Weiter</string>
+    <string name="finish">Fertig</string>
+    <string name="firstname_surname">Vorname Nachname</string>
 </resources>

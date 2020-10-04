@@ -5,21 +5,21 @@
     android:orientation="vertical"
     android:padding="10dp">
     <TextView
-        android:id="@+id/nachricht"
+        android:id="@+id/message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:lines="2" />
     <EditText
-        android:id="@+id/eingabe"
+        android:id="@+id/input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autofillHints="personName"
-        android:hint="@string/vorname_nachname"
+        android:hint="@string/firstname_surname"
         android:imeOptions="actionNext"
         android:inputType="textCapWords"
         android:lines="1" />
     <Button
-        android:id="@+id/weiter_fertig"
+        android:id="@+id/next_finish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
