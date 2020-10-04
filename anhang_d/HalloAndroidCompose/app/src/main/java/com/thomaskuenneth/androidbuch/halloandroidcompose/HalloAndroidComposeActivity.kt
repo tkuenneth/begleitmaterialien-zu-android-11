@@ -2,26 +2,19 @@ package com.thomaskuenneth.androidbuch.halloandroidcompose
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.Text
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import androidx.compose.material.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.*
 import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.text.input.*
+import androidx.compose.ui.text.style.*
+import androidx.compose.ui.unit.*
 import androidx.ui.tooling.preview.Preview
 
 private val HEIGHT = 96.dp
-
 class HalloAndroidComposeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,10 +46,8 @@ fun ContentView(finish: () -> Unit) {
 }
 
 @Composable
-fun FirstPage(
-    height: Dp, initial: String, onClick: (name: String)
-    -> Unit
-) {
+fun FirstPage(height: Dp, initial: String, onClick: (name: String)
+-> Unit) {
     val name = remember { mutableStateOf(initial) }
     val enabled = remember { mutableStateOf(false) }
     GreetingText(
@@ -101,8 +92,7 @@ fun GreetingText(text: String) {
     Text(
         text = text,
         textAlign = TextAlign.Start,
-        modifier = Modifier.preferredHeight(48.dp)
-    )
+        modifier = Modifier.preferredHeight(48.dp)  )
 }
 
 @Composable
