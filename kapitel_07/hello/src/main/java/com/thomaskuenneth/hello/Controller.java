@@ -2,6 +2,7 @@ package com.thomaskuenneth.hello;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,11 +20,13 @@ public class Controller {
     private final Logger Log = LoggerFactory.getLogger(getClass());
 
     @RequestMapping("/hello")
+    @CrossOrigin
     String sayHello() {
         return "Hello";
     }
 
     @RequestMapping(value = "/hello/{delayInMilliseconds}", method = RequestMethod.GET)
+    @CrossOrigin
     String sayHello(@PathVariable int delayInMilliseconds) {
         try {
             Thread.sleep(delayInMilliseconds);
@@ -34,6 +37,7 @@ public class Controller {
     }
 
     @PostMapping(path = "/hello", consumes = "text/plain", produces = "text/plain")
+    @CrossOrigin
     String sayHello(@RequestBody String name) {
         return "Hello, " + name;
     }
