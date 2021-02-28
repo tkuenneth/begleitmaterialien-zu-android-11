@@ -32,6 +32,9 @@ class ServerSocketThread(
         while (keepRunning) {
             try {
                 serverSocket?.accept().run {
+                    this?.run {
+                     socket = this
+                    }
                     closeServerSocket()
                     keepRunning = false
                 }
